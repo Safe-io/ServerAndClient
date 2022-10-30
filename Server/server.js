@@ -9,6 +9,7 @@ let payloadToAllClients = {}
 
 
 wss.on('connection', function connection(ws) {
+  console.log("Client Connected!")
   CurrentClientID ++
   ws.send(JSON.stringify({"assignid": CurrentClientID.toString()}));
 

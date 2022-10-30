@@ -9,11 +9,8 @@ var mainNode
 func _ready():
 	pass
 	
-
-
-
 func get_input():
-	get_owner().send_player_position()
+	get_tree().root.get_child(0).send_player_position()
 
 	velocity = Vector2()
 	if Input.is_action_pressed("ui_right"):
