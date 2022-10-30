@@ -4,24 +4,22 @@ const wss = new WebSocketServer({ port: 3000 });
 
 console.log("SERVER started")
 
-let CurrentClientID = 0
+
 
 wss.on('connection', function connection(ws) {
-  CurrentClientID++
-
-  ws.send(JSON.stringify({"id": CurrentClientID.toString()}))
 
   ws.on('message', function message(data) {
-
+    let CurrentClientID = 0
     //Sending a message to all clients
     wss.clients.forEach(function each(client) {
-      if (client !== ws && client.readyState === WebSocket.OPEN) {
+      if (client.readyState === WebSocket.OPEN) {
+        CurrentClientID ++
+        console.log(CurrentClientID)
         client.send(JSON.stringify({"id": CurrentClientID.toString()}));
       }
     });
 
     console.log(JSON.parse(data))
-    ws.send(data);
   });
 
 });

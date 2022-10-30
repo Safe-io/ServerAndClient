@@ -28,16 +28,13 @@ func _connected(proto = ""):
 	
 func _on_data():
 	packet =  JSON.parse(ws.get_peer(1).get_packet().get_string_from_utf8())
+	
 	if packet.result.has("id"):
 		myID = packet.result["id"]
-		print("My id is: " + myID)
+		print("Meu id:" + myID)
+	
+	
 		
-	
-	
-	
-
-
-	
 func _process(delta):
 	ws.poll()
 	if(conectadoAoServidor == false):
