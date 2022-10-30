@@ -2,16 +2,19 @@ extends Node
 
 var ws = WebSocketClient.new()
 var URL = "ws://127.0.0.1:3000/"
-var packet = {}
+
+var packet = {
+		"id" : 0,
+		"x"  : 0,
+		"y"  : 0
+}
+
 var myID
 var conectadoAoServidor = false
 var playerPosition 
 var player_node
 
-
-
-
-
+var enemy = preload("res://Enemy.tscn")
 
 func _ready():
 	ws.connect("connection_closed", self, "_closed")
@@ -19,14 +22,8 @@ func _ready():
 	ws.connect("connection_established", self, "_connected")
 	ws.connect("data_received", self, "_on_data")
 	
-	var scene = load("res://Player.tscn")
-	var instance = scene.instance()
-	add_child(instance)
-	
 	player_node = get_tree().root.get_child(0).get_child(0)
 	print(player_node)
-	
-
 	
 	var err = ws.connect_to_url(URL)
 	if err != OK:
@@ -34,9 +31,6 @@ func _ready():
 		set_process(false)
 	
 
-		
-		
-		
 func _closed(was_clean = false):
 	print("Connection Closed")
 
@@ -51,6 +45,11 @@ func _on_data():
 	
 	if packet.result.has("assignid"):
 		myID = packet.result["assignid"]
+		
+	if packet.result.has("id"):
+		if packet.result["id"] != myID:
+			var e = enemy.instance()
+			add_child(e)
 
 	
 func _process(delta):
