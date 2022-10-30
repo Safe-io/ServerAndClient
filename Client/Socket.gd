@@ -28,7 +28,9 @@ func _connected(proto = ""):
 	
 func _on_data():
 	var response =  JSON.parse(ws.get_peer(1).get_packet().get_string_from_utf8())
-	print(response.result.msg)
+	myID = response.result.id
+	print(response.result)
+	
 
 
 	
@@ -38,7 +40,8 @@ func _process(delta):
 		pass
 	
 	if Input.is_action_just_pressed("ui_up"):
-		var payload = JSON.print({"msg" : "Mensagem do Godot"})
+		var payload = JSON.print({"msg" : "Mensagem do Godot",
+									"id": myID})
 		ws.get_peer(1).put_packet((payload).to_utf8())
 		
 

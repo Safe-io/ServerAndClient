@@ -7,12 +7,14 @@ console.log("SERVER started")
 let CurrentClientID = 0
 
 wss.on('connection', function connection(ws) {
-  
+  CurrentClientID++
+  ws.send(JSON.stringify({"id": CurrentClientID.toString()}))
+
   ws.on('message', function message(data) {
-    console.log('received: %s',JSON.parse(data).msg);
+
+    console.log(JSON.parse(data))
     ws.send(data);
   });
 
-  //ws.send({"msg":"Resposta do Servidor"});
 });
 
