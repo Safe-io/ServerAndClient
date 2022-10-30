@@ -2,8 +2,8 @@ extends Node
 
 var ws = WebSocketClient.new()
 var URL = "ws://127.0.0.1:3000/"
+var packet = {}
 var myID
-
 var conectadoAoServidor = false
 
 func _ready():
@@ -27,9 +27,13 @@ func _connected(proto = ""):
 	
 	
 func _on_data():
-	var response =  JSON.parse(ws.get_peer(1).get_packet().get_string_from_utf8())
-	myID = response.result.id
-	print(response.result)
+	packet =  JSON.parse(ws.get_peer(1).get_packet().get_string_from_utf8())
+	if packet.result.has("id"):
+		myID = packet.result["id"]
+		print("My id is: " + myID)
+		
+	
+	
 	
 
 
@@ -40,8 +44,7 @@ func _process(delta):
 		pass
 	
 	if Input.is_action_just_pressed("ui_up"):
-		var payload = JSON.print({"msg" : "Mensagem do Godot",
-									"id": myID})
+		var payload = JSON.print({"msg" : "Mensagem do Godot"})
 		ws.get_peer(1).put_packet((payload).to_utf8())
 		
 
