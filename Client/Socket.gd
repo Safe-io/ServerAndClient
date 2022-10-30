@@ -22,15 +22,13 @@ func _closed(was_clean = false):
 
 func _connected(proto = ""):
 	conectadoAoServidor = true
-	print("Connected To Server")
+	print("Conectou ao Servidor")
 	
 	
 	
 func _on_data():
-	
-	var response =  JSON.parse(ws.get_peer(1).get_packet().get_string_from_utf8()).result
-
-	print(response)
+	var response =  JSON.parse(ws.get_peer(1).get_packet().get_string_from_utf8())
+	print(response.result.msg)
 
 
 	
@@ -40,7 +38,7 @@ func _process(delta):
 		pass
 	
 	if Input.is_action_just_pressed("ui_up"):
-		var payload = JSON.print({"msgg" : "Mensagem do Godot"})
+		var payload = JSON.print({"msg" : "Mensagem do Godot"})
 		ws.get_peer(1).put_packet((payload).to_utf8())
 		
 
