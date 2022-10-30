@@ -5,6 +5,7 @@ var URL = "ws://127.0.0.1:3000/"
 var packet = {}
 var myID
 var conectadoAoServidor = false
+var playerPosition 
 
 func _ready():
 	ws.connect("connection_closed", self, "_closed")
@@ -16,6 +17,10 @@ func _ready():
 	if err != OK:
 		print("Connection Refused")
 		set_process(false)
+	
+
+		
+		
 		
 func _closed(was_clean = false):
 	print("Connection Closed")
@@ -37,12 +42,15 @@ func _on_data():
 		
 func _process(delta):
 	ws.poll()
-	if(conectadoAoServidor == false):
-		pass
-	
+	playerPosition = (get_node("KinematicBody2D").position)
+		
 	if Input.is_action_just_pressed("ui_up"):
-		var payload = JSON.print({"msg" : "Mensagem do Godot"})
+		var payload = JSON.print({"msg" : playerPosition})
 		ws.get_peer(1).put_packet((payload).to_utf8())
 		
 
+func send_player_position():
+	var payload = JSON.print({"msg" : playerPosition})
+	ws.get_peer(1).put_packet((payload).to_utf8())
 	
+
