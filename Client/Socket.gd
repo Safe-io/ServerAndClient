@@ -16,7 +16,7 @@ var player_node
 
 var hasCreated = false
 
-#var enemies = []
+var enemies = {}
 
 var enemy = preload("res://Enemy.tscn")
 
@@ -51,21 +51,21 @@ func _on_data():
 		data["id"] = myID
 		
 	if payload.result.has("id"):
+		var payload_id = payload.result["id"]	
 		# Estamos comparando com 0 aki, porque antes da primeira resposta, o ID é 0
-		if payload.result["id"] != myID && payload.result["id"] != 0 && !hasCreated:
-			hasCreated = true
+		if payload_id != myID && payload_id != 0 && !enemies.has(payload_id):
 			print(payload.result)
 			var enemy_instance = enemy.instance()
+			enemies[payload_id] = enemy_instance
 			add_child(enemy_instance)
-		elif hasCreated && payload.result["id"] != myID:
-			get_child(1).position = Vector2(payload.result["x"], payload.result["y"])
+		elif enemies.has(payload_id) && payload_id != myID:
+			enemies[payload_id].position = Vector2(payload.result["x"], payload.result["y"])
 
 func _process(delta):
 	send_player_position()
 	
 
 func send_player_position():
-
 	data["x"] = $Player.position.x
 	data["y"] = $Player.position.y
 	ws.get_peer(1).put_packet(JSON.print(data).to_utf8())
