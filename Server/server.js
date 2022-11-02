@@ -7,11 +7,11 @@ let CurrentClientID = 0
 
 let payloadToAllClients = {}
 
-
 wss.on('connection', function connection(ws) {
   console.log("Client Connected!")
   CurrentClientID ++
-  ws.send(JSON.stringify({"assignid": CurrentClientID.toString()}));
+  console.log(CurrentClientID)
+  ws.send(JSON.stringify({"assignid": CurrentClientID}));
 
   ws.on('message', function message(data) {
     SendPayloadToAllClients(data)

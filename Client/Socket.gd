@@ -14,6 +14,10 @@ var conectadoAoServidor = false
 var playerPosition 
 var player_node
 
+var hasCreated = false
+
+#var enemies = []
+
 var enemy = preload("res://Enemy.tscn")
 
 func _ready():
@@ -38,25 +42,31 @@ func _connected(proto = ""):
 	print("Conectou ao Servidor")
 	
 func _on_data():
-	data =  JSON.parse(ws.get_peer(1).get_packet().get_string_from_utf8())
 	
-	if data.result.has("assignid"):
-		myID = data.result["assignid"]
+	var payload =  JSON.parse(ws.get_peer(1).get_packet().get_string_from_utf8())
+	print(payload.result)
+	
+	if payload.result.has("assignid"):
+		myID = payload.result["assignid"]
+		data["id"] = myID
 		
-	if data.result.has("id"):
-		if data.result["id"] != myID:
-			var e = enemy.instance()
-			add_child(e)
+	if payload.result.has("id"):
+		# Estamos comparando com 0 aki, porque antes da primeira resposta, o ID é 0
+		if payload.result["id"] != myID && payload.result["id"] != 0 && !hasCreated:
+			hasCreated = true
+			print(payload.result)
+			var enemy_instance = enemy.instance()
+			add_child(enemy_instance)
+		elif hasCreated && payload.result["id"] != myID:
+			get_child(1).position = Vector2(payload.result["x"], payload.result["y"])
 
 func _process(delta):
+	send_player_position()
+	
+
+func send_player_position():
+
 	data["x"] = $Player.position.x
 	data["y"] = $Player.position.y
 	ws.get_peer(1).put_packet(JSON.print(data).to_utf8())
 	ws.poll()
-	
-
-func send_player_position():
-	var payload = JSON.print({"playerposition" : playerPosition,
-								"id": myID})
-	ws.get_peer(1).put_packet((payload).to_utf8())
-	
