@@ -3,7 +3,7 @@ extends Node
 var ws = WebSocketClient.new()
 var URL = "ws://127.0.0.1:3000/"
 
-var packet = {
+var data = {
 		"id" : 0,
 		"x"  : 0,
 		"y"  : 0
@@ -30,7 +30,6 @@ func _ready():
 		print("Connection Refused")
 		set_process(false)
 	
-
 func _closed(was_clean = false):
 	print("Connection Closed")
 
@@ -38,28 +37,22 @@ func _connected(proto = ""):
 	conectadoAoServidor = true
 	print("Conectou ao Servidor")
 	
-	
-	
 func _on_data():
-	packet =  JSON.parse(ws.get_peer(1).get_packet().get_string_from_utf8())
+	data =  JSON.parse(ws.get_peer(1).get_packet().get_string_from_utf8())
 	
-	if packet.result.has("assignid"):
-		myID = packet.result["assignid"]
+	if data.result.has("assignid"):
+		myID = data.result["assignid"]
 		
-	if packet.result.has("id"):
-		if packet.result["id"] != myID:
+	if data.result.has("id"):
+		if data.result["id"] != myID:
 			var e = enemy.instance()
 			add_child(e)
 
-	
 func _process(delta):
+	data["x"] = $Player.position.x
+	data["y"] = $Player.position.y
+	ws.get_peer(1).put_packet(JSON.print(data).to_utf8())
 	ws.poll()
-	
-	if(get_child(0) != null):
-		playerPosition = (player_node.position)
-		pass
-	
-	player_node.position = playerPosition
 	
 
 func send_player_position():
