@@ -7,20 +7,22 @@ let CurrentClientID = 0
 
 let payloadToAllClients = {}
 
-wss.on('connection', function connection(ws) {
+let clientHasConected = (ws) => {
   console.log("Client Connected!")
   CurrentClientID ++
   console.log(CurrentClientID)
   ws.send(JSON.stringify({"assignid": CurrentClientID}));
 
   ws.on('message', function message(data) {
-    SendPayloadToAllClients(data)
+    sendPayloadToAllClients(data)
     console.log(JSON.parse(data))
   });
-});
+}
 
-function SendPayloadToAllClients(payloadToAllClients){
-      //Send a message to all clients
+wss.on('connection', clientHasConected);
+
+function sendPayloadToAllClients(payloadToAllClients){
+  //Send a message to all clients
   wss.clients.forEach(function each(client) {
     if (client.readyState === WebSocket.OPEN) {
       client.send(payloadToAllClients);
