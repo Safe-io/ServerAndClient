@@ -8,15 +8,21 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Reference",
+"class": "AlliesManager",
+"language": "GDScript",
+"path": "res://Scripts/AlliesManager.gd"
+} ]
 _global_script_class_icons={
+"AlliesManager": ""
 }
 
 [application]
 
 config/name="TutorialSocket"
-run/main_scene="res://Main.tscn"
-config/icon="res://icon.png"
+run/main_scene="res://Scenes/Main.tscn"
+config/icon="res://Assets/Images/icon.png"
 
 [mono]
 
