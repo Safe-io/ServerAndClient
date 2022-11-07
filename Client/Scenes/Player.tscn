@@ -8,11 +8,7 @@
 radius = 42.9588
 
 [node name="Player" type="KinematicBody2D"]
-position = Vector2( 321.9, 159 )
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 1, -1.5 )

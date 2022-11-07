@@ -20,8 +20,11 @@ func _physics_process(delta):
 #
 func shoot():
 	var bullet_instance = peashooter_bullet.instance()
-	add_child(bullet_instance)
-	bullet_instance.position = end_of_the_hand.position
+	get_parent().add_child(bullet_instance)
+	bullet_instance.global_position = end_of_the_hand.global_position
+	var bullet_target = get_global_mouse_position()
+	var direction_to_mouse = bullet_instance.global_position.direction_to(bullet_target).normalized()
+	bullet_instance.set_direction(direction_to_mouse)
 	
 func get_input():
 	get_tree().root.get_child(0).send_player_position()

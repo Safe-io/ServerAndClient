@@ -62,7 +62,7 @@ func _on_data():
 #			enemies[payload_id].position = Vector2(payload.result["x"], payload.result["y"])
 
 	if payload.result.has("id"):
-		var payload_id = payload.result["id"]	
+		var payload_id = payload.result["id"]
 		
 
 func _process(delta):
