@@ -17,7 +17,7 @@ func _ready():
 func _physics_process(delta):
 	get_input()
 	velocity = move_and_slide(velocity)
-
+#
 func shoot():
 	var bullet_instance = peashooter_bullet.instance()
 	add_child(bullet_instance)
