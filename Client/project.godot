@@ -8,21 +8,19 @@
 
 config_version=4
 
-_global_script_classes=[ {
-"base": "Reference",
-"class": "AlliesManager",
-"language": "GDScript",
-"path": "res://Scripts/AlliesManager.gd"
-} ]
-_global_script_class_icons={
-"AlliesManager": ""
-}
-
 [application]
 
 config/name="TutorialSocket"
 run/main_scene="res://Scenes/Main.tscn"
 config/icon="res://Assets/Images/icon.png"
+
+[input]
+
+shoot_1={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
 
 [mono]
 
