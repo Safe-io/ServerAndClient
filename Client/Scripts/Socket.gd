@@ -42,13 +42,14 @@ func _connected(proto = ""):
 	print("Conectou ao Servidor")
 	
 func _on_data():
-	
+	#AO RECEBER OU ENVIAR PACOTES, UTILIZE O FORMATO "STRING"
 	var payload =  JSON.parse(ws.get_peer(1).get_packet().get_string_from_utf8())
 	print(payload.result)
 	
 	if payload.result.has("assignid"):
 		myID = payload.result["assignid"]
 		data["id"] = myID
+		print(payload.result)
 		
 #	if payload.result.has("id"):
 #		var payload_id = payload.result["id"]	
@@ -64,11 +65,6 @@ func _on_data():
 	if payload.result.has("id"):
 		var payload_id = payload.result["id"]
 		
-
-func _process(delta):
-	send_player_position()
-	
-
 func send_player_position():
 	data["x"] = $Player.position.x
 	data["y"] = $Player.position.y

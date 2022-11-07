@@ -6,6 +6,8 @@ var peashooter_bullet = preload("res://Scenes/PeashooterBullet.tscn")
 
 onready var end_of_the_hand = $EndOfTheHand
 
+onready var MainNode = get_tree().root.get_child(0)
+
 var velocity = Vector2()
 
 var mainNode
@@ -27,18 +29,21 @@ func shoot():
 	bullet_instance.set_direction(direction_to_mouse)
 	
 func get_input():
-	get_tree().root.get_child(0).send_player_position()
 
 	velocity = Vector2()
 	if Input.is_action_pressed("ui_right"):
 		velocity.x += 1
+		MainNode.send_player_position()
 	if Input.is_action_pressed("ui_left"):
 		velocity.x -= 1
+		MainNode.send_player_position()
 	if Input.is_action_pressed("ui_down"):
 		velocity.y += 1
+		MainNode.send_player_position()
 	if Input.is_action_pressed("ui_up"):
 		velocity.y -= 1
-		
+		MainNode.send_player_position()
+
 	velocity = velocity.normalized() * speed
 	look_at(get_global_mouse_position())
 	

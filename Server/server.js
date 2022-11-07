@@ -10,16 +10,10 @@ let payloadToAllClients = {}
 
 
 let clientHasConected = (ws) => {
-  console.log("Client Connected!")
+  console.log("Client id:" + CurrentClientID + " has connected!")
   CurrentClientID ++
-  console.log(CurrentClientID)
   let bytesLength = 0;
   ws.send(JSON.stringify({"assignid": CurrentClientID}));
-
-  setInterval(() => {
-    console.log("bytes: " + bytesLength);
-    bytesLength = 0
-  }, 1000);
 
   ws.on('message', function message(data) {
     bytesLength += data.length
@@ -37,4 +31,12 @@ function sendPayloadToAllClients(payloadToAllClients){
       client.send(payloadToAllClients);
     }
   });
+}
+
+function print_bytes_received(seconds){
+  setInterval(() => {
+    console.log("bytes: " + bytesLength);
+    bytesLength = 0
+  }, 1000 * seconds);
+
 }
