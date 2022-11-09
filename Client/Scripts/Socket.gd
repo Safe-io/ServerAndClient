@@ -20,6 +20,8 @@ var hasCreated = false
 func _ready():
 	
 	AlliesManager = $AlliesManager
+	
+	$RotationTimer.connect("timeout", self, "send_player_rotation")
 
 	var err = ws.connect_to_url(URL)
 	
@@ -52,35 +54,26 @@ func _on_data():
 		#my_data["id"] = myID
 		print("My ID was assigned: " + str(myID))
 		send_player_position()
+		$RotationTimer.start()
 	else:
-		print(payload.result)
+
 		for id in payload.result.keys():
 			if(id == str(myID)):
 				continue
-
+			#Percorre todos os outros Allies
 			if (AlliesManager.ally_exists(id) == false):
 				AlliesManager.create_ally(id)
-
-			var CurrentAllyX = payload.result[id]['x']
-			var CurrentAllyY = payload.result[id]['y']
-			var CurrentAllyPosition = Vector2(CurrentAllyX, CurrentAllyY)
 			
-			AlliesManager.update_ally_position(id, CurrentAllyPosition)
+			print(payload.result)
+			if (payload.result[id].has("x")):
+				print("has x")
+				var CurrentAllyX = payload.result[id]['x']
+				var CurrentAllyY = payload.result[id]['y']
+				var CurrentAllyPosition = Vector2(CurrentAllyX, CurrentAllyY)
+				
+				AlliesManager.update_ally_position(id, CurrentAllyPosition)
 			
 
-			
-
-
-
-
-
-
-		
-
-	
-
-
-		
 func _process(delta):
 	ws.poll()
 
@@ -89,4 +82,7 @@ func send_player_position():
 	my_data["y"] = $Player.position.y
 	ws.get_peer(1).put_packet(JSON.print(my_data).to_utf8())
 
-
+func send_player_rotation():
+	var my_rotation_data : Dictionary 
+	my_rotation_data = {"r": $Player.rotation_degrees} 
+	ws.get_peer(1).put_packet(JSON.print(my_rotation_data).to_utf8())
