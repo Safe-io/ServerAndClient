@@ -7,6 +7,11 @@ var data = {
 		
 }
 
+onready var PingTimer = $PingTimer
+
+
+
+
 var myID
 var conectadoAoServidor = false
 var playerPosition 
@@ -19,6 +24,8 @@ var enemies = {}
 var enemy = preload("res://Scenes/Enemy.tscn")
 
 func _ready():
+
+	PingTimer.connect("timeout", self, "_send_ping")
 	var err = ws.connect_to_url(URL)
 	
 	ws.connect("connection_closed", self, "_closed")
@@ -50,7 +57,6 @@ func _on_data():
 		myID = payload.result["assignid"]
 		data["id"] = myID
 
-		
 #	if payload.result.has("id"):
 #		var payload_id = payload.result["id"]	
 #		# Estamos comparando com 0 aki, porque antes da primeira resposta, o ID é 0
@@ -74,3 +80,5 @@ func send_player_position():
 	data["y"] = $Player.position.y
 	ws.get_peer(1).put_packet(JSON.print(data).to_utf8())
 
+func _send_ping():
+	send_player_position()

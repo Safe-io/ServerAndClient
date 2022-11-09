@@ -12,4 +12,5 @@ __meta__ = {
 }
 
 [node name="PingTimer" type="Timer" parent="."]
+wait_time = 2.0
 autostart = true
