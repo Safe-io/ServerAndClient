@@ -4,11 +4,6 @@ const wss = new WebSocketServer({ port: 3000 });
 
 console.log("SERVER started")
 
-function heartbeat(){
-  this.isAlive = true
-  console.log("heartbeated")
-}
-
 let CurrentClientID = 0
 
 let payloadToAllClients = {}
@@ -24,14 +19,13 @@ let clientHasConected = (ws) => {
 
 
   ws.on('message', function message(data) {
+    console.log(JSON.parse(data))
 
-
+    let dataObject = JSON.parse(data)
     if(typeof(data) === "object"){
-      PlayersState[data.id] = data
-      console.log(PlayersState)
+      PlayersState[dataObject.id] = dataObject
 
-      sendPayloadToAllClients(data)
-      console.log(JSON.parse(data))
+      sendPayloadToAllClients(JSON.stringify(PlayersState))
     }
   });
 
@@ -53,6 +47,6 @@ function sendPayloadToAllClients(payloadToAllClients){
 function AssignClientID(ws){
   CurrentClientID ++
   ws.id = CurrentClientID
-  console.log("Client id:" + CurrentClientID + " has connected!")
+  //console.log("Client id:" + CurrentClientID + " has connected!")
   ws.send(JSON.stringify({"assignid": CurrentClientID}));
 }
