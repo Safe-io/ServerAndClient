@@ -3,7 +3,7 @@ extends Node
 var ws = WebSocketClient.new()
 var URL = "ws://127.0.0.1:3000/"
 
-var data = {
+var my_data = {
 		
 }
 
@@ -46,23 +46,31 @@ func _on_data():
 	var payload =  JSON.parse(ws.get_peer(1).get_packet().get_string_from_utf8())
 	if payload.result == null:
 		return
-	print(payload.result)
-	
+		
 	if payload.result.has("assignid"):
 		myID = payload.result["assignid"]
-		data["id"] = myID
+		my_data["id"] = myID
+		print("My ID was assigned: " + str(myID))
 		send_player_position()
+	else:
+		for id in payload.result.keys():
+			if (id != str(myID) && AlliesManager.ally_exists(id) == false):
+				AlliesManager.create_ally(id)
+				print(AlliesManager.allies)
 
-	if payload.result.has("id"):
-		pass
+
+		
+	#print(AlliesManager.ally_exists(str(myID)))
+	
+
 
 		
 func _process(delta):
 	ws.poll()
 
 func send_player_position():
-	data["x"] = $Player.position.x
-	data["y"] = $Player.position.y
-	ws.get_peer(1).put_packet(JSON.print(data).to_utf8())
+	my_data["x"] = $Player.position.x
+	my_data["y"] = $Player.position.y
+	ws.get_peer(1).put_packet(JSON.print(my_data).to_utf8())
 
 
