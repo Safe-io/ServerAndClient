@@ -22,7 +22,7 @@ let clientHasConected = (ws) => {
 
     let dataObject = JSON.parse(data)
     if(typeof(data) === "object"){
-      PlayersState[dataObject.id] = dataObject
+      PlayersState[ws.id] = dataObject
 
       sendPayloadToAllClients(JSON.stringify(PlayersState))
       console.log(PlayersState)

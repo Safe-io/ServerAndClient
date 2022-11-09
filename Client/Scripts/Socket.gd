@@ -49,7 +49,7 @@ func _on_data():
 		
 	if payload.result.has("assignid"):
 		myID = payload.result["assignid"]
-		my_data["id"] = myID
+		#my_data["id"] = myID
 		print("My ID was assigned: " + str(myID))
 		send_player_position()
 	else:
