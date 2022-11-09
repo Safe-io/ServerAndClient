@@ -53,18 +53,25 @@ func _on_data():
 		print("My ID was assigned: " + str(myID))
 		send_player_position()
 	else:
+		print(payload.result)
 		for id in payload.result.keys():
-			if (id != str(myID) && AlliesManager.ally_exists(id) == false):
-				
-				AlliesManager.create_ally(id)
-				
-				var CurrentAllyX = payload.result[id]['x']
-				var CurrentAllyY = payload.result[id]['y']
-				var CurrentAllyPosition = Vector2(CurrentAllyX, CurrentAllyY)
-				
-				AlliesManager.update_ally_position(id, CurrentAllyPosition)
+			if(id == str(myID)):
+				continue
 
-				#AlliesManager.update_ally_position(id, payload.result.id)
+			if (AlliesManager.ally_exists(id) == false):
+				AlliesManager.create_ally(id)
+
+			var CurrentAllyX = payload.result[id]['x']
+			var CurrentAllyY = payload.result[id]['y']
+			var CurrentAllyPosition = Vector2(CurrentAllyX, CurrentAllyY)
+			
+			AlliesManager.update_ally_position(id, CurrentAllyPosition)
+			
+
+			
+
+
+
 
 
 
