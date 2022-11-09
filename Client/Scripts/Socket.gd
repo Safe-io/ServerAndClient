@@ -55,12 +55,21 @@ func _on_data():
 	else:
 		for id in payload.result.keys():
 			if (id != str(myID) && AlliesManager.ally_exists(id) == false):
+				
 				AlliesManager.create_ally(id)
-				print(AlliesManager.allies)
+				
+				var CurrentAllyX = payload.result[id]['x']
+				var CurrentAllyY = payload.result[id]['y']
+				var CurrentAllyPosition = Vector2(CurrentAllyX, CurrentAllyY)
+				
+				AlliesManager.update_ally_position(id, CurrentAllyPosition)
+
+				#AlliesManager.update_ally_position(id, payload.result.id)
+
 
 
 		
-	#print(AlliesManager.ally_exists(str(myID)))
+
 	
 
 
