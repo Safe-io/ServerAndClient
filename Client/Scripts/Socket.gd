@@ -11,17 +11,18 @@ var my_data = {
 var AlliesManager
 
 var myID
-var conectadoAoServidor = false
+
 var playerPosition 
 var player_node
+var Player
 
-var hasCreated = false
 
 func _ready():
 	
+	Player = $Player
 	AlliesManager = $AlliesManager
 	
-	$RotationTimer.connect("timeout", self, "send_player_rotation")
+	$UpdateTimer.connect("timeout", self, "update_allies_data")
 
 	var err = ws.connect_to_url(URL)
 	
@@ -40,7 +41,6 @@ func _closed(_was_clean = false):
 	print("Connection Closed")
 
 func _connected():
-	conectadoAoServidor = true
 	print("Conectou ao Servidor")
 	
 func _on_data():
@@ -54,7 +54,7 @@ func _on_data():
 		#my_data["id"] = myID
 		print("My ID was assigned: " + str(myID))
 		send_player_position()
-		$RotationTimer.start()
+		$UpdateTimer.start()
 	else:
 
 		for id in payload.result.keys():
@@ -64,25 +64,38 @@ func _on_data():
 			if (AlliesManager.ally_exists(id) == false):
 				AlliesManager.create_ally(id)
 			
-			print(payload.result)
-			if (payload.result[id].has("x")):
-				print("has x")
-				var CurrentAllyX = payload.result[id]['x']
-				var CurrentAllyY = payload.result[id]['y']
-				var CurrentAllyPosition = Vector2(CurrentAllyX, CurrentAllyY)
-				
-				AlliesManager.update_ally_position(id, CurrentAllyPosition)
-			
 
+			if (payload.result[id].has_all(["x","y"])):
+				update_allies_position(id, payload)
+				
+			if (payload.result[id].has("r")):
+				var CurrentAllyRotation = payload.result[id]['r']
+				AlliesManager.update_ally_rotation(id, CurrentAllyRotation)
+			
+			
 func _process(delta):
 	ws.poll()
 
+func update_allies_data():
+	#send_player_position()
+	send_player_rotation()
+
 func send_player_position():
-	my_data["x"] = $Player.position.x
-	my_data["y"] = $Player.position.y
+	my_data["x"] = Player.position.x
+	my_data["y"] = Player.position.y
 	ws.get_peer(1).put_packet(JSON.print(my_data).to_utf8())
 
 func send_player_rotation():
 	var my_rotation_data : Dictionary 
-	my_rotation_data = {"r": $Player.rotation_degrees} 
+	
+	my_rotation_data = {"r": int(Player.rotation_degrees) } 
 	ws.get_peer(1).put_packet(JSON.print(my_rotation_data).to_utf8())
+	
+func update_allies_position(id, payload):
+	var CurrentAllyX = payload.result[id]['x']
+	var CurrentAllyY = payload.result[id]['y']
+	var CurrentAllyPosition = Vector2(CurrentAllyX, CurrentAllyY)
+	AlliesManager.update_ally_position(id, CurrentAllyPosition)
+	
+func update_allies_rotation(id, payload):
+	pass

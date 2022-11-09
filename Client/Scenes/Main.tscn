@@ -15,4 +15,5 @@ __meta__ = {
 [node name="AlliesManager" type="Node" parent="."]
 script = ExtResource( 3 )
 
-[node name="RotationTimer" type="Timer" parent="."]
+[node name="UpdateTimer" type="Timer" parent="."]
+wait_time = 0.01

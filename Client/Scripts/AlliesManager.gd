@@ -15,5 +15,5 @@ func update_ally_position(id: String, position: Vector2):
 	allies[id].position = position
 	
 func update_ally_rotation(id: String, rotation: float):
-	pass
+	allies[id].rotation_degrees = rotation
 
