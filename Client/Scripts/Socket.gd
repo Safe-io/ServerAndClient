@@ -15,7 +15,7 @@ func _ready():
 	Player = $Player
 	AlliesManager = $AlliesManager
 	
-	$UpdateTimer.connect("timeout", self, "update_allies_data")
+	$UpdateTimer.connect("timeout", self, "send_player_rotation")
 
 	var err = ws.connect_to_url(URL)
 	
