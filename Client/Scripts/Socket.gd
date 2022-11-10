@@ -56,21 +56,7 @@ func _on_data():
 		send_player_position()
 		$UpdateTimer.start()
 	else:
-
-		for id in payload.result.keys():
-			if(id == str(myID)):
-				continue
-			#Percorre todos os outros Allies
-			if (AlliesManager.ally_exists(id) == false):
-				AlliesManager.create_ally(id)
-			
-
-			if (payload.result[id].has_all(["x","y"])):
-				update_allies_position(id, payload)
-				
-			if (payload.result[id].has("r")):
-				var CurrentAllyRotation = payload.result[id]['r']
-				AlliesManager.update_ally_rotation(id, CurrentAllyRotation)
+		AlliesManager.update_allies_status(payload, str(myID))
 			
 			
 func _process(delta):
