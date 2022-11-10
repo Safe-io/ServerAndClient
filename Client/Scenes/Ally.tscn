@@ -26,3 +26,6 @@ position = Vector2( 65, -5 )
 rotation = 1.5708
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 2 )
+
+[node name="EndOfHand" type="Position2D" parent="."]
+position = Vector2( 95, -3 )

@@ -16,6 +16,10 @@ func update_ally_position(id: String, position: Vector2):
 	
 func update_ally_rotation(id: String, rotation: float):
 	allies[id].rotation_degrees = rotation
+	
+func update_ally_is_shooting(id: String, is_shooting: int):
+	pass
+	#allies[id].is_shooting = is_shooting
 
 func update_allies_status(payload: JSONParseResult, client_id: String):
 	# Agora está funfando. Ass: BRDMM
@@ -31,3 +35,6 @@ func update_allies_status(payload: JSONParseResult, client_id: String):
 			
 		if (payload.result[id].has("r")):
 			update_ally_rotation(id, payload.result[id]['r'])
+		
+		if (payload.result[id].has("s")):
+			update_ally_is_shooting(id, payload.result[id]['s'])

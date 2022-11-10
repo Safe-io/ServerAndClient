@@ -25,4 +25,4 @@ scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 3 )
 
 [node name="EndOfTheHand" type="Position2D" parent="."]
-position = Vector2( 95.1, -3 )
+position = Vector2( 95, -3 )

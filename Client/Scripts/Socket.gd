@@ -58,10 +58,15 @@ func send_player_position():
 	var position_data : Dictionary = {'x' : Player.position.x, 'y' : Player.position.y}
 	ws.get_peer(1).put_packet(JSON.print(position_data).to_utf8())
 	
-
 func send_player_rotation():
 	var rotation_data : Dictionary 
-	
 	rotation_data = {"r": int(Player.rotation_degrees) } 
 	ws.get_peer(1).put_packet(JSON.print(rotation_data).to_utf8())
+	
+func send_player_is_shooting(is_shooting: bool):
+	var is_shooting_data: Dictionary = {'s' : int(is_shooting)}
+	ws.get_peer(1).put_packet(JSON.print(is_shooting_data).to_utf8())
+	
+
+	
 	
