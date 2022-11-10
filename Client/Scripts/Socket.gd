@@ -3,17 +3,10 @@ extends Node
 var ws = WebSocketClient.new()
 var URL = "ws://127.0.0.1:3000/"
 
-var my_data = {
-		
-}
-
 
 var AlliesManager
 
 var myID
-
-var playerPosition 
-var player_node
 var Player
 
 
@@ -35,7 +28,6 @@ func _ready():
 		print("Connection Refused")
 		set_process(false)
 		
-	player_node = get_tree().root.get_child(0).get_child(0)
 	
 func _closed(_was_clean = false):
 	print("Connection Closed")
@@ -62,26 +54,14 @@ func _on_data():
 func _process(delta):
 	ws.poll()
 
-func update_allies_data():
-	#send_player_position()
-	send_player_rotation()
-
 func send_player_position():
-	my_data["x"] = Player.position.x
-	my_data["y"] = Player.position.y
-	ws.get_peer(1).put_packet(JSON.print(my_data).to_utf8())
+	var position_data : Dictionary = {'x' : Player.position.x, 'y' : Player.position.y}
+	ws.get_peer(1).put_packet(JSON.print(position_data).to_utf8())
+	
 
 func send_player_rotation():
-	var my_rotation_data : Dictionary 
+	var rotation_data : Dictionary 
 	
-	my_rotation_data = {"r": int(Player.rotation_degrees) } 
-	ws.get_peer(1).put_packet(JSON.print(my_rotation_data).to_utf8())
+	rotation_data = {"r": int(Player.rotation_degrees) } 
+	ws.get_peer(1).put_packet(JSON.print(rotation_data).to_utf8())
 	
-func update_allies_position(id, payload):
-	var CurrentAllyX = payload.result[id]['x']
-	var CurrentAllyY = payload.result[id]['y']
-	var CurrentAllyPosition = Vector2(CurrentAllyX, CurrentAllyY)
-	AlliesManager.update_ally_position(id, CurrentAllyPosition)
-	
-func update_allies_rotation(id, payload):
-	pass

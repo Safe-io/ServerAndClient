@@ -10,8 +10,6 @@ let payloadToAllClients = {}
 
 let PlayersState = {}
 
-let idList = [0]
-
 const SECONDS_BETWEEN_PINGS = 1000 * 6
 
 let clientHasConected = (ws) => {
