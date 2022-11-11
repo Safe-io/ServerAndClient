@@ -9,7 +9,6 @@ var AlliesManager
 var myID
 var Player
 
-
 func _ready():
 	
 	Player = $Player
@@ -43,7 +42,6 @@ func _on_data():
 		
 	if payload.result.has("assignid"):
 		myID = payload.result["assignid"]
-		#my_data["id"] = myID
 		print("My ID was assigned: " + str(myID))
 		send_player_position()
 		$UpdateTimer.start()
@@ -53,6 +51,8 @@ func _on_data():
 			
 func _process(delta):
 	ws.poll()
+	$Label.text = "FPS: " + str(Performance.get_monitor(Performance.TIME_FPS))
+	$Label2.text = "Memory Static: " + str(Performance.get_monitor(Performance.MEMORY_STATIC))
 
 func send_player_position():
 	var position_data : Dictionary = {'x' : Player.position.x, 'y' : Player.position.y}
@@ -60,11 +60,11 @@ func send_player_position():
 	
 func send_player_rotation():
 	var rotation_data : Dictionary 
-	rotation_data = {"r": int(Player.rotation_degrees) } 
+	rotation_data = {"r":int(Player.rotation_degrees)} 
 	ws.get_peer(1).put_packet(JSON.print(rotation_data).to_utf8())
 	
 func send_player_is_shooting(is_shooting: bool):
-	var is_shooting_data: Dictionary = {'s' : int(is_shooting)}
+	var is_shooting_data: Dictionary = {'s':int(is_shooting)}
 	ws.get_peer(1).put_packet(JSON.print(is_shooting_data).to_utf8())
 	
 

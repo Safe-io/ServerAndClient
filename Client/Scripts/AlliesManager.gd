@@ -26,7 +26,7 @@ func update_allies_status(payload: JSONParseResult, client_id: String):
 		if(id == str(client_id)):
 			continue
 		
-		if (ally_exists(id) == false):
+		if (ally_exists(id) == false):	
 			create_ally(id)
 		
 		if (payload.result[id].has_all(["x","y"])):

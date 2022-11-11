@@ -28,6 +28,7 @@ let clientHasConected = (ws) => {
   });
 
   ws.on('close', function clientHasDisconnected(){
+
     console.log("Client with ID" + " ? " + "has disconnected!")
   })
 }
@@ -43,7 +44,7 @@ function sendPayloadToAllClients(payloadToAllClients){
 }
 
 function AssignClientID(ws){
-  CurrentClientID ++
+  CurrentClientID++
   ws.id = CurrentClientID
   console.log("Client id:" + CurrentClientID + " has connected!")
   ws.send(JSON.stringify({"assignid": CurrentClientID}));

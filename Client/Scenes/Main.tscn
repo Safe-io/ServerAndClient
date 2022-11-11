@@ -16,4 +16,23 @@ __meta__ = {
 script = ExtResource( 3 )
 
 [node name="UpdateTimer" type="Timer" parent="."]
-wait_time = 0.01
+wait_time = 0.5
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.814
+anchor_right = 0.996
+anchor_bottom = 0.119
+margin_left = 0.463989
+margin_right = 0.0959473
+margin_bottom = 14.6
+align = 2
+
+[node name="Label2" type="Label" parent="."]
+anchor_left = 0.814
+anchor_right = 0.996
+anchor_bottom = 0.119
+margin_left = 0.463989
+margin_right = 0.0959473
+margin_bottom = -26.4
+align = 2
+valign = 2

@@ -12,7 +12,7 @@ func shoot():
 	var direction_to_mouse = position.direction_to(bullet_target).normalized()
 	bullet_instance.set_direction(direction_to_mouse)
 	
-	
+
 func _process(delta):
 	if(is_shooting):
 		shoot()
