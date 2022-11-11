@@ -1,12 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/Images/NicePng_blue-orb-png_2153127.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Images/pngwing.com.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Ally.gd" type="Script" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 43.4166
 
 [node name="Ally" type="Node2D"]
+position = Vector2( 35, 37 )
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_group_": true
 }
