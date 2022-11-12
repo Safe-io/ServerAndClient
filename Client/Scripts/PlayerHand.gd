@@ -7,19 +7,21 @@ var bullet_types: Dictionary = {
 		'fire_rate' : 1000,
 		'speed'     : 20,
 		'range'     : 200,
-		'angle'     : 1
+		'angle'     : 20
 	},
 	'spreadshot':{
 		'damage'    : 30,
 		'fire_rate' : 80,
 		'speed'     : 20,
 		'range'     : 50,
-		'angle'     : 7
+		'angle'     : 1
 	}
 }
 
 var MainNode
 var Player
+
+
 
 var bullet_type    = 'peashooter'  
 var bullet_aspects = bullet_types[bullet_type]
@@ -27,6 +29,7 @@ var bullet_scene  := load("res://Scenes/"+bullet_type +"Bullet.tscn")
 
 var fire_rate = bullet_aspects['fire_rate']
 var pool_size = fire_rate * 1.5
+var angle     = bullet_aspects['angle'] 
 
 var _bullet_pool := []
 var _index := 0
@@ -39,7 +42,6 @@ func _ready():
 		_bullet_pool.append(current_bullet)
 	
 func _process(delta: float) -> void:
-	rotate(PI/2)
 	var direction = Vector2.RIGHT.rotated(Player.rotation)
 	
 	if Input.is_action_pressed("shoot_1"):
@@ -49,6 +51,6 @@ func _process(delta: float) -> void:
 			_index = wrapi(_index + 1, 0, pool_size)
 			MainNode.add_child(current_bullet)
 			current_bullet.global_position = global_position
-			current_bullet.set_direction(direction.rotated(rand_range(-PI/4, PI/4)))
+			current_bullet.set_direction(direction.rotated(rand_range((-angle/2)* 0.0174533, (angle/2)*0.0174533)))
 
 
