@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Images/NicePng_blue-orb-png_2153127.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Images/pngwing.com.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/PlayerHand.gd" type="Script" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 42.9588
@@ -23,6 +24,7 @@ position = Vector2( 64, -2 )
 rotation = 1.5708
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 3 )
+script = ExtResource( 4 )
 
 [node name="EndOfTheHand" type="Position2D" parent="."]
 position = Vector2( 95, 0 )

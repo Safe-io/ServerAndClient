@@ -17,20 +17,18 @@ var is_shooting: bool = false
 func _ready():
 	AlliesManager = MainNode.get_child(1)
 
-#
 func _physics_process(_delta):
 	get_input()
 	velocity = move_and_slide(velocity)
 #
-func shoot(position: Vector2, rotation_degrees: float, id: int = MainNode.myID):
-	#O parâmetro id só deve ser passado quando for para outros players atirarem
+func shoot():
+
 	var bullet_instance = peashooter_bullet.instance()
 	MainNode.add_child(bullet_instance)
-	if(id == MainNode.myID):
-		bullet_instance.global_position = $EndOfTheHand.global_position
-		var bullet_target = $EndOfTheHand.global_position
-		var direction_to_mouse = position.direction_to(bullet_target).normalized()
-		bullet_instance.set_direction(direction_to_mouse)
+	bullet_instance.global_position = $EndOfTheHand.global_position
+	var bullet_target = $EndOfTheHand.global_position
+	var direction_to_mouse = position.direction_to(bullet_target).normalized()
+	bullet_instance.set_direction(direction_to_mouse)
 	
 func get_input():
 
@@ -53,7 +51,7 @@ func get_input():
 	
 	if Input.is_action_pressed("shoot_1"):
 
-		shoot(position, rotation_degrees)
+		#shoot()
 		
 		if !is_shooting:
 			is_shooting = true
