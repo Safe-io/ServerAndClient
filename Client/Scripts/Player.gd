@@ -14,8 +14,12 @@ var AlliesManager
 
 var is_shooting: bool = false
 
+var fire_rate := 2000
+var pool_size := 3000
+
 func _ready():
 	AlliesManager = MainNode.get_child(1)
+
 
 func _physics_process(_delta):
 	get_input()
@@ -30,10 +34,6 @@ func shoot(position: Vector2, rotation_degrees: float, id: int = MainNode.myID):
 		var bullet_target = $EndOfTheHand.global_position
 		var direction_to_mouse = position.direction_to(bullet_target).normalized()
 		bullet_instance.set_direction(direction_to_mouse)
-	
-	
-
-	
 	
 func get_input():
 
@@ -55,7 +55,9 @@ func get_input():
 	look_at(get_global_mouse_position())
 	
 	if Input.is_action_pressed("shoot_1"):
+
 		shoot(position, rotation_degrees)
+		
 		if !is_shooting:
 			is_shooting = true
 			MainNode.send_player_is_shooting(is_shooting)

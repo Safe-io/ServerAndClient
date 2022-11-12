@@ -7,6 +7,8 @@
 extents = Vector2( 58, 10 )
 
 [node name="Area2D" type="Area2D"]
+collision_layer = 0
+monitorable = false
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true

@@ -19,10 +19,10 @@ scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 2 )
 
 [node name="PlayerHand" type="Sprite" parent="."]
-position = Vector2( 64.1, -4.99997 )
+position = Vector2( 64, -2 )
 rotation = 1.5708
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 3 )
 
 [node name="EndOfTheHand" type="Position2D" parent="."]
-position = Vector2( 95, -3 )
+position = Vector2( 95, 0 )
