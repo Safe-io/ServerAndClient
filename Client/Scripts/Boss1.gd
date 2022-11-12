@@ -36,4 +36,4 @@ func _on_ShootTimer_timeout() -> void:
 
 
 func _on_Area2D_area_entered(area):
-	print("ouch")
+	pass
