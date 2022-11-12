@@ -14,13 +14,10 @@ var AlliesManager
 
 var is_shooting: bool = false
 
-var fire_rate := 2000
-var pool_size := 3000
-
 func _ready():
 	AlliesManager = MainNode.get_child(1)
 
-
+#
 func _physics_process(_delta):
 	get_input()
 	velocity = move_and_slide(velocity)

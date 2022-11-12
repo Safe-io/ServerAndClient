@@ -11,6 +11,8 @@ var Player
 
 func _ready():
 	
+	$Label.set_as_toplevel(true)
+	
 	Player = $Player
 	AlliesManager = $AlliesManager
 	
@@ -29,6 +31,7 @@ func _ready():
 		
 	
 func _closed(_was_clean = false):
+	send_player_position()
 	print("Connection Closed")
 
 func _connected():
