@@ -8,7 +8,6 @@ extents = Vector2( 58, 10 )
 
 [node name="Area2D" type="Area2D"]
 collision_layer = 0
-monitorable = false
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
@@ -26,3 +25,5 @@ region_rect = Rect2( 774, 110, 126, 30 )
 [node name="Lifetime" type="Timer" parent="."]
 wait_time = 1.5
 autostart = true
+
+[connection signal="area_entered" from="." to="." method="_on_Area2D_area_entered"]

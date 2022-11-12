@@ -33,3 +33,7 @@ func _on_ShootTimer_timeout() -> void:
 		bullet.position = s.global_position
 		bullet.rotation = s.global_rotation
 	
+
+
+func _on_Area2D_area_entered(area):
+	print("ouch")

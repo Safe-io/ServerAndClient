@@ -22,3 +22,7 @@ func set_direction(_direction):
 func on_timeout():
 	self.queue_free()
 
+
+
+func _on_Area2D_area_entered(area):
+	queue_free()
