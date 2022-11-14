@@ -7,6 +7,7 @@
 extents = Vector2( 58, 10 )
 
 [node name="Area2D" type="Area2D"]
+scale = Vector2( 0.5, 0.5 )
 collision_layer = 0
 script = ExtResource( 2 )
 __meta__ = {
@@ -21,9 +22,5 @@ shape = SubResource( 1 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 774, 110, 126, 30 )
-
-[node name="Lifetime" type="Timer" parent="."]
-wait_time = 1.5
-autostart = true
 
 [connection signal="area_entered" from="." to="." method="_on_Area2D_area_entered"]

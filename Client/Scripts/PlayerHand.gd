@@ -4,17 +4,19 @@ extends Sprite
 var bullet_types: Dictionary = {
 	'peashooter' : {
 		'damage'    : 1,
-		'fire_rate' : 5,
+		'fire_rate' : 8,
 		'speed'     : 20,
-		'range'     : 200,
-		'angle'     : 20
+		'range'     : 600,
+		'angle'     : 15,
+		'penetration': 0
 	},
 	'spreadshot':{
 		'damage'    : 30,
 		'fire_rate' : 80,
 		'speed'     : 20,
 		'range'     : 50,
-		'angle'     : 1
+		'angle'     : 1,
+		'penetration': 0
 	}
 }
 
@@ -30,6 +32,7 @@ var pool_size = fire_rate * 1.5
 var angle     = bullet_aspects['angle'] 
 
 var _bullet_pool := []
+
 var _index := 0
 
 var time_between_each_bullet: float = 1.0 / fire_rate
@@ -41,6 +44,7 @@ func _ready():
 	Player = get_parent()
 	for i in pool_size:
 		var current_bullet = bullet_scene.instance()
+		current_bullet.max_range = bullet_aspects['range']
 		_bullet_pool.append(current_bullet)
 	
 func _physics_process(delta: float) -> void:
@@ -57,8 +61,10 @@ func _physics_process(delta: float) -> void:
 			delta_sum = remainder
 			
 			for i in bullets_to_spawn:
+				
 				var current_bullet = _bullet_pool[_index]
 				_index = wrapi(_index + 1, 0, pool_size)
 				MainNode.add_child(current_bullet)
 				current_bullet.global_position = global_position
+				current_bullet.is_ready = false
 				current_bullet.set_direction(direction.rotated(rand_range((-angle/2)* 0.0174533, (angle/2)*0.0174533)))

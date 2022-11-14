@@ -2,25 +2,27 @@ extends Area2D
 
 var direction = Vector2.ZERO
 
-var speed = 20
+var speed: float = 400.0
 
-func _ready():
-	$Lifetime.connect("timeout", self, "on_timeout")
+var travelled_distance: float = 0
+
+var max_range: float = 0
+
+var is_ready: bool = true
 
 func _physics_process(_delta: float)-> void:
-	if direction != Vector2.ZERO:
-		var velocity = direction * speed
-		global_position += velocity
-
+	
+	var distance_per_frame := speed * _delta
+	var motion := transform.x * distance_per_frame
+	position += motion
+	travelled_distance += distance_per_frame
+	if travelled_distance >= max_range:
+		set_process(false)
+		hide()
+		is_ready = true
 func set_direction(_direction):
 	self.direction = _direction
 	rotation = direction.angle()
-
-func on_timeout():
-	pass
-	#self.queue_free()
-
-
 
 func _on_Area2D_area_entered(area):
 	pass

@@ -1,16 +1,28 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Assets/Images/PC Computer - Cuphead Dont Deal With the Devil - Peashooter.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Images/weapon_charge_large_loop_0008.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Boss1Bullet.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Images/charge/weapon_charge_large_intro_0003.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Images/charge/weapon_charge_large_intro_0002.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Images/charge/weapon_charge_large_intro_0001.png" type="Texture" id=5]
 
-[node name="Sprite" type="Sprite"]
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 1 ) ],
+"loop": false,
+"name": "charge_anim",
+"speed": 20.0
+} ]
+
+[node name="Sprite" type="AnimatedSprite"]
 scale = Vector2( 0.3, 0.3 )
-texture = ExtResource( 1 )
-region_enabled = true
-region_rect = Rect2( 823.004, 685.489, 404.98, 167.734 )
+frames = SubResource( 1 )
+animation = "charge_anim"
 script = ExtResource( 2 )
 
 [node name="KillTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 8.0
+autostart = true
 
+[connection signal="animation_finished" from="." to="." method="_on_Sprite_animation_finished"]
 [connection signal="timeout" from="KillTimer" to="." method="_on_KillTimer_timeout"]

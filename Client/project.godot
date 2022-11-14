@@ -14,6 +14,11 @@ config/name="TutorialSocket"
 run/main_scene="res://Scenes/Main.tscn"
 config/icon="res://Assets/Images/icon.png"
 
+[display]
+
+window/size/width=640
+window/size/height=480
+
 [input]
 
 shoot_1={

@@ -20,6 +20,7 @@ script = ExtResource( 3 )
 wait_time = 0.5
 
 [node name="Boss" parent="." instance=ExtResource( 4 )]
+position = Vector2( 958, 517 )
 
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.814
