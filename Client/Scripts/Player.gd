@@ -50,9 +50,6 @@ func get_input():
 	look_at(get_global_mouse_position())
 	
 	if Input.is_action_pressed("shoot_1"):
-
-		#shoot()
-		
 		if !is_shooting:
 			is_shooting = true
 			MainNode.send_player_is_shooting(is_shooting)

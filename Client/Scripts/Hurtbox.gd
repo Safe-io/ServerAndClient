@@ -1,6 +1,6 @@
 extends Area2D
 
-const whiten_duration = 0.1
+const whiten_duration = 0.03
 export(ShaderMaterial) var whiten_material
 
 func _on_Area2D_area_entered(area):
