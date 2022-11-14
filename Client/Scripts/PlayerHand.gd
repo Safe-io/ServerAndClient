@@ -4,9 +4,9 @@ extends Sprite
 var bullet_types: Dictionary = {
 	'peashooter' : {
 		'damage'    : 1,
-		'fire_rate' : 8,
-		'speed'     : 20,
-		'range'     : 600,
+		'fire_rate' : 6,
+		'speed'     : 2000,
+		'range'     : 3000,
 		'angle'     : 15,
 		'penetration': 0
 	},
@@ -28,10 +28,11 @@ var bullet_aspects = bullet_types[bullet_type]
 var bullet_scene  := load("res://Scenes/"+bullet_type +"Bullet.tscn")
 
 var fire_rate: float = bullet_aspects['fire_rate']
-var pool_size = fire_rate * 1.5
+var pool_size = fire_rate * 2 + 20
 var angle     = bullet_aspects['angle'] 
 
-var _bullet_pool := []
+
+var _ready_bullets_pool := []
 
 var _index := 0
 
@@ -43,9 +44,7 @@ func _ready():
 	MainNode = get_tree().root.get_child(0)
 	Player = get_parent()
 	for i in pool_size:
-		var current_bullet = bullet_scene.instance()
-		current_bullet.max_range = bullet_aspects['range']
-		_bullet_pool.append(current_bullet)
+		instantiate_bullet()
 	
 func _physics_process(delta: float) -> void:
 	var direction = Vector2.RIGHT.rotated(Player.rotation)
@@ -61,10 +60,31 @@ func _physics_process(delta: float) -> void:
 			delta_sum = remainder
 			
 			for i in bullets_to_spawn:
-				
-				var current_bullet = _bullet_pool[_index]
+
+				var current_bullet = _ready_bullets_pool[_index]
+				print (current_bullet.is_visible())
+				turn_bullet_on(current_bullet)
 				_index = wrapi(_index + 1, 0, pool_size)
-				MainNode.add_child(current_bullet)
+				
 				current_bullet.global_position = global_position
-				current_bullet.is_ready = false
 				current_bullet.set_direction(direction.rotated(rand_range((-angle/2)* 0.0174533, (angle/2)*0.0174533)))
+				
+					
+func instantiate_bullet():
+	var current_bullet = bullet_scene.instance()
+	current_bullet.max_range = bullet_aspects['range']
+	current_bullet.speed = bullet_aspects['speed']
+	_ready_bullets_pool.append(current_bullet)
+	MainNode.call_deferred("add_child", current_bullet)
+	turn_bullet_off(current_bullet)
+
+	
+func turn_bullet_off(bullet):
+	if bullet.is_visible():
+		bullet.hide()
+		bullet.set_physics_process(false)
+	
+func turn_bullet_on(bullet):
+	if bullet.is_visible() == false:
+		bullet.set_visible(true)
+		bullet.set_physics_process(true)
