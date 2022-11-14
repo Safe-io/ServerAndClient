@@ -29,12 +29,14 @@ func update_allies_status(payload: JSONParseResult, client_id: String):
 		
 		if (ally_exists(id) == false):	
 			create_ally(id)
+
+		var ally_data = payload.result[id]	
 		
-		if (payload.result[id].has_all(["x","y"])):
-			update_ally_position(id, Vector2(payload.result[id]['x'], payload.result[id]['y']))
+		if (ally_data.has_all(["x","y"])):
+			update_ally_position(id, Vector2(ally_data['x'], ally_data['y']))
 			
-		if (payload.result[id].has("r")):
-			update_ally_rotation(id, payload.result[id]['r'])
+		if (ally_data.has("r")):
+			update_ally_rotation(id, ally_data['r'])
 		
 		if (payload.result[id].has("s")):
-			update_ally_is_shooting(id, payload.result[id]['s'])
+			update_ally_is_shooting(id, ally_data['s'])

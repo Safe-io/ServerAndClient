@@ -45,6 +45,7 @@ func _on_data():
 		
 	if payload.result.has("assignid"):
 		myID = payload.result["assignid"]
+#		print(typeof(myID))
 		print("My ID was assigned: " + str(myID))
 		send_player_position()
 		$UpdateTimer.start()
@@ -62,8 +63,7 @@ func send_player_position():
 	ws.get_peer(1).put_packet(JSON.print(position_data).to_utf8())
 	
 func send_player_rotation():
-	var rotation_data : Dictionary 
-	rotation_data = {"r":int(Player.rotation_degrees)} 
+	var rotation_data : Dictionary = {"r":int(Player.rotation_degrees)} 
 	ws.get_peer(1).put_packet(JSON.print(rotation_data).to_utf8())
 	
 func send_player_is_shooting(is_shooting: bool):
