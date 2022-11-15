@@ -8,8 +8,6 @@ var travelled_distance: float = 0
 
 var max_range: float = 0
 
-
-
 func _physics_process(_delta: float)-> void:
 	if direction:
 		var distance_per_frame := speed * _delta
@@ -18,8 +16,6 @@ func _physics_process(_delta: float)-> void:
 		travelled_distance += distance_per_frame
 		if travelled_distance >= max_range:
 			turn_bullet_off(self)
-			
-
 			
 func set_direction(_direction):
 	travelled_distance = 0

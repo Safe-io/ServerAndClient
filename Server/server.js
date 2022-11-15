@@ -12,6 +12,8 @@ let PlayersState = {}
 
 const SECONDS_BETWEEN_PINGS = 1000 * 6
 
+console.log({1: "oi"})
+
 let clientHasConected = (ws) => {
   AssignClientID(ws)
 

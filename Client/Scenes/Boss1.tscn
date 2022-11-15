@@ -24,6 +24,8 @@ wait_time = 0.3
 [node name="Rotater" type="Node2D" parent="."]
 
 [node name="Area2D" parent="." instance=ExtResource( 3 )]
+collision_layer = 0
+collision_mask = 2
 whiten_material = ExtResource( 4 )
 
 [node name="CollisionShape2D" parent="Area2D" index="0"]

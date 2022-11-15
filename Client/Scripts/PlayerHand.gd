@@ -1,10 +1,9 @@
 extends Sprite
 
-
 var bullet_types: Dictionary = {
 	'peashooter' : {
-		'damage'    : 1,
-		'fire_rate' : 6,
+		'damage'    : 4000,
+		'fire_rate' : 33,
 		'speed'     : 2000,
 		'range'     : 3000,
 		'angle'     : 15,
@@ -37,7 +36,7 @@ var _ready_bullets_pool := []
 var _index := 0
 
 var time_between_each_bullet: float = 1.0 / fire_rate
-var delta_sum = 0
+var delta_sum : float = 0
 
 func _ready():
 
@@ -62,7 +61,6 @@ func _physics_process(delta: float) -> void:
 			for i in bullets_to_spawn:
 
 				var current_bullet = _ready_bullets_pool[_index]
-				print (current_bullet.is_visible())
 				turn_bullet_on(current_bullet)
 				_index = wrapi(_index + 1, 0, pool_size)
 				
@@ -78,7 +76,6 @@ func instantiate_bullet():
 	MainNode.call_deferred("add_child", current_bullet)
 	turn_bullet_off(current_bullet)
 
-	
 func turn_bullet_off(bullet):
 	if bullet.is_visible():
 		bullet.hide()

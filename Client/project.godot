@@ -59,6 +59,10 @@ shoot_1={
 
 project/assembly_name="TutorialSocket"
 
+[physics]
+
+2d/thread_model=false
+
 [rendering]
 
 quality/driver/driver_name="GLES2"
