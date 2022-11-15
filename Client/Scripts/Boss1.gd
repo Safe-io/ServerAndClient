@@ -1,10 +1,12 @@
 extends Node2D
 
 
-var rotate_speed = 25
+var rotate_speed = 30
 var shoote_time_wait_time = 0.2
 var spawn_point_count = 6
 var bullet_speed = 500
+
+
 var rotater 
 
 var bullet_scene = preload("res://Scenes/Boss1Bullet.tscn")
@@ -39,3 +41,7 @@ func _on_ShootTimer_timeout() -> void:
 
 func _on_Area2D_area_entered(area):
 	pass
+
+
+func _on_ReverseRotation_timeout():
+	rotate_speed = rotate_speed * -1

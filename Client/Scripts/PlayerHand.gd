@@ -3,9 +3,9 @@ extends Sprite
 var bullet_types: Dictionary = {
 	'peashooter' : {
 		'damage'    : 4000,
-		'fire_rate' : 33,
+		'fire_rate' : 20,
 		'speed'     : 2000,
-		'range'     : 3000,
+		'range'     : 2000,
 		'angle'     : 15,
 		'penetration': 0
 	},
@@ -47,9 +47,8 @@ func _ready():
 	
 func _physics_process(delta: float) -> void:
 	var direction = Vector2.RIGHT.rotated(Player.rotation)
-	if delta_sum > time_between_each_bullet:
-		delta_sum = time_between_each_bullet
-	delta_sum += delta
+	cap_bullet_count_on_shooting()
+	increase_delta_sum(delta)
 	if Input.is_action_pressed("shoot_1"):
 	
 		if(delta_sum > time_between_each_bullet):
@@ -80,8 +79,16 @@ func turn_bullet_off(bullet):
 	if bullet.is_visible():
 		bullet.hide()
 		bullet.set_physics_process(false)
-	
+
 func turn_bullet_on(bullet):
 	if bullet.is_visible() == false:
 		bullet.set_visible(true)
 		bullet.set_physics_process(true)
+		
+func cap_bullet_count_on_shooting():
+	if delta_sum > time_between_each_bullet:
+		delta_sum = time_between_each_bullet
+
+func increase_delta_sum(delta):
+	delta_sum += delta
+	

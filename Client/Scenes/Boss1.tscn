@@ -31,7 +31,12 @@ whiten_material = ExtResource( 4 )
 [node name="CollisionShape2D" parent="Area2D" index="0"]
 shape = SubResource( 3 )
 
+[node name="ReverseRotation" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="timeout" from="ReverseRotation" to="." method="_on_ReverseRotation_timeout"]
 
 [editable path="Area2D"]
