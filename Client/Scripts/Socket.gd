@@ -6,14 +6,14 @@ var URL = "ws://127.0.0.1:3000/"
 
 var AlliesManager
 
-var myID
+var myID : String
 var Player
 
 func _ready():
 	
 	$Label.set_as_toplevel(true)
 	
-	Player = $Player
+	
 	AlliesManager = $AlliesManager
 	
 	$UpdateTimer.connect("timeout", self, "send_player_rotation")
@@ -44,13 +44,15 @@ func _on_data():
 		return
 		
 	if payload.result.has("assignid"):
-		myID = payload.result["assignid"]
-#		print(typeof(myID))
-		print("My ID was assigned: " + str(myID))
+		myID = String(payload.result["assignid"]) 
+
+		print("My ID was assigned: " + myID)
+		AlliesManager.create_ally(myID)
+		Player = $PlayerParent.get_child(0)
 		send_player_position()
 		$UpdateTimer.start()
 	else:
-		AlliesManager.update_allies_status(payload, str(myID))
+		AlliesManager.update_allies_status(payload, myID)
 			
 			
 func _process(delta):

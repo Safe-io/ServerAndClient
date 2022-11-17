@@ -1,10 +1,11 @@
 extends Node
 
 var allies : Dictionary = {}
-var ally_scene = preload("res://Scenes/Ally.tscn")
+var ally_scene = preload("res://Scenes/Player/Player.tscn")
 
 func create_ally(id: String):
 	var ally_instance = ally_scene.instance() 
+	ally_instance.get_child(0).id = id
 	get_tree().root.get_child(0).add_child(ally_instance)
 	allies[id] = ally_instance
 
@@ -24,13 +25,14 @@ func update_ally_is_shooting(id: String, is_shooting: bool):
 func update_allies_status(payload: JSONParseResult, client_id: String):
 	# Agora está funfando. Ass: BRDMM
 	for id in payload.result.keys():
-		if(id == str(client_id)):
+
+		if(id == client_id):
 			continue
 		
-		if (ally_exists(id) == false):	
+		if (ally_exists(id) == false):
 			create_ally(id)
 
-		var ally_data = payload.result[id]	
+		var ally_data = payload.result[id]
 		
 		if (ally_data.has_all(["x","y"])):
 			update_ally_position(id, Vector2(ally_data['x'], ally_data['y']))
