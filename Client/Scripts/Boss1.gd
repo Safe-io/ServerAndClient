@@ -1,11 +1,9 @@
 extends Node2D
 
-
 var rotate_speed = 30
 var shoote_time_wait_time = 0.2
 var spawn_point_count = 6
 var bullet_speed = 500
-
 
 var rotater 
 
@@ -38,9 +36,8 @@ func _on_ShootTimer_timeout() -> void:
 		bullet.rotation = s.global_rotation
 	
 
-
 func _on_Area2D_area_entered(area):
-	pass
+	area.turn_bullet_off(area)
 
 
 func _on_ReverseRotation_timeout():

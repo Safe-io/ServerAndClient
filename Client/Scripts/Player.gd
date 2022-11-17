@@ -20,9 +20,9 @@ func _ready():
 func _physics_process(_delta):
 	get_input()
 	velocity = move_and_slide(velocity)
-#
-func shoot():
 
+func shoot():
+	#deprecated
 	var bullet_instance = peashooter_bullet.instance()
 	MainNode.add_child(bullet_instance)
 	bullet_instance.global_position = $EndOfTheHand.global_position

@@ -3,7 +3,7 @@ extends Sprite
 var bullet_types: Dictionary = {
 	'peashooter' : {
 		'damage'    : 4000,
-		'fire_rate' : 20,
+		'fire_rate' : 15,
 		'speed'     : 2000,
 		'range'     : 2000,
 		'angle'     : 15,

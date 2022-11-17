@@ -26,7 +26,7 @@ func set_direction(_direction):
 func _on_Area2D_area_entered(area):
 	pass
 	turn_bullet_off(self)
-	#queue_free()
+
 
 func turn_bullet_off(bullet):
 	if bullet.is_visible():
