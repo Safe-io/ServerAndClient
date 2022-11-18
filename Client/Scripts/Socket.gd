@@ -1,8 +1,7 @@
 extends Node
 
 var ws = WebSocketClient.new()
-var URL = "ws://10.0.0.119:3000/"
-
+var URL = "ws://26.17.197.157:3000/"
 
 var AlliesManager
 
