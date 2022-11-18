@@ -44,7 +44,7 @@ func _on_Area2D_area_entered(area):
 	if health_points <=0:
 		queue_free()
 	if health_points <=1000:
-		shoote_time_wait_time = 0.13
+		shoote_time_wait_time = 0.1
 		rotate_speed = 40
 	health_points = health_points - 1
 
