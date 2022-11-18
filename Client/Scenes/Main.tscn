@@ -10,9 +10,6 @@ script = ExtResource( 2 )
 [node name="AlliesManager" type="Node" parent="."]
 script = ExtResource( 3 )
 
-[node name="UpdateTimer" type="Timer" parent="."]
-wait_time = 0.5
-
 [node name="Boss" parent="." instance=ExtResource( 4 )]
 position = Vector2( 893, 467 )
 

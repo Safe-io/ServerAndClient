@@ -16,7 +16,7 @@ func _ready():
 	
 	AlliesManager = $AlliesManager
 	
-	$UpdateTimer.connect("timeout", self, "send_player_rotation")
+
 
 	var err = ws.connect_to_url(URL)
 	
@@ -50,7 +50,6 @@ func _on_data():
 		AlliesManager.create_ally(myID)
 		Player = $PlayerParent.get_child(0)
 		send_player_position()
-		$UpdateTimer.start()
 	else:
 		AlliesManager.update_allies_status(payload, myID)
 			
@@ -63,8 +62,11 @@ func _process(delta):
 func send_player_position():
 	var position_data : Dictionary = {'x' : Player.position.x, 'y' : Player.position.y}
 	ws.get_peer(1).put_packet(JSON.print(position_data).to_utf8())
-	
+
+var i = 0
 func send_player_rotation():
+	i += 1
+	print(i)
 	var rotation_data : Dictionary = {"r":int(Player.rotation_degrees)} 
 	ws.get_peer(1).put_packet(JSON.print(rotation_data).to_utf8())
 	

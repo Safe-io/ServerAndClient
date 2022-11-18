@@ -11,6 +11,7 @@ onready var MainNode = get_tree().root.get_child(0)
 var velocity = Vector2()
 
 var AlliesManager
+var last_rotation
 
 var is_shooting: bool 
 onready var PlayerHand = $PlayerHand
@@ -18,9 +19,14 @@ var id : String
 
 func _ready():
 	AlliesManager = MainNode.get_child(1)
+	last_rotation = rotation_degrees
 
 
 func _physics_process(_delta):
+	if last_rotation != rotation_degrees:
+		last_rotation = rotation_degrees
+		MainNode.send_player_rotation()
+	
 	if id == MainNode.myID:
 		get_input()
 		velocity = move_and_slide(velocity)
