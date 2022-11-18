@@ -9,15 +9,14 @@ var AlliesManager
 var myID : String
 var Player
 
+var frame_data: Dictionary
+
 func _ready():
 	
 	$Label.set_as_toplevel(true)
 	
-	
 	AlliesManager = $AlliesManager
 	
-
-
 	var err = ws.connect_to_url(URL)
 	
 	ws.connect("connection_closed", self, "_closed")
@@ -31,7 +30,6 @@ func _ready():
 		
 	
 func _closed(_was_clean = false):
-	send_player_position()
 	print("Connection Closed")
 
 func _connected():
@@ -49,31 +47,31 @@ func _on_data():
 		print("My ID was assigned: " + myID)
 		AlliesManager.create_ally(myID)
 		Player = $PlayerParent.get_child(0)
-		send_player_position()
+		update_player_position()
 	else:
 		AlliesManager.update_allies_status(payload, myID)
 			
 			
 func _process(delta):
 	ws.poll()
+	send_full_data()
+	print(frame_data)
 	$Label.text = "FPS: " + str(Performance.get_monitor(Performance.TIME_FPS))
 	$Label2.text = "Memory Static: " + str(Performance.get_monitor(Performance.MEMORY_STATIC))
 
-func send_player_position():
-	var position_data : Dictionary = {'x' : Player.position.x, 'y' : Player.position.y}
-	ws.get_peer(1).put_packet(JSON.print(position_data).to_utf8())
+func update_player_position():
+	frame_data["x"] = Player.position.x
+	frame_data["y"] = Player.position.y
 
-var i = 0
-func send_player_rotation():
-	i += 1
-	print(i)
-	var rotation_data : Dictionary = {"r":int(Player.rotation_degrees)} 
-	ws.get_peer(1).put_packet(JSON.print(rotation_data).to_utf8())
-	
-func send_player_is_shooting(is_shooting: bool):
-	var is_shooting_data: Dictionary = {'s':int(is_shooting)}
-	ws.get_peer(1).put_packet(JSON.print(is_shooting_data).to_utf8())
-	
+func update_player_rotation():
+	var rotation_data : int = int(Player.rotation_degrees)
+	frame_data["r"] = rotation_data
 
 	
+func update_player_is_shooting(is_shooting: bool):
+	frame_data["s"] = int(is_shooting) 
 	
+func send_full_data():
+	ws.get_peer(1).put_packet(JSON.print(frame_data).to_utf8())
+
+

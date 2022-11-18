@@ -3,7 +3,7 @@ extends Sprite
 var bullet_types: Dictionary = {
 	'Peashooter' : {
 		'damage'    : 4000,
-		'fire_rate' : 200,
+		'fire_rate' : 15,
 		'speed'     : 2000,
 		'range'     : 2000,
 		'angle'     : 15,
@@ -40,7 +40,6 @@ var time_between_each_bullet: float = 1.0 / fire_rate
 var delta_sum : float = 0
 
 func _ready():
-	print(bullet_scene)
 	MainNode = get_tree().root.get_child(0)
 	Player = get_parent()
 	PlayerParent = Player.get_parent()

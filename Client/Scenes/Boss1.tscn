@@ -35,6 +35,12 @@ shape = SubResource( 3 )
 wait_time = 4.0
 autostart = true
 
+[node name="Label" type="Label" parent="."]
+margin_left = -35.0
+margin_top = -25.0
+margin_right = 40.0
+margin_bottom = 14.0
+
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="ReverseRotation" to="." method="_on_ReverseRotation_timeout"]
