@@ -7,7 +7,7 @@ func create_ally(id: String):
 	var ally_instance = ally_scene.instance() 
 	ally_instance.get_child(0).id = id
 	get_tree().root.get_child(0).add_child(ally_instance)
-	allies[id] = ally_instance
+	allies[id] = ally_instance.get_node("Player")
 
 func ally_exists(id: String) -> bool:
 	return allies.has(id)
@@ -19,8 +19,8 @@ func update_ally_rotation(id: String, rotation: float):
 	allies[id].rotation_degrees = rotation
 	
 func update_ally_is_shooting(id: String, is_shooting: bool):
-
 	allies[id].is_shooting = is_shooting
+	print("Ally "+id+"is_shooting =" + String(allies[id].is_shooting))
 
 func update_allies_status(payload: JSONParseResult, client_id: String):
 	# Agora está funfando. Ass: BRDMM

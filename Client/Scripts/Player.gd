@@ -12,13 +12,13 @@ var velocity = Vector2()
 
 var AlliesManager
 
-var is_shooting: bool = true
+var is_shooting: bool 
 onready var PlayerHand = $PlayerHand
 var id : String
 
 func _ready():
 	AlliesManager = MainNode.get_child(1)
-	PlayerHand.is_shooting = is_shooting
+
 
 func _physics_process(_delta):
 	if id == MainNode.myID:

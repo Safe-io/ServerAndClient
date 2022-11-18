@@ -1,7 +1,7 @@
 extends Sprite
 
 var bullet_types: Dictionary = {
-	'peashooter' : {
+	'Peashooter' : {
 		'damage'    : 4000,
 		'fire_rate' : 200,
 		'speed'     : 2000,
@@ -22,9 +22,8 @@ var bullet_types: Dictionary = {
 var MainNode
 var Player
 var PlayerParent
-var is_shooting : bool
 
-var bullet_type    = 'peashooter'  
+var bullet_type    = 'Peashooter'  
 var bullet_aspects = bullet_types[bullet_type]
 var bullet_scene  := load("res://Scenes/"+bullet_type +"Bullet.tscn")
 
@@ -41,7 +40,7 @@ var time_between_each_bullet: float = 1.0 / fire_rate
 var delta_sum : float = 0
 
 func _ready():
-	
+	print(bullet_scene)
 	MainNode = get_tree().root.get_child(0)
 	Player = get_parent()
 	PlayerParent = Player.get_parent()
@@ -53,7 +52,7 @@ func _physics_process(delta: float) -> void:
 	var direction = Vector2.RIGHT.rotated(Player.rotation)
 	cap_bullet_count_on_shooting()
 	increase_delta_sum(delta)
-	if Input.is_action_pressed("shoot_1"):
+	if Player.is_shooting:
 	
 		if(delta_sum > time_between_each_bullet):
 			var remainder = fmod(delta_sum, time_between_each_bullet)
@@ -71,6 +70,7 @@ func _physics_process(delta: float) -> void:
 				current_bullet.set_direction(direction.rotated(rand_range((-angle/2)* 0.0174533, (angle/2)*0.0174533)))
 				
 func instantiate_bullet():
+
 	var current_bullet = bullet_scene.instance()
 	current_bullet.max_range = bullet_aspects['range']
 	current_bullet.speed = bullet_aspects['speed']
