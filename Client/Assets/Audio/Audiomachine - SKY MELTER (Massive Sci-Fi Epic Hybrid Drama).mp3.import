@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Audiomachine - SKY MELTER (Massive Sci-Fi Epic Hybrid Drama).mp3-04c08646e91eb0b3a8baa2966f284e82.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/Audiomachine - SKY MELTER (Massive Sci-Fi Epic Hybrid Drama).mp3"
+dest_files=[ "res://.import/Audiomachine - SKY MELTER (Massive Sci-Fi Epic Hybrid Drama).mp3-04c08646e91eb0b3a8baa2966f284e82.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

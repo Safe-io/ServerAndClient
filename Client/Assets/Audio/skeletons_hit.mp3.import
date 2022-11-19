@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/skeletons_hit.mp3-d0d3ee55e2d8ff4181370324bd07d100.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/skeletons_hit.mp3"
+dest_files=[ "res://.import/skeletons_hit.mp3-d0d3ee55e2d8ff4181370324bd07d100.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/GemidoMorte1U.mp3-c4338a5adc77e3201fef432f05043392.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/GemidoMorte1U.mp3"
+dest_files=[ "res://.import/GemidoMorte1U.mp3-c4338a5adc77e3201fef432f05043392.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

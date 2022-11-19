@@ -8,11 +8,12 @@ var bullet_speed = 500
 var health_points = 2000
 
 var rotater 
-
+var HitSound
 var bullet_scene = preload("res://Scenes/Boss1Bullet.tscn")
 
 func _ready():
 	rotater = $Rotater
+	HitSound = $HitSound
 	var step = 2 * PI / spawn_point_count
 	
 	for i in range(spawn_point_count):
@@ -41,6 +42,7 @@ func _on_ShootTimer_timeout() -> void:
 
 func _on_Area2D_area_entered(area):
 	area.turn_bullet_off(area)
+	HitSound.play()
 	if health_points <=0:
 		queue_free()
 	if health_points <=1000:

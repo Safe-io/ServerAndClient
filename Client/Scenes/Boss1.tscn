@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/Images/NicePng_blue-orb-png_2153127.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Boss1.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Hurtbox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/Materials/whiten_material.tres" type="Material" id=4]
+[ext_resource path="res://Assets/Audio/skeletons_hit.mp3" type="AudioStream" id=5]
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 88.6848
@@ -24,8 +25,8 @@ wait_time = 0.3
 [node name="Rotater" type="Node2D" parent="."]
 
 [node name="Area2D" parent="." instance=ExtResource( 3 )]
-collision_layer = 0
-collision_mask = 2
+collision_layer = 8
+collision_mask = 6
 whiten_material = ExtResource( 4 )
 
 [node name="CollisionShape2D" parent="Area2D" index="0"]
@@ -40,6 +41,10 @@ margin_left = -35.0
 margin_top = -25.0
 margin_right = 40.0
 margin_bottom = 14.0
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+volume_db = -6.0
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

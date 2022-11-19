@@ -3,10 +3,10 @@ extends Sprite
 var bullet_types: Dictionary = {
 	'Peashooter' : {
 		'damage'    : 4000,
-		'fire_rate' : 1000,
+		'fire_rate' : 10,
 		'speed'     : 2000,
 		'range'     : 2000,
-		'angle'     : 90,
+		'angle'     : 15,
 		'penetration': 0
 	},
 	'spreadshot':{
@@ -22,6 +22,7 @@ var bullet_types: Dictionary = {
 var MainNode
 var Player
 var PlayerParent
+var MagicShotSound
 
 var bullet_type    = 'Peashooter'  
 var bullet_aspects = bullet_types[bullet_type]
@@ -40,9 +41,11 @@ var time_between_each_bullet: float = 1.0 / fire_rate
 var delta_sum : float = 0
 
 func _ready():
+	
 	MainNode = get_tree().root.get_child(0)
 	Player = get_parent()
 	PlayerParent = Player.get_parent()
+	MagicShotSound = Player.get_node("MagicShotSound")
 	
 	for i in pool_size:
 		instantiate_bullet()
@@ -67,7 +70,8 @@ func _physics_process(delta: float) -> void:
 				
 				current_bullet.global_position = global_position
 				current_bullet.set_direction(direction.rotated(rand_range((-angle/2)* 0.0174533, (angle/2)*0.0174533)))
-				
+				MagicShotSound.play()
+			
 func instantiate_bullet():
 
 	var current_bullet = bullet_scene.instance()

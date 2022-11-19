@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Gemido1A.mp3-2fb4d81f6b5905c2d2242e3e8de38ff6.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/Gemido1A.mp3"
+dest_files=[ "res://.import/Gemido1A.mp3-2fb4d81f6b5905c2d2242e3e8de38ff6.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

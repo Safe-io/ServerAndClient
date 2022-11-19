@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
+[ext_resource path="res://Assets/Audio/Audiomachine - SKY MELTER (Massive Sci-Fi Epic Hybrid Drama).mp3" type="AudioStream" id=1]
 [ext_resource path="res://Scripts/Socket.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/AlliesManager.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/Boss1.tscn" type="PackedScene" id=4]
@@ -31,3 +32,8 @@ margin_right = 0.0959473
 margin_bottom = -26.4
 align = 2
 valign = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+volume_db = -2.0
+autoplay = true

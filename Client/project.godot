@@ -56,6 +56,13 @@ shoot_1={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_2="PlayerBody"
+2d_physics/layer_3="PlayerBullets"
+2d_physics/layer_4="BossBody"
+2d_physics/layer_5="BossBullet"
+
 [mono]
 
 project/assembly_name="TutorialSocket"

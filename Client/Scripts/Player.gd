@@ -17,9 +17,12 @@ var is_shooting: bool
 onready var PlayerHand = $PlayerHand
 var id : String
 
+var GemidoHit1
+
 func _ready():
 	AlliesManager = MainNode.get_child(1)
 	last_rotation = rotation_degrees
+	GemidoHit1 = $GemidoHit1
 
 
 func _physics_process(_delta):
@@ -59,6 +62,8 @@ func get_input():
 		if is_shooting:
 			is_shooting = false
 			MainNode.update_player_is_shooting(is_shooting)
-
+	
+func _on_Area2D_area_entered(area):
+	GemidoHit1.play()
 	
 

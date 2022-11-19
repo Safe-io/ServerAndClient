@@ -24,5 +24,7 @@ script = ExtResource( 2 )
 wait_time = 8.0
 autostart = true
 
+[node name="Area2D" type="Area2D" parent="."]
+
 [connection signal="animation_finished" from="." to="." method="_on_Sprite_animation_finished"]
 [connection signal="timeout" from="KillTimer" to="." method="_on_KillTimer_timeout"]
