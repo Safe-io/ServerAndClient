@@ -7,11 +7,11 @@ console.log("SERVER started")
 let CurrentClientID = 0
 
 let payloadToAllClients = {}
-
 let PlayersState = {}
+let availableIds = []
 
 const SECONDS_BETWEEN_PINGS = 1000 * 6
-
+const CLIENT_DISCONNECTED = 404
 let clientHasConected = (ws) => {
   AssignClientID(ws)
 
@@ -20,6 +20,8 @@ let clientHasConected = (ws) => {
 
     let dataObject = JSON.parse(data)
     if(typeof(data) === "object"){
+      if(PlayersState[ws.id] === {"err": CLIENT_DISCONNECTED}) return
+    
       PlayersState[ws.id] = dataObject
 
       sendPayloadToAllClients(JSON.stringify(PlayersState))
@@ -28,8 +30,11 @@ let clientHasConected = (ws) => {
   });
 
   ws.on('close', function clientHasDisconnected(){
-
-    console.log("Client with ID" + " ? " + "has disconnected!")
+    PlayersState[ws.id] = {"err": CLIENT_DISCONNECTED}
+    sendPayloadToAllClients(JSON.stringify(PlayersState))
+    delete PlayersState[ws.id]
+    availableIds.push(ws.id)
+    console.log("Client with ID" + ws.id + "has disconnected!")
   })
 }
 
@@ -44,8 +49,13 @@ function sendPayloadToAllClients(payloadToAllClients){
 }
 
 function AssignClientID(ws){
-  CurrentClientID++
-  ws.id = CurrentClientID
+  if(availableIds.length > 0){
+    ws.id = availableIds.pop()
+  }
+  else{
+    CurrentClientID++
+    ws.id = CurrentClientID
+  }
   console.log("Client id:" + CurrentClientID + " has connected!")
   ws.send(JSON.stringify({"assignid": CurrentClientID}));
 }
