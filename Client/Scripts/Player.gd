@@ -12,6 +12,8 @@ var velocity = Vector2()
 
 var AlliesManager
 var last_rotation
+var last_direction
+var direction := Vector2(0,0)
 
 var is_shooting: bool 
 onready var PlayerHand = $PlayerHand
@@ -24,32 +26,49 @@ func _ready():
 	last_rotation = rotation_degrees
 	GemidoHit1 = $GemidoHit1
 
-
 func _physics_process(_delta):
 	if last_rotation != rotation_degrees:
 		last_rotation = rotation_degrees
 		MainNode.update_player_rotation()
+		
 	
 	if id == MainNode.myID:
 		get_input()
 		velocity = move_and_slide(velocity)
+		if last_direction != direction:
+			last_direction = direction
+			MainNode.update_player_direction()
+	else:
+		velocity = move_and_slide(direction * speed)
+		
+
 
 func get_input():
 
 	velocity = Vector2()
 	if Input.is_action_pressed("ui_right"):
-		velocity.x += 1
-		MainNode.update_player_position()
+		velocity.x = 1
+		direction.x = 1
 	if Input.is_action_pressed("ui_left"):
-		velocity.x -= 1
-		MainNode.update_player_position()
+		velocity.x = -1
+		direction.x = -1
 	if Input.is_action_pressed("ui_down"):
-		velocity.y += 1
-		MainNode.update_player_position()
+		velocity.y = 1
+		direction.y = 1
 	if Input.is_action_pressed("ui_up"):
-		velocity.y -= 1
-		MainNode.update_player_position()
-
+		velocity.y = -1
+		direction.y = -1
+#################################################
+	if Input.is_action_just_released("ui_right"):
+		direction.x = 0
+	if Input.is_action_just_released("ui_left"):
+		direction.x = 0
+	if Input.is_action_just_released("ui_down"):
+		direction.y = 0
+	if Input.is_action_just_released("ui_up"):
+		direction.y = 0
+		
+		
 	velocity = velocity.normalized() * speed
 	look_at(get_global_mouse_position())
 	

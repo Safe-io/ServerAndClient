@@ -54,19 +54,22 @@ func _on_data():
 func _process(delta):
 	ws.poll()
 	send_full_data()
-	print(frame_data)
+
 	$Label.text = "FPS: " + str(Performance.get_monitor(Performance.TIME_FPS))
 	$Label2.text = "Memory Static: " + str(Performance.get_monitor(Performance.MEMORY_STATIC))
 
+func update_player_direction():
+	frame_data["dirx"] = Player.direction.x
+	frame_data["diry"] = Player.direction.y
+
 func update_player_position():
-	frame_data["x"] = Player.position.x
-	frame_data["y"] = Player.position.y
+	frame_data["posx"] = Player.position.x
+	frame_data["posy"] = Player.position.y
 
 func update_player_rotation():
 	var rotation_data : int = int(Player.rotation_degrees)
 	frame_data["r"] = rotation_data
 
-	
 func update_player_is_shooting(is_shooting: bool):
 	frame_data["s"] = int(is_shooting) 
 	

@@ -13,14 +13,18 @@ func create_ally(id: String):
 func remove_ally(id: String):
 	allies[id].get_parent().queue_free()
 	allies.erase(id)
-	print("pao")
+
 
 func ally_exists(id: String) -> bool:
 	return allies.has(id)
 
-func update_ally_position(id: String, position: Vector2):
-	allies[id].position = position
+func update_ally_position(id: String, ally_position: Vector2):
+	print(ally_position)
+	allies[id].position = ally_position
 	
+func update_ally_direction(id: String, ally_direction: Vector2):
+	allies[id].direction = ally_direction
+
 func update_ally_rotation(id: String, rotation: float):
 	allies[id].rotation_degrees = rotation
 	
@@ -42,9 +46,13 @@ func update_allies_status(payload: JSONParseResult, client_id: String):
 			if(ally_data['err'] == CLIENT_DISCONNECTED):
 				remove_ally(id)
 				return
-		
-		if (ally_data.has_all(["x","y"])):
-			update_ally_position(id, Vector2(ally_data['x'], ally_data['y']))
+				
+		if (ally_data.has_all(["posx","posy"])):
+			#update_ally_position(id, Vector2(ally_data['posx'], ally_data['posy']))
+			pass
+		if (ally_data.has_all(["dirx","diry"])):
+			print("foi")
+			update_ally_direction(id, Vector2(ally_data['dirx'], ally_data['diry']))
 			
 		if (ally_data.has("r")):
 			update_ally_rotation(id, ally_data['r'])
