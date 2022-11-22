@@ -46,6 +46,13 @@ margin_bottom = 14.0
 stream = ExtResource( 5 )
 volume_db = -6.0
 
+[node name="HPBar" type="ProgressBar" parent="."]
+margin_left = -96.0
+margin_top = -124.0
+margin_right = 99.0
+margin_bottom = -96.0
+value = 10.0
+
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="ReverseRotation" to="." method="_on_ReverseRotation_timeout"]

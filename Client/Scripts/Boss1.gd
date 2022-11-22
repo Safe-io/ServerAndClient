@@ -8,10 +8,11 @@ var shoote_time_wait_time : float = 0.2
 var spawn_point_count : int = 6
 var bullet_speed : int = 500
 
-var health_points : int = 2000
+var max_health: float = 2000
+var health_points : float = 2000.0
 
 var rotater 
-
+onready var hp_bar = $HPBar
 var bullet_scene = preload("res://Scenes/Boss1Bullet.tscn")
 
 func _ready():
@@ -33,6 +34,8 @@ func _physics_process(delta):
 	var new_rotation = rotater.rotation_degrees + rotate_speed * delta
 	$Rotater.rotation_degrees = fmod(new_rotation, 360)
 	$Label.text = String (health_points)
+
+
 	
 func _on_ShootTimer_timeout() -> void:
 	for s in $Rotater.get_children():
@@ -54,8 +57,9 @@ func _on_Area2D_area_entered(area):
 	if health_points <=1000:
 		shoote_time_wait_time = 0.1
 		rotate_speed = 40
-	if(area.is_player_bullet):	
+	if(area.is_player_bullet):
 		MainNode.increase_damage_points_dealed_in_the_frame()	
+	hp_bar.value = (health_points/max_health) * 100
 
 
 func _on_ReverseRotation_timeout():
