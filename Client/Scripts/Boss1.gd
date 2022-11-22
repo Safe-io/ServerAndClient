@@ -1,19 +1,22 @@
 extends Node2D
 
-var rotate_speed = 30
-var shoote_time_wait_time = 0.2
-var spawn_point_count = 6
-var bullet_speed = 500
+var HitSound
+onready var MainNode = get_tree().root.get_child(0)
 
-var health_points = 2000
+var rotate_speed : int = 30
+var shoote_time_wait_time : float = 0.2
+var spawn_point_count : int = 6
+var bullet_speed : int = 500
+
+var health_points : int = 2000
 
 var rotater 
-var HitSound
+
 var bullet_scene = preload("res://Scenes/Boss1Bullet.tscn")
 
 func _ready():
-	rotater = $Rotater
 	HitSound = $HitSound
+	rotater = $Rotater
 	var step = 2 * PI / spawn_point_count
 	
 	for i in range(spawn_point_count):
@@ -39,6 +42,9 @@ func _on_ShootTimer_timeout() -> void:
 		bullet.position = s.global_position
 		bullet.rotation = s.global_rotation
 	
+func update_boss_health_points(curent_health_points: int):
+	health_points = curent_health_points
+
 
 func _on_Area2D_area_entered(area):
 	area.turn_bullet_off(area)
@@ -48,7 +54,7 @@ func _on_Area2D_area_entered(area):
 	if health_points <=1000:
 		shoote_time_wait_time = 0.1
 		rotate_speed = 40
-	health_points = health_points - 1
+	MainNode.increase_damage_points_dealed_in_the_frame()	
 
 
 func _on_ReverseRotation_timeout():

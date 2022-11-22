@@ -1,20 +1,22 @@
 extends Node
 
 var ws = WebSocketClient.new()
-var URL = "ws://26.17.197.157:3000/"
+var URL = "ws://127.0.0.1:3000/"
 
 var AlliesManager
-
-var myID : String
+var Boss1
 var Player
 
-var frame_data: Dictionary
+var myID : String
+var frame_data : Dictionary
+var damage_points_dealed_in_the_frame : int = 0
 
 func _ready():
 	
 	$Label.set_as_toplevel(true)
 	
 	AlliesManager = $AlliesManager
+	Boss1 = $Boss
 	
 	var err = ws.connect_to_url(URL)
 	
@@ -35,11 +37,10 @@ func _connected():
 	print("Conectou ao Servidor")
 	
 func _on_data():
-	#AO RECEBER OU ENVIAR PACOTES, UTILIZE O FORMATO "STRING"
 	var payload =  JSON.parse(ws.get_peer(1).get_packet().get_string_from_utf8())
 	if payload.result == null:
 		return
-		
+
 	if payload.result.has("assignid"):
 		myID = String(payload.result["assignid"]) 
 
@@ -48,15 +49,24 @@ func _on_data():
 		Player = $PlayerParent.get_child(0)
 		update_player_position()
 	else:
-		AlliesManager.update_allies_status(payload, myID)
-			
-			
+		print(payload.result["enemies"]["1"]["life"])
+		Boss1.update_boss_health_points(int(payload.result["enemies"]["1"]["life"]))
+		AlliesManager.update_allies_status(payload.result["players"], myID)
+
+
+func increase_damage_points_dealed_in_the_frame():
+	damage_points_dealed_in_the_frame += 1
+
 func _process(delta):
 	ws.poll()
 	send_full_data()
 
 	$Label.text = "FPS: " + str(Performance.get_monitor(Performance.TIME_FPS))
 	$Label2.text = "Memory Static: " + str(Performance.get_monitor(Performance.MEMORY_STATIC))
+
+func update_damage_dealed():
+	frame_data["damage"] = {1 : damage_points_dealed_in_the_frame}	
+	damage_points_dealed_in_the_frame = 0
 
 func update_player_direction():
 	frame_data["dirx"] = Player.direction.x
@@ -74,6 +84,7 @@ func update_player_is_shooting(is_shooting: bool):
 	frame_data["s"] = int(is_shooting) 
 	
 func send_full_data():
+	update_damage_dealed()
 	ws.get_peer(1).put_packet(JSON.print(frame_data).to_utf8())
 
 

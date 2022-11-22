@@ -31,8 +31,8 @@ func update_ally_rotation(id: String, rotation: float):
 func update_ally_is_shooting(id: String, is_shooting: bool):
 	allies[id].is_shooting = is_shooting
 
-func update_allies_status(payload: JSONParseResult, client_id: String):
-	for id in payload.result.keys():
+func update_allies_status(payload: Dictionary, client_id: String):
+	for id in payload.keys():
 
 		if(id == client_id):
 			continue
@@ -40,7 +40,7 @@ func update_allies_status(payload: JSONParseResult, client_id: String):
 		if (ally_exists(id) == false):
 			create_ally(id)
 
-		var ally_data = payload.result[id]
+		var ally_data = payload[id]
 		
 		if (ally_data.has("err")):
 			if(ally_data['err'] == CLIENT_DISCONNECTED):
@@ -51,11 +51,10 @@ func update_allies_status(payload: JSONParseResult, client_id: String):
 			#update_ally_position(id, Vector2(ally_data['posx'], ally_data['posy']))
 			pass
 		if (ally_data.has_all(["dirx","diry"])):
-			print("foi")
 			update_ally_direction(id, Vector2(ally_data['dirx'], ally_data['diry']))
 			
 		if (ally_data.has("r")):
 			update_ally_rotation(id, ally_data['r'])
 		
-		if (payload.result[id].has("s")):
+		if (ally_data.has("s")):
 			update_ally_is_shooting(id, ally_data['s'])
