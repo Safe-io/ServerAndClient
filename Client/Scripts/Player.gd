@@ -41,11 +41,11 @@ func _physics_process(_delta):
 		velocity = move_and_slide(velocity)
 		if last_direction != direction:
 			last_direction = direction
-			#MainNode.update_player_position
+			MainNode.update_player_position()
 			MainNode.update_player_direction()
 			
 	else:
-		velocity = move_and_slide(direction * speed)
+		velocity = move_and_slide(direction.normalized() * speed)
 		
 
 

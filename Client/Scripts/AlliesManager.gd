@@ -4,7 +4,10 @@ var allies : Dictionary = {}
 var ally_scene = preload("res://Scenes/Player/Player.tscn")
 const CLIENT_DISCONNECTED = 404
 
+var last_pos : Dictionary = {}
+
 func create_ally(id: String):
+	last_pos[id] = {"x" : 0, "y" : 0}
 	var ally_instance = ally_scene.instance() 
 	ally_instance.get_child(0).id = id
 	get_tree().root.get_child(0).add_child(ally_instance)
@@ -48,8 +51,11 @@ func update_allies_status(payload: Dictionary, client_id: String):
 				return
 				
 		if (ally_data.has_all(["posx","posy"])):
-			#update_ally_position(id, Vector2(ally_data['posx'], ally_data['posy']))
-			pass
+			if (last_pos[id]['x'] != ally_data['posx']) or (last_pos[id]['y'] != ally_data['posy']):
+				last_pos[id]["x"] = ally_data['posx']
+				last_pos[id]["y"] = ally_data['posy']
+				update_ally_position(id, Vector2(ally_data['posx'], ally_data['posy']))
+
 		if (ally_data.has_all(["dirx","diry"])):
 			update_ally_direction(id, Vector2(ally_data['dirx'], ally_data['diry']))
 			

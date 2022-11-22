@@ -1,7 +1,7 @@
 extends Node
 
 var ws = WebSocketClient.new()
-var URL = "ws://26.17.197.157:3000/"
+var URL = "ws://127.0.0.1:3000/"
 
 var AlliesManager
 var Boss1
@@ -60,7 +60,7 @@ func increase_damage_points_dealed_in_the_frame():
 func _process(delta):
 	ws.poll()
 	send_full_data()
-
+	
 	$Label.text = "FPS: " + str(Performance.get_monitor(Performance.TIME_FPS))
 	$Label2.text = "Memory Static: " + str(Performance.get_monitor(Performance.MEMORY_STATIC))
 

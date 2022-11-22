@@ -36,6 +36,9 @@ let clientHasConected = (ws) => {
       GameState.players[ws.id] = dataObject
       sendPayloadToAllClients(JSON.stringify(GameState))
       console.log(GameState)
+      delete GameState.players[ws.id].posx
+      delete GameState.players[ws.id].posy
+
     }
   });
 
