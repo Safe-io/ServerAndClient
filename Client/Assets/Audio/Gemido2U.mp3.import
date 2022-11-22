@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Gemido2U.mp3-cdc3f68f0e3ca657158e978c2d59710f.mp3str
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

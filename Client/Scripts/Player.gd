@@ -19,25 +19,26 @@ var is_shooting: bool
 onready var PlayerHand = $PlayerHand
 var id : String
 
-var GemidoHit1
+var GemidoHit2
 
 func _ready():
 	AlliesManager = MainNode.get_child(1)
 	last_rotation = rotation_degrees
-	GemidoHit1 = $GemidoHit1
+	GemidoHit2 = $GemidoHit2
 
 func _physics_process(_delta):
 	if last_rotation != rotation_degrees:
 		last_rotation = rotation_degrees
 		MainNode.update_player_rotation()
 		
-	
 	if id == MainNode.myID:
 		get_input()
 		velocity = move_and_slide(velocity)
 		if last_direction != direction:
 			last_direction = direction
+			#MainNode.update_player_position
 			MainNode.update_player_direction()
+			
 	else:
 		velocity = move_and_slide(direction * speed)
 		
@@ -83,6 +84,7 @@ func get_input():
 			MainNode.update_player_is_shooting(is_shooting)
 	
 func _on_Area2D_area_entered(area):
-	GemidoHit1.play()
-	
+	print("colisao pelo player")
 
+func take_damage():
+	GemidoHit2.play()

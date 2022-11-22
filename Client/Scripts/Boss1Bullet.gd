@@ -16,3 +16,8 @@ func _ready():
 
 func _on_Sprite_animation_finished():
 	self.set_frame(3)
+
+
+func _on_Area2D_body_entered(body):
+	queue_free()
+	body.take_damage()
