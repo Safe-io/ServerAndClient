@@ -62,12 +62,14 @@ func _physics_process(delta: float) -> void:
 			var bullets_to_spawn = round((delta_sum - remainder) / time_between_each_bullet)
 			delta_sum = remainder
 			
+			
 			for i in bullets_to_spawn:
 
 				var current_bullet = _ready_bullets_pool[_index]
 				turn_bullet_on(current_bullet)
 				_index = wrapi(_index + 1, 0, pool_size)
-				
+				if Player.is_player:
+					current_bullet.is_player_bullet = true
 				current_bullet.global_position = global_position
 				current_bullet.set_direction(direction.rotated(rand_range((-angle/2)* 0.0174533, (angle/2)*0.0174533)))
 				MagicShotSound.play()

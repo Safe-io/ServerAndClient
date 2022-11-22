@@ -54,7 +54,8 @@ func _on_Area2D_area_entered(area):
 	if health_points <=1000:
 		shoote_time_wait_time = 0.1
 		rotate_speed = 40
-	MainNode.increase_damage_points_dealed_in_the_frame()	
+	if(area.is_player_bullet):	
+		MainNode.increase_damage_points_dealed_in_the_frame()	
 
 
 func _on_ReverseRotation_timeout():

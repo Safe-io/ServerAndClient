@@ -5,7 +5,7 @@ var direction = Vector2.ZERO
 var speed: float = 400.0
 
 var travelled_distance: float = 0
-
+var is_player_bullet: bool
 var max_range: float = 0
 
 func _physics_process(_delta: float)-> void:

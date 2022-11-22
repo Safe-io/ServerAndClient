@@ -5,7 +5,6 @@ function createEnemy(life){
     return enemy
 }
 
-
 function dealDamage(damage){
     this.life -= damage
 }

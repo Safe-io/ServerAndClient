@@ -18,10 +18,15 @@ var direction := Vector2(0,0)
 var is_shooting: bool 
 onready var PlayerHand = $PlayerHand
 var id : String
+var is_player : bool
 
 var GemidoHit2
 
 func _ready():
+	if id == MainNode.myID:
+		is_player = true
+	else:
+		is_player = false
 	AlliesManager = MainNode.get_child(1)
 	last_rotation = rotation_degrees
 	GemidoHit2 = $GemidoHit2
