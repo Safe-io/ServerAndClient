@@ -52,7 +52,7 @@ func update_boss_health_points(curent_health_points: int):
 func _on_Area2D_area_entered(area):
 	area.turn_bullet_off(area)
 	HitSound.play()
-	area.take_damage()
+	area.get_parent().get_node("Player").take_damage()
 	if health_points <=0:
 		queue_free()
 	if health_points <=1000:
