@@ -94,7 +94,8 @@ func _on_Area2D_area_entered(area):
 	print("colisao pelo player")
 
 func take_damage():
+	print("tomou dano")
 	if health_points <=0:
-		queue_free()
+		pass
 	health_points = health_points -1
 	GemidoHit2.play()
