@@ -51,7 +51,7 @@ margin_left = -96.0
 margin_top = -124.0
 margin_right = 99.0
 margin_bottom = -96.0
-value = 10.0
+value = 100.0
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

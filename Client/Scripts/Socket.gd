@@ -87,4 +87,3 @@ func send_full_data():
 	update_damage_dealed()
 	ws.get_peer(1).put_packet(JSON.print(frame_data).to_utf8())
 
-
