@@ -10,6 +10,8 @@ onready var MainNode = get_tree().root.get_child(0)
 
 var velocity = Vector2()
 
+var health_points = 10
+
 var AlliesManager
 var last_rotation
 var last_direction
@@ -92,4 +94,7 @@ func _on_Area2D_area_entered(area):
 	print("colisao pelo player")
 
 func take_damage():
+	if health_points <=0:
+		queue_free()
+	health_points = health_points -1
 	GemidoHit2.play()
