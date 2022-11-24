@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 export (int) var speed = 200
 
-var peashooter_bullet = preload("res://Scenes/PeashooterBullet.tscn")
+var peashooter_bullet = preload("res://Scenes/Bullet/PeashooterBullet.tscn")
 
 onready var end_of_the_hand = $EndOfTheHand
 

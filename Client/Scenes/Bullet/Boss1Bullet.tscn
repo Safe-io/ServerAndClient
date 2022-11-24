@@ -1,14 +1,14 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/Images/weapon_charge_large_loop_0008.png" type="Texture" id=1]
-[ext_resource path="res://Scripts/Boss1Bullet.gd" type="Script" id=2]
-[ext_resource path="res://Assets/Images/charge/weapon_charge_large_intro_0003.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Images/charge/weapon_charge_large_intro_0002.png" type="Texture" id=4]
-[ext_resource path="res://Assets/Images/charge/weapon_charge_large_intro_0001.png" type="Texture" id=5]
+[ext_resource path="res://Scripts/Bullet/Boss1Bullet.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Images/charge/weapon_charge_large_intro_0001.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Images/charge/weapon_charge_large_intro_0003.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Images/charge/weapon_charge_large_intro_0002.png" type="Texture" id=5]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 1 ) ],
+"frames": [ ExtResource( 3 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 1 ) ],
 "loop": false,
 "name": "charge_anim",
 "speed": 20.0

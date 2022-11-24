@@ -13,7 +13,7 @@ var health_points : float = 2000.0
 
 var rotater 
 onready var hp_bar = $HPBar
-var bullet_scene = preload("res://Scenes/Boss1Bullet.tscn")
+var bullet_scene = preload("res://Scenes/Bullet/Boss1Bullet.tscn")
 
 func _ready():
 	HitSound = $HitSound

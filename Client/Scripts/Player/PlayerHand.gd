@@ -26,7 +26,7 @@ var MagicShotSound
 
 var bullet_type    = 'Peashooter'  
 var bullet_aspects = bullet_types[bullet_type]
-var bullet_scene  := load("res://Scenes/"+bullet_type +"Bullet.tscn")
+var bullet_scene  := load("res://Scenes/Bullet/"+bullet_type +"Bullet.tscn")
 
 var fire_rate: float = bullet_aspects['fire_rate']
 var pool_size = fire_rate * 2 + 20

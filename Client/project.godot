@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="Safe"
-run/main_scene="res://Scenes/Main.tscn"
+run/main_scene="res://Scenes/Netcode/Main.tscn"
 boot_splash/bg_color=Color( 0.4, 0.368627, 0.47451, 1 )
 config/icon="res://Assets/Images/icon.png"
 
