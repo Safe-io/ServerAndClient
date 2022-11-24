@@ -37,7 +37,7 @@ func _connected():
 	print("Conectou ao Servidor")
 	
 func _on_data():
-	var payload =  JSON.parse(ws.get_peer(1).get_packet().get_string_from_utf8())
+	var payload = JSON.parse(ws.get_peer(1).get_packet().get_string_from_utf8())
 	if payload.result == null:
 		return
 
@@ -49,7 +49,6 @@ func _on_data():
 		Player = $PlayerParent.get_child(0)
 		update_player_position()
 	else:
-		print(payload.result["enemies"]["1"]["life"])
 		Boss1.update_boss_health_points(int(payload.result["enemies"]["1"]["life"]))
 		AlliesManager.update_allies_status(payload.result["players"], myID)
 

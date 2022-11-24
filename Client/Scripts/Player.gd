@@ -52,7 +52,6 @@ func _physics_process(_delta):
 
 
 func get_input():
-
 	velocity = Vector2()
 	if Input.is_action_pressed("ui_right"):
 		velocity.x = 1

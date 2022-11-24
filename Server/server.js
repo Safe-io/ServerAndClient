@@ -17,7 +17,6 @@ let availableIds = []
 
 const CLIENT_DISCONNECTED = 404
 
-
 let clientHasConected = (ws) => {
   AssignClientID(ws)
 
@@ -36,13 +35,13 @@ let clientHasConected = (ws) => {
       GameState.players[ws.id] = dataObject
       sendPayloadToAllClients(JSON.stringify(GameState))
       console.log(GameState)
-      delete GameState.players[ws.id].posx
-      delete GameState.players[ws.id].posy
 
+      // delete GameState.players[ws.id].posx
+      // delete GameState.players[ws.id].posy
     }
   });
 
-  ws.on('close', function clientHasDisconnected(){
+  ws.on('close', function clientHasDisconnected() {
     GameState.players[ws.id] = {"err": CLIENT_DISCONNECTED}
     sendPayloadToAllClients(JSON.stringify(GameState))
     delete GameState.players[ws.id]
@@ -54,7 +53,7 @@ let clientHasConected = (ws) => {
 wss.on('connection', clientHasConected);
 
 function sendPayloadToAllClients(payloadToAllClients){
-  wss.clients.forEach(function each(client) {
+  wss.clients.forEach((client) => {
     if (client.readyState === WebSocket.OPEN) {
       client.send(payloadToAllClients);
     }
