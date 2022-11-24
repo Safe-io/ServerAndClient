@@ -25,7 +25,7 @@ var is_player : bool
 var GemidoHit2
 
 func _ready():
-	if id == MainNode.myID:
+	if id == MainNode.player_id:
 		is_player = true
 	else:
 		is_player = false
@@ -38,7 +38,7 @@ func _physics_process(_delta):
 		last_rotation = rotation_degrees
 		MainNode.update_player_rotation()
 		
-	if id == MainNode.myID:
+	if is_player():
 		get_input()
 		velocity = move_and_slide(velocity)
 		if last_direction != direction:
@@ -98,3 +98,6 @@ func take_damage():
 		pass
 	health_points = health_points -1
 	GemidoHit2.play()
+
+func is_player():
+	return id == MainNode.player_id

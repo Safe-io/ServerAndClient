@@ -1,5 +1,6 @@
 import WebSocket, { WebSocketServer } from 'ws';
-import { createEnemy } from './enemy.js';
+import { createEnemy } from './enemy/enemy.js';
+import { handlePlayerHits } from './player/player.js';
 
 const wss = new WebSocketServer({ port: 3000 });
 
@@ -27,11 +28,7 @@ let clientHasConected = (ws) => {
     if(typeof(data) === "object"){
       if(GameState.players[ws.id] === {"err": CLIENT_DISCONNECTED}) return
     
-      if(dataObject.hasOwnProperty("damage")){
-        GameState.enemies[1].dealDamage(dataObject["damage"][1]) 
-      }
-      delete dataObject.damage
-
+      handlePlayerHits(dataObject)      
       GameState.players[ws.id] = dataObject
       sendPayloadToAllClients(JSON.stringify(GameState))
       console.log(GameState)

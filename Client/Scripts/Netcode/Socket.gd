@@ -1,15 +1,18 @@
 extends Node
 
 var ws = WebSocketClient.new()
-var URL = "ws://127.0.0.1:3000/"
+const URL = "ws://127.0.0.1:3000/"
 
 var AlliesManager
 var Boss1
 var Player
 
-var myID : String
+var player_id : String
 var frame_data : Dictionary
 var damage_points_dealed_in_the_frame : int = 0
+
+const ENEMY_ID : int = 1
+
 
 func _ready():
 	
@@ -42,15 +45,16 @@ func _on_data():
 		return
 
 	if payload.result.has("assignid"):
-		myID = String(payload.result["assignid"]) 
+		player_id = String(payload.result["assignid"]) 
 
-		print("My ID was assigned: " + myID)
-		AlliesManager.create_ally(myID)
+		print("My ID was assigned: " + player_id)
+		AlliesManager.create_player(player_id)
 		Player = $PlayerParent.get_child(0)
 		update_player_position()
 	else:
-		Boss1.update_boss_health_points(int(payload.result["enemies"]["1"]["life"]))
-		AlliesManager.update_allies_status(payload.result["players"], myID)
+		# LEMBRE-SE QUE ENEMY ID EH HARD CODED, JA QUE AINDA NAO IMPLEMENTAMOS ENEMIES MANAGER
+		Boss1.update_boss_health_points(int(payload.result["enemies"][String(ENEMY_ID)]["life"]))
+		AlliesManager.update_allies_status(payload.result["players"], player_id)
 
 
 func increase_damage_points_dealed_in_the_frame():
@@ -64,7 +68,8 @@ func _process(delta):
 	$Label2.text = "Memory Static: " + str(Performance.get_monitor(Performance.MEMORY_STATIC))
 
 func update_damage_dealed():
-	frame_data["damage"] = {1 : damage_points_dealed_in_the_frame}	
+	# LEMBRE-SE QUE ENEMY ID EH HARD CODED, JA QUE AINDA NAO IMPLEMENTAMOS ENEMIES MANAGER
+	frame_data["damage"] = {ENEMY_ID : damage_points_dealed_in_the_frame}	
 	damage_points_dealed_in_the_frame = 0
 
 func update_player_direction():

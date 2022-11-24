@@ -6,6 +6,9 @@ const CLIENT_DISCONNECTED = 404
 
 var last_pos : Dictionary = {}
 
+func create_player(player_id: String):
+	create_ally(player_id)
+	
 func create_ally(id: String):
 	last_pos[id] = {"x" : 0, "y" : 0}
 	var ally_instance = ally_scene.instance() 
