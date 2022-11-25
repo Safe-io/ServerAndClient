@@ -28,7 +28,7 @@ let clientHasConected = (ws) => {
     if(typeof(data) === "object"){
       if(GameState.players[ws.id] === {"err": CLIENT_DISCONNECTED}) return
     
-      handlePlayerHits(dataObject)      
+      handlePlayerHits(GameState, dataObject)      
       GameState.players[ws.id] = dataObject
       sendPayloadToAllClients(JSON.stringify(GameState))
       console.log(GameState)
