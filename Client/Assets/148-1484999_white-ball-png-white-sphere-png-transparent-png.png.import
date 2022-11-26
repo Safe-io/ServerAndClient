@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Client.icon.png-a4fe94243709f610b0c5fe9a6f749ee3.stex"
+path="res://.import/148-1484999_white-ball-png-white-sphere-png-transparent-png.png-20b60e72f24c6cfe3b60667eed151a7c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Builds/web/Client.icon.png"
-dest_files=[ "res://.import/Client.icon.png-a4fe94243709f610b0c5fe9a6f749ee3.stex" ]
+source_file="res://Assets/148-1484999_white-ball-png-white-sphere-png-transparent-png.png"
+dest_files=[ "res://.import/148-1484999_white-ball-png-white-sphere-png-transparent-png.png-20b60e72f24c6cfe3b60667eed151a7c.stex" ]
 
 [params]
 

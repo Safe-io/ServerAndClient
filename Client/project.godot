@@ -74,4 +74,5 @@ project/assembly_name="TutorialSocket"
 [rendering]
 
 quality/driver/driver_name="GLES2"
+environment/default_clear_color=Color( 0.0823529, 0.113725, 0.152941, 1 )
 environment/default_environment="res://default_env.tres"
