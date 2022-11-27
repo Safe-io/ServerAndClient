@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Assets/Images/NicePng_blue-orb-png_2153127.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Images/pngwing.com.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Player/Ally.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Player/AllyHand.gd" type="Script" id=4]
+[ext_resource path="res://Assets/Audio/magicShoot.mp3" type="AudioStream" id=5]
+[ext_resource path="res://Assets/Audio/Gemido1A.mp3" type="AudioStream" id=6]
+[ext_resource path="res://Assets/Audio/Gemido2U.mp3" type="AudioStream" id=7]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 42.9588
+
+[node name="AllyParent" type="Node2D"]
+
+[node name="Ally" type="KinematicBody2D" parent="."]
+position = Vector2( 1, 0 )
+scale = Vector2( 0.5, 0.5 )
+collision_layer = 2
+collision_mask = 16
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ally"]
+position = Vector2( 1, -1.5 )
+shape = SubResource( 1 )
+
+[node name="PlayerCircle" type="Sprite" parent="Ally"]
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 1 )
+
+[node name="AllyHand" type="Sprite" parent="Ally"]
+position = Vector2( 64, -2 )
+rotation = 1.5708
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 2 )
+script = ExtResource( 4 )
+
+[node name="EndOfTheHand" type="Position2D" parent="Ally"]
+position = Vector2( 200, 0 )
+
+[node name="MagicShotSound" type="AudioStreamPlayer" parent="Ally"]
+stream = ExtResource( 5 )
+volume_db = -12.0
+
+[node name="GemidoHit1" type="AudioStreamPlayer" parent="Ally"]
+stream = ExtResource( 6 )
+
+[node name="GemidoHit2" type="AudioStreamPlayer" parent="Ally"]
+stream = ExtResource( 7 )

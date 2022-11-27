@@ -1,20 +1,26 @@
 extends Node
 
 var allies : Dictionary = {}
-var ally_scene = preload("res://Scenes/Player/Player.tscn")
+var player_scene = preload("res://Scenes/Player/Player.tscn")
+var ally_scene = preload("res://Scenes/Player/Ally.tscn")
+
 const CLIENT_DISCONNECTED = 404
 
 var last_pos : Dictionary = {}
 
 func create_player(player_id: String):
-	create_ally(player_id)
+	last_pos[player_id] = {"x" : 0, "y" : 0}
+	var player_instance = player_scene.instance() 
+	player_instance.get_child(0).id = player_id 
+	get_tree().root.get_child(0).add_child(player_instance)
+	allies[player_id] = player_instance.get_node("Player")
 	
 func create_ally(id: String):
 	last_pos[id] = {"x" : 0, "y" : 0}
 	var ally_instance = ally_scene.instance() 
 	ally_instance.get_child(0).id = id
 	get_tree().root.get_child(0).add_child(ally_instance)
-	allies[id] = ally_instance.get_node("Player")
+	allies[id] = ally_instance.get_node("Ally")
 
 func remove_ally(id: String):
 	allies[id].get_parent().queue_free()

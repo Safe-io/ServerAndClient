@@ -55,16 +55,13 @@ func _physics_process(delta: float) -> void:
 	cap_bullet_count_on_shooting()
 	increase_delta_sum(delta)
 	if Player.is_shooting:
-	
 		if(delta_sum > time_between_each_bullet):
 			var remainder = fmod(delta_sum, time_between_each_bullet)
 
 			var bullets_to_spawn = round((delta_sum - remainder) / time_between_each_bullet)
 			delta_sum = remainder
-			
-			
-			for i in bullets_to_spawn:
 
+			for i in bullets_to_spawn:
 				var current_bullet = _ready_bullets_pool[_index]
 				turn_bullet_on(current_bullet)
 				_index = wrapi(_index + 1, 0, pool_size)
@@ -75,7 +72,6 @@ func _physics_process(delta: float) -> void:
 				MagicShotSound.play()
 			
 func instantiate_bullet():
-
 	var current_bullet = bullet_scene.instance()
 	current_bullet.max_range = bullet_aspects['range']
 	current_bullet.speed = bullet_aspects['speed']
