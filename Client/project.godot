@@ -8,6 +8,46 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Actor",
+"language": "GDScript",
+"path": "res://Scripts/Actor/Actor.gd"
+}, {
+"base": "Playable_Character",
+"class": "Ally",
+"language": "GDScript",
+"path": "res://Scripts/Player/Ally.gd"
+}, {
+"base": "Node2D",
+"class": "Bullet",
+"language": "GDScript",
+"path": "res://Scripts/Bullet/Bullet.gd"
+}, {
+"base": "Actor",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://Scripts/Enemy/Boss/Enemy.gd"
+}, {
+"base": "Actor",
+"class": "Playable_Character",
+"language": "GDScript",
+"path": "res://Scripts/Player/PlayableCharacter.gd"
+}, {
+"base": "Playable_Character",
+"class": "Player",
+"language": "GDScript",
+"path": "res://Scripts/Player/Player.gd"
+} ]
+_global_script_class_icons={
+"Actor": "",
+"Ally": "",
+"Bullet": "",
+"Enemy": "",
+"Playable_Character": "",
+"Player": ""
+}
+
 [application]
 
 config/name="Safe"
