@@ -72,9 +72,9 @@ func update_damage_dealed():
 	frame_data["damage"] = {ENEMY_ID : damage_points_dealed_in_the_frame}	
 	damage_points_dealed_in_the_frame = 0
 
-func update_player_direction():
-	frame_data["dirx"] = Player.direction.x
-	frame_data["diry"] = Player.direction.y
+func update_player_movement_direction():
+	frame_data["dirx"] = Player.movement_direction.x
+	frame_data["diry"] = Player.movement_direction.y
 
 func update_player_position():
 	frame_data["posx"] = Player.position.x
