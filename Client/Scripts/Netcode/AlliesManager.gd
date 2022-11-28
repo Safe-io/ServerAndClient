@@ -31,11 +31,10 @@ func ally_exists(id: String) -> bool:
 	return allies.has(id)
 
 func update_ally_position(id: String, ally_position: Vector2):
-	print(ally_position)
 	allies[id].position = ally_position
 	
 func update_ally_direction(id: String, ally_direction: Vector2):
-	allies[id].direction = ally_direction
+	allies[id].movement_direction = ally_direction
 
 func update_ally_rotation(id: String, rotation: float):
 	allies[id].rotation_degrees = rotation

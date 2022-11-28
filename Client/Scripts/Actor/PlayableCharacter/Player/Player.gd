@@ -2,11 +2,7 @@ extends PlayableCharacter
 
 var peashooter_bullet = preload("res://Scenes/Bullet/PeashooterBullet.tscn")
 
-onready var end_of_the_hand = $EndOfTheHand
 
-onready var PlayerHand = $PlayerHand
-
-var is_player : bool
 
 var GemidoHit2
 
@@ -71,5 +67,3 @@ func get_input():
 func _on_Area2D_area_entered(area):
 	print("colisao pelo player")
 
-func is_player():
-	return id == MainNode.player_id
