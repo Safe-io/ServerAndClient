@@ -2,11 +2,12 @@
 
 [ext_resource path="res://Assets/Images/NicePng_blue-orb-png_2153127.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Images/pngwing.com.png" type="Texture" id=2]
-[ext_resource path="res://Scripts/Player/Ally.gd" type="Script" id=3]
-[ext_resource path="res://Scripts/Player/AllyHand.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/Actor/PlayableCharacter/Player/Ally.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Actor/PlayableCharacter/Player/AllyHand.gd" type="Script" id=4]
 [ext_resource path="res://Assets/Audio/magicShoot.mp3" type="AudioStream" id=5]
 [ext_resource path="res://Assets/Audio/Gemido1A.mp3" type="AudioStream" id=6]
 [ext_resource path="res://Assets/Audio/Gemido2U.mp3" type="AudioStream" id=7]
+
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 42.9588

@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Actor
 
 export (int) var speed = 200
 
@@ -6,13 +6,7 @@ var peashooter_bullet = preload("res://Scenes/Bullet/PeashooterBullet.tscn")
 
 onready var end_of_the_hand = $EndOfTheHand
 
-onready var MainNode = get_tree().root.get_child(0)
 
-var velocity = Vector2()
-
-var health_points = 10
-
-var AlliesManager
 var last_rotation
 var last_direction
 var direction := Vector2(0,0)
@@ -25,6 +19,7 @@ var is_player : bool
 var GemidoHit2
 
 func _ready():
+	initialize_main_node()
 	if id == MainNode.player_id:
 		is_player = true
 	else:
