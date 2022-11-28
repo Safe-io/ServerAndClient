@@ -6,8 +6,6 @@ func _process(delta):
 
 	position += transform.x * speed * delta
 
-	
-
 func _on_KillTimer_timeout():
 	queue_free()
 	
@@ -20,4 +18,4 @@ func _on_Sprite_animation_finished():
 
 func _on_Area2D_body_entered(body):
 	queue_free()
-	body.take_damage()
+	body.take_damage(1.0)
