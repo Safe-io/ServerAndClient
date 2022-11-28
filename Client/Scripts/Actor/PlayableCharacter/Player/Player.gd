@@ -13,31 +13,22 @@ var GemidoHit2
 func _ready():
 	initialize_main_node()
 	initialize_allies_manager()
-	movement_speed = 200.0
-	
-	if id == MainNode.player_id:
-		is_player = true
-	else:
-		is_player = false
-	AlliesManager = MainNode.get_child(1)
-	last_rotation = rotation_degrees
-	GemidoHit2 = $GemidoHit2
+	movement_speed = 500.0
 
 func _physics_process(_delta):
 	if last_rotation != rotation_degrees:
 		last_rotation = rotation_degrees
 		MainNode.update_player_rotation()
-		
-	if is_player():
-		get_input()
-		velocity = move_and_slide(velocity)
-		if last_movement_direction != movement_direction:
-			last_movement_direction = movement_direction
-			MainNode.update_player_position()
-			MainNode.update_player_movement_direction()
+
+	get_input()
+	velocity = move_and_slide(velocity)
+	if last_movement_direction != movement_direction:
+		last_movement_direction = movement_direction
+		MainNode.update_player_position()
+		MainNode.update_player_movement_direction()
 			
-	else:
-		velocity = move_and_slide(movement_direction.normalized() * movement_speed)
+
+		
 		
 func get_input():
 	velocity = Vector2()
