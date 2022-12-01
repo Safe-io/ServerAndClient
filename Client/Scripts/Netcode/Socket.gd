@@ -52,6 +52,7 @@ func _on_data():
 		Player = $PlayerParent.get_child(0)
 		update_player_position()
 	else:
+		
 		# LEMBRE-SE QUE ENEMY ID EH HARD CODED, JA QUE AINDA NAO IMPLEMENTAMOS ENEMIES MANAGER
 		Boss1.update_boss_health_points(int(payload.result["enemies"][String(ENEMY_ID)]["life"]))
 		AlliesManager.update_allies_status(payload.result["players"], player_id)

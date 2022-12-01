@@ -47,7 +47,7 @@ rotating = true
 current = true
 zoom = Vector2( 1.5, 1.5 )
 smoothing_enabled = true
-smoothing_speed = 4.0
+smoothing_speed = 0.5
 
 [node name="EndOfTheHand" type="Position2D" parent="Player"]
 position = Vector2( 78, 0 )

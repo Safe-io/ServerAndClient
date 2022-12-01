@@ -8,6 +8,7 @@ var health_points: float = 10.0
 
 var AlliesManager
 var MainNode
+var Boss
 
 
 #Player* Stuff
@@ -22,8 +23,9 @@ var id : String
 func initialize_main_node():
 	MainNode       = get_tree().root.get_child(0)
 func initialize_allies_manager():
-	 AlliesManager = MainNode.get_node("AlliesManager")
-
+	AlliesManager  = MainNode.get_node("AlliesManager")
+func initialize_boss():
+	Boss           = MainNode.get_node("Boss")
 func take_damage(damage: float):
 	if health_points <=0:
 		die()

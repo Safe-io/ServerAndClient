@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Actor/Actor.gd"
 }, {
-"base": "Node2D",
+"base": "Area2D",
 "class": "Bullet",
 "language": "GDScript",
 "path": "res://Scripts/Bullet/Bullet.gd"

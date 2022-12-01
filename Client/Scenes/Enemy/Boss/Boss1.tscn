@@ -33,7 +33,7 @@ whiten_material = ExtResource( 4 )
 shape = SubResource( 3 )
 
 [node name="ReverseRotation" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 100.0
 autostart = true
 
 [node name="Label" type="Label" parent="."]

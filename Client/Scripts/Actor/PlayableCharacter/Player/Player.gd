@@ -5,13 +5,13 @@ var peashooter_bullet = preload("res://Scenes/Bullet/PeashooterBullet.tscn")
 
 
 var GemidoHit2
-var Boss
+
 
 func _ready():
 	initialize_main_node()
 	initialize_allies_manager()
-	Boss = MainNode.get_node("Boss")
-	movement_speed = 500.0
+	initialize_boss()
+	movement_speed = 600.0
 
 func _physics_process(_delta):
 	if last_rotation != rotation_degrees:
@@ -31,16 +31,12 @@ func _physics_process(_delta):
 func get_input():
 	velocity = Vector2()
 	if Input.is_action_pressed("ui_right"):
-		velocity.x = 1
 		movement_direction.x = 1
 	if Input.is_action_pressed("ui_left"):
-		velocity.x = -1
 		movement_direction.x = -1
 	if Input.is_action_pressed("ui_down"):
-		velocity.y = 1
 		movement_direction.y = 1
 	if Input.is_action_pressed("ui_up"):
-		velocity.y = -1
 		movement_direction.y = -1
 #################################################
 	if Input.is_action_just_released("ui_right"):
@@ -53,9 +49,7 @@ func get_input():
 		movement_direction.y = 0
 		
 	look_at(Boss.global_position)
-	velocity =  velocity.normalized().rotated(deg2rad(rotation_degrees + 90)) * movement_speed
-	print(Vector2.RIGHT)
-	print(rotation_degrees)
+	update_velocity()
 	
 	if Input.is_action_pressed("shoot_1"):
 		if !is_shooting:

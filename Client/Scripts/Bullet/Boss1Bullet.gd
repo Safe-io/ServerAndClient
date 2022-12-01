@@ -3,8 +3,8 @@ extends AnimatedSprite
 var speed = 400
 
 func _process(delta):
-
 	position += transform.x * speed * delta
+	rotate(deg2rad(1.5))
 
 func _on_KillTimer_timeout():
 	queue_free()
