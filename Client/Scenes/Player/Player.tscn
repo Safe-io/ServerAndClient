@@ -12,6 +12,10 @@
 radius = 39.0288
 
 [node name="PlayerParent" type="Node2D"]
+position = Vector2( 867, 726 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Player" type="KinematicBody2D" parent="."]
 position = Vector2( 1, 0 )
@@ -38,16 +42,15 @@ script = ExtResource( 3 )
 
 [node name="Camera2D" type="Camera2D" parent="Player/PlayerHand"]
 position = Vector2( 28.5743, 800 )
-rotation = -1.5708
 scale = Vector2( 14.2857, 14.2857 )
 rotating = true
 current = true
-zoom = Vector2( 1.5, 0.8 )
+zoom = Vector2( 1.5, 1.5 )
 smoothing_enabled = true
 smoothing_speed = 4.0
 
 [node name="EndOfTheHand" type="Position2D" parent="Player"]
-position = Vector2( 200, 0 )
+position = Vector2( 78, 0 )
 
 [node name="MagicShotSound" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource( 5 )

@@ -52,10 +52,10 @@ func get_input():
 	if Input.is_action_just_released("ui_up"):
 		movement_direction.y = 0
 		
-	movement_direction = Vector2.RIGHT.rotated(rotation)
-	velocity =    velocity.normalized() * movement_speed
-	velocity = (velocity.normalized() * movement_speed).tangent().tangent().tangent().tangent()
 	look_at(Boss.global_position)
+	velocity =  velocity.normalized().rotated(deg2rad(rotation_degrees + 90)) * movement_speed
+	print(Vector2.RIGHT)
+	print(rotation_degrees)
 	
 	if Input.is_action_pressed("shoot_1"):
 		if !is_shooting:
