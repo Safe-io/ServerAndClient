@@ -45,7 +45,7 @@ position = Vector2( 28.5743, 800 )
 scale = Vector2( 14.2857, 14.2857 )
 rotating = true
 current = true
-zoom = Vector2( 1.5, 1.5 )
+zoom = Vector2( 4, 4 )
 smoothing_enabled = true
 smoothing_speed = 0.5
 
