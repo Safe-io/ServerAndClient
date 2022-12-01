@@ -4,9 +4,10 @@ var HitSound
 onready var MainNode = get_tree().root.get_child(0)
 
 var rotate_speed : float = 60.0
-var shoote_time_wait_time : float = 0.2
+var shoote_time_wait_time : float = 0.1
 var spawn_point_count : int = 6
-var bullet_speed : int = 5000
+var bullet_speed : int = 12000
+#bullet_speed não altera as formas que são geradas
 
 var max_health: float = 2000
 var health_points : float = 2000.0
