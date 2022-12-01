@@ -8,7 +8,6 @@
 [ext_resource path="res://Assets/Audio/Gemido1A.mp3" type="AudioStream" id=6]
 [ext_resource path="res://Assets/Audio/Gemido2U.mp3" type="AudioStream" id=7]
 
-
 [sub_resource type="CircleShape2D" id=1]
 radius = 42.9588
 
