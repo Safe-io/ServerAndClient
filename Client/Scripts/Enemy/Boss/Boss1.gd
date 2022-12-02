@@ -2,11 +2,15 @@ extends Node2D
 
 var HitSound
 onready var MainNode = get_tree().root.get_child(0)
+var is_shooting
 
-var rotate_speed : float = 60.0
+var rotate_speed : float = 16.1803398875
+var bullet_rotation_degrees_per_frame = 1.61803398875
+
+
 var shoote_time_wait_time : float = 0.1
-var cannon_count : int = 6
-var bullet_speed : int = 4500
+var cannon_count : int = 3
+var bullet_speed : int = 100
 #bullet_speed não altera as formas que são geradas
 
 var max_health: float = 2000
@@ -25,20 +29,22 @@ func _ready():
 	instantiate_cannons(cannon_count)
 	
 	$ShootTimer.wait_time = shoote_time_wait_time
-	$ShootTimer.start()
 		
 func _physics_process(delta):
+	if is_shooting:
+		for s in Rotator.get_children():
+			var bullet = bullet_scene.instance()
+			bullet.movement_speed = bullet_speed
+			bullet.rotation_degrees_per_frame = bullet_rotation_degrees_per_frame
+			MainNode.add_child(bullet)
+			bullet.position = s.global_position
+			bullet.rotation = s.global_rotation
 	var new_rotation = Rotator.rotation_degrees + rotate_speed * delta
 	Rotator.rotation_degrees = fmod(new_rotation, 360)
 	
+	
 
-func _on_ShootTimer_timeout() -> void:
-	for s in Rotator.get_children():
-		var bullet = bullet_scene.instance()
-		bullet.speed = bullet_speed
-		MainNode.add_child(bullet)
-		bullet.position = s.global_position
-		bullet.rotation = s.global_rotation
+	
 	
 func update_boss_health_points(curent_health_points: int):
 	health_points = curent_health_points
@@ -72,3 +78,8 @@ func smoothly_rotate_to_target(agent, target, delta):
 	var direction_to_target = (target.global_position - global_position)
 	var angle_to_target     = transform.x.angle_to(direction_to_target)
 	agent.rotate(sign(angle_to_target) * min(delta * rotate_speed, abs(angle_to_target)))
+
+
+func _on_StartShooting_timeout():
+	$ShootTimer.start()
+	is_shooting = true

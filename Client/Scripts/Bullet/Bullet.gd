@@ -11,6 +11,7 @@ var distance_per_frame: float
 var is_player_bullet: bool
 var motion : Vector2
 
+var rotation_degrees_per_frame: float = 1.61803398875
 func turn_bullet_off():
 	if self.is_visible():
 		self.hide()
