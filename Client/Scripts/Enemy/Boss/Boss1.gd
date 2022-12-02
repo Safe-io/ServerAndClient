@@ -4,12 +4,12 @@ var HitSound
 onready var MainNode = get_tree().root.get_child(0)
 var is_shooting
 
-var rotate_speed : float = 16.1803398875
+var rotate_speed : float = 60.1803398875
 var bullet_rotation_degrees_per_frame = 1.61803398875
 
 
 var shoote_time_wait_time : float = 0.1
-var cannon_count : int = 3
+var cannon_count : int = 1
 var bullet_speed : int = 100
 #bullet_speed não altera as formas que são geradas
 
