@@ -5,14 +5,15 @@ onready var MainNode = get_tree().root.get_child(0)
 
 var rotate_speed : float = 60.0
 var shoote_time_wait_time : float = 0.1
-var spawn_point_count : int = 6
-var bullet_speed : int = 3000
+var cannon_count : int = 6
+var bullet_speed : int = 4500
 #bullet_speed não altera as formas que são geradas
 
 var max_health: float = 2000
 var health_points : float = 2000.0
 
 var Rotator 
+var Player
 onready var hp_bar = $HPBar
 var BossCannonScene = preload("res://Scenes/Boss/BossCannon.tscn")
 var bullet_scene = preload("res://Scenes/Bullet/Boss1Bullet.tscn")
@@ -20,16 +21,16 @@ var bullet_scene = preload("res://Scenes/Bullet/Boss1Bullet.tscn")
 func _ready():
 	HitSound = $HitSound
 	Rotator = $Rotator
-	
-	instantiate_cannons(spawn_point_count)
+	Player = MainNode.get_node("Player")
+	instantiate_cannons(cannon_count)
 	
 	$ShootTimer.wait_time = shoote_time_wait_time
 	$ShootTimer.start()
 		
 func _physics_process(delta):
 	var new_rotation = Rotator.rotation_degrees + rotate_speed * delta
-	$Rotator.rotation_degrees = fmod(new_rotation, 360)
-	$Label.text = String (health_points)
+	Rotator.rotation_degrees = fmod(new_rotation, 360)
+	
 
 func _on_ShootTimer_timeout() -> void:
 	for s in Rotator.get_children():
@@ -42,9 +43,8 @@ func _on_ShootTimer_timeout() -> void:
 func update_boss_health_points(curent_health_points: int):
 	health_points = curent_health_points
 
-
 func _on_Area2D_area_entered(area):
-	area.turn_bullet_off(area)
+	area.turn_bullet_off()
 	HitSound.play()
 
 	if health_points <=0:
@@ -67,3 +67,8 @@ func instantiate_cannons(number_of_cannons: int):
 		current_boss_cannon.position = current_boss_cannon_spawn_position
 		current_boss_cannon.rotation = current_boss_cannon_spawn_position.angle()
 		Rotator.add_child(current_boss_cannon)
+
+func smoothly_rotate_to_target(agent, target, delta):
+	var direction_to_target = (target.global_position - global_position)
+	var angle_to_target     = transform.x.angle_to(direction_to_target)
+	agent.rotate(sign(angle_to_target) * min(delta * rotate_speed, abs(angle_to_target)))

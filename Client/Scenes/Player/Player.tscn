@@ -45,9 +45,9 @@ position = Vector2( 28.5743, 800 )
 scale = Vector2( 14.2857, 14.2857 )
 rotating = true
 current = true
-zoom = Vector2( 4, 4 )
+zoom = Vector2( 2, 2 )
 smoothing_enabled = true
-smoothing_speed = 0.5
+smoothing_speed = 3.0
 
 [node name="EndOfTheHand" type="Position2D" parent="Player"]
 position = Vector2( 78, 0 )

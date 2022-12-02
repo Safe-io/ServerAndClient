@@ -11,7 +11,7 @@ func _ready():
 	initialize_main_node()
 	initialize_allies_manager()
 	initialize_boss()
-	movement_speed = 600.0
+	movement_speed = 1100.0
 
 func _physics_process(_delta):
 	if last_rotation != rotation_degrees:

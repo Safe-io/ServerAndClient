@@ -73,7 +73,7 @@ func _physics_process(delta: float) -> void:
 func instantiate_bullet():
 	var current_bullet = bullet_scene.instance()
 	current_bullet.max_range = bullet_aspects['range']
-	current_bullet.speed = bullet_aspects['speed']
+	current_bullet.movement_speed = bullet_aspects['speed']
 	_ready_bullets_pool.append(current_bullet)
 	PlayerParent.call_deferred("add_child", current_bullet)
 	turn_bullet_off(current_bullet)
