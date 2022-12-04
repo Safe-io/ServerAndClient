@@ -6,11 +6,11 @@ var is_shooting
 
 var rotate_speed : float = 60.1803398875
 var bullet_rotation_degrees_per_frame = 1.61803398875
-
+var fire_rate = 10
 
 var shoote_time_wait_time : float = 0.1
 var cannon_count : int = 1
-var bullet_speed : int = 100
+var bullet_speed : float = 20
 #bullet_speed não altera as formas que são geradas
 
 var max_health: float = 2000
@@ -27,24 +27,12 @@ func _ready():
 	Rotator = $Rotator
 	Player = MainNode.get_node("Player")
 	instantiate_cannons(cannon_count)
-	
+
 	$ShootTimer.wait_time = shoote_time_wait_time
 		
 func _physics_process(delta):
-	if is_shooting:
-		for s in Rotator.get_children():
-			var bullet = bullet_scene.instance()
-			bullet.movement_speed = bullet_speed
-			bullet.rotation_degrees_per_frame = bullet_rotation_degrees_per_frame
-			MainNode.add_child(bullet)
-			bullet.position = s.global_position
-			bullet.rotation = s.global_rotation
 	var new_rotation = Rotator.rotation_degrees + rotate_speed * delta
 	Rotator.rotation_degrees = fmod(new_rotation, 360)
-	
-	
-
-	
 	
 func update_boss_health_points(curent_health_points: int):
 	health_points = curent_health_points
@@ -72,6 +60,7 @@ func instantiate_cannons(number_of_cannons: int):
 		var current_boss_cannon_spawn_position = Vector2(110, 0).rotated(step * index)
 		current_boss_cannon.position = current_boss_cannon_spawn_position
 		current_boss_cannon.rotation = current_boss_cannon_spawn_position.angle()
+		current_boss_cannon.set_bullet_movement_speed(bullet_speed)
 		Rotator.add_child(current_boss_cannon)
 
 func smoothly_rotate_to_target(agent, target, delta):

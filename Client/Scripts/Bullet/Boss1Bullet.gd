@@ -5,7 +5,7 @@ func _process(delta):
 	rotate(deg2rad(rotation_degrees_per_frame))
 
 func _ready():
-	pass
+	movement_speed = get_parent().bullet_speed
 
 func _on_Area2D_body_entered(body):
 	queue_free()

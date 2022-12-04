@@ -2,15 +2,13 @@ extends PlayableCharacter
 
 var peashooter_bullet = preload("res://Scenes/Bullet/PeashooterBullet.tscn")
 
-
-
 var GemidoHit2
-
-
+var PlayerHand
 func _ready():
 	initialize_main_node()
 	initialize_allies_manager()
 	initialize_boss()
+	PlayerHand = $PlayerHand
 	movement_speed = 1100.0
 
 func _physics_process(_delta):
@@ -54,11 +52,13 @@ func get_input():
 	if Input.is_action_pressed("shoot_1"):
 		if !is_shooting:
 			is_shooting = true
+			PlayerHand.is_shooting = true
 			MainNode.update_player_is_shooting(is_shooting)
 
 	if Input.is_action_just_released("shoot_1"):
 		if is_shooting:
 			is_shooting = false
+			PlayerHand.is_shooting = false
 			MainNode.update_player_is_shooting(is_shooting)
 	
 func _on_Area2D_area_entered(area):
