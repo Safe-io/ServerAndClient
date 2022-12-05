@@ -5,13 +5,15 @@ onready var MainNode = get_tree().root.get_child(0)
 var is_shooting = false
 
 #A bala dará uma volta a cada 6/x segundos
+#6/6 = 1 círculo
+
 var rotate_speed : float = 90
-var bullet_rotation_degrees_per_frame =6 / 4
-var fire_rate = 10
+var bullet_rotation_degrees_per_frame = 6
+var fire_rate = 30
 
 var shoote_time_wait_time : float = 0.1
-var cannon_count : int = 1
-var bullet_speed : float = 400
+var cannon_count : int = 3
+var bullet_speed : float = 1000
 #bullet_speed não altera as formas que são geradas
 
 var max_health: float = 2000
@@ -68,5 +70,3 @@ func smoothly_rotate_to_target(agent, target, delta):
 	agent.rotate(sign(angle_to_target) * min(delta * rotate_speed, abs(angle_to_target)))
 
 
-func _on_StartShooting_timeout():
-	is_shooting = true
