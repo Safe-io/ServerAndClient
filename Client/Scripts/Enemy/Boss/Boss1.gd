@@ -2,15 +2,16 @@ extends Node2D
 
 var HitSound
 onready var MainNode = get_tree().root.get_child(0)
-var is_shooting
+var is_shooting = false
 
-var rotate_speed : float = 60.1803398875
-var bullet_rotation_degrees_per_frame = 1.61803398875
+#A bala dará uma volta a cada 6/x segundos
+var rotate_speed : float = 90
+var bullet_rotation_degrees_per_frame =6 / 4
 var fire_rate = 10
 
 var shoote_time_wait_time : float = 0.1
 var cannon_count : int = 1
-var bullet_speed : float = 20
+var bullet_speed : float = 400
 #bullet_speed não altera as formas que são geradas
 
 var max_health: float = 2000
@@ -28,8 +29,6 @@ func _ready():
 	Player = MainNode.get_node("Player")
 	instantiate_cannons(cannon_count)
 
-	$ShootTimer.wait_time = shoote_time_wait_time
-		
 func _physics_process(delta):
 	var new_rotation = Rotator.rotation_degrees + rotate_speed * delta
 	Rotator.rotation_degrees = fmod(new_rotation, 360)
@@ -47,7 +46,7 @@ func _on_Area2D_area_entered(area):
 		shoote_time_wait_time = 0.1
 		rotate_speed = 40
 	if(area.is_player_bullet):
-		MainNode.increase_damage_points_dealed_in_the_frame()	
+		MainNode.increase_damage_points_dealed_in_the_frame()
 	hp_bar.value = (health_points/max_health) * 100
 
 func _on_ReverseRotation_timeout():
@@ -70,5 +69,4 @@ func smoothly_rotate_to_target(agent, target, delta):
 
 
 func _on_StartShooting_timeout():
-	$ShootTimer.start()
 	is_shooting = true

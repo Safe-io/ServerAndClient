@@ -14,6 +14,6 @@ func _ready():
 	set_fire_rate(10)
 	initialize_pool_parent(PlayerParent)
 	initialize_cannon_parent(Player)
-	initialize_pool_size()
+	initialize_pool_size(200)
 	insntantiate_bullet_pool()
 	

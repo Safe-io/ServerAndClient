@@ -13,6 +13,6 @@ func _ready():
 	set_fire_rate(Boss.fire_rate)
 	initialize_pool_parent(pool_parent)
 	initialize_cannon_parent(Rotator)
-	initialize_pool_size()
+	initialize_pool_size(1000)
 	insntantiate_bullet_pool()
 	

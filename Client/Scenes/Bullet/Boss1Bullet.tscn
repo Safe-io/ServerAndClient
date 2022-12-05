@@ -6,8 +6,7 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 0.333333
 
-[node name="Area2D" type="Area2D"]
-scale = Vector2( 7, 7 )
+[node name="BossBullet" type="Area2D"]
 collision_layer = 16
 collision_mask = 2
 script = ExtResource( 2 )
@@ -18,5 +17,5 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( -0.666667, 0 )
-scale = Vector2( 0.005, 0.005 )
+scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 1 )

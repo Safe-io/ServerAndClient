@@ -2,7 +2,7 @@ extends Node2D
 
 class_name Cannon
 
-var is_shooting: bool
+var is_shooting: bool 
 
 var bullet_scene
 var current_bullet
@@ -20,11 +20,11 @@ var time_between_each_bullet
 var delta_sum : float = 0
 
 func _physics_process(delta: float) -> void:
+	
+	var direction = Vector2.RIGHT.rotated(cannon_parent.rotation)
+	cap_bullet_count_on_shooting()
+	increase_delta_sum(delta)
 	if is_shooting:
-		var direction = Vector2.RIGHT.rotated(cannon_parent.rotation)
-		cap_bullet_count_on_shooting()
-		increase_delta_sum(delta)
-
 		if(delta_sum > time_between_each_bullet):
 			var remainder = fmod(delta_sum, time_between_each_bullet)
 
@@ -46,8 +46,8 @@ func initialize_pool_parent(parent):
 func initialize_cannon_parent(parent):
 	cannon_parent = parent
 	
-func initialize_pool_size():
-	pool_size = fire_rate * 25
+func initialize_pool_size(size):
+	pool_size = size
 
 func insntantiate_bullet_pool():
 	for i in pool_size:
