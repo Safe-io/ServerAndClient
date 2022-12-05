@@ -54,6 +54,10 @@ config/icon="res://Assets/Images/icon.png"
 window/size/width=640
 window/size/height=480
 
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/EditorImage/plugin.cfg" )
+
 [input]
 
 ui_left={
