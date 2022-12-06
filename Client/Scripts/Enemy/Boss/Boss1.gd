@@ -2,8 +2,6 @@ extends Boss
 
 #set_variables(fire_rate, bullet_speed, bullet_rotation_degrees_per_frame)     
 var first_phase_node
-func _ready():
-	start_first_phase()
 
 func start_first_phase():
 	first_phase_node = Node2D.new()
@@ -20,3 +18,5 @@ func start_third_phase():
 func start_last_phase():
 	print("Starting fourth phase")
 
+func _on_StartFirstPhase_timeout():
+	start_first_phase()

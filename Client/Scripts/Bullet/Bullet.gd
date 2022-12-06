@@ -5,6 +5,7 @@ class_name Bullet
 var movement_speed: float = 500.0
 var max_range: float = 3000
 var movement_direction : Vector2
+var bullet_rotation_degrees_per_frame: float
 
 var travelled_distance: float = 0
 var distance_per_frame: float

@@ -17,3 +17,12 @@ func _ready():
 	initialize_pool_size(200)
 	insntantiate_bullet_pool()
 	
+func insntantiate_bullet_pool():
+	for i in pool_size:
+		instantiate_bullet()
+		
+func instantiate_bullet():
+	current_bullet = bullet_scene.instance()
+	bullets_pool.append(current_bullet)
+	pool_parent.call_deferred("add_child", current_bullet)
+	current_bullet.turn_bullet_off()
