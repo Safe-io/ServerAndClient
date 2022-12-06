@@ -40,6 +40,9 @@ func _physics_process(delta: float) -> void:
 				current_bullet.set_direction(direction.rotated(rand_range((-angle/2)* 0.0174533, (angle/2)*0.0174533)))
 				#MagicShotSound.play()
 
+
+func initialize_bullet_scene(scene):
+	bullet_scene = scene
 func initialize_pool_parent(parent):
 	pool_parent = parent
 

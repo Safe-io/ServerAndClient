@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Actor/Actor.gd"
 }, {
+"base": "Node2D",
+"class": "Boss",
+"language": "GDScript",
+"path": "res://Scripts/Enemy/Boss/Boss.gd"
+}, {
 "base": "Area2D",
 "class": "Bullet",
 "language": "GDScript",
@@ -36,6 +41,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Actor": "",
+"Boss": "",
 "Bullet": "",
 "Cannon": "",
 "Enemy": "",
@@ -56,7 +62,7 @@ window/size/height=480
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/EditorImage/plugin.cfg" )
+enabled=PoolStringArray(  )
 
 [input]
 

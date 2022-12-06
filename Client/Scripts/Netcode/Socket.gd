@@ -31,7 +31,6 @@ func _ready():
 		print("Connection Refused")
 		set_process(false)
 		
-	
 func _closed(_was_clean = false):
 	print("Connection Closed")
 
