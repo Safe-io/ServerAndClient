@@ -1,16 +1,22 @@
 extends Boss
 
+#set_variables(fire_rate, bullet_speed, bullet_rotation_degrees_per_frame)     
+var first_phase_node
 func _ready():
-	ChangePhase()
+	start_first_phase()
 
 func start_first_phase():
-	current_rotator = RotatorScene.instantiate()
-	Rotators.append(current_rotator)
-	add_child(current_rotator)
-	add_child(current_rotator)
+	first_phase_node = Node2D.new()
+	add_child(first_phase_node)
+	first_phase_node.set_name ("FirstPhase")
+	current_rotator = instantiate_rotator()
+	first_phase_node.add_child(current_rotator)
+	current_rotator.set_variables(10, 500, 1.5)
+
 func start_second_phase():
 	print("Starting second phase")
 func start_third_phase():
 	print("Starting third phase")
 func start_last_phase():
 	print("Starting fourth phase")
+

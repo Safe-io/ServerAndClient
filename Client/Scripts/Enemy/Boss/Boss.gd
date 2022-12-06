@@ -15,14 +15,16 @@ func ChangePhase():
 		start_third_phase()
 	if(current_phase == 4):
 		start_fourth_phase()
-		
-
-
 
 onready var MainNode = get_tree().root.get_child(0)
 
 var max_health: float = 2000
 var health_points : float = 2000.0
+
+var fire_rate
+var bullet_speed
+var bullet_rotation_degrees_per_frame
+
 var current_rotator
 var Rotators := []
 onready var hp_bar = $HPBar
@@ -51,3 +53,8 @@ func start_third_phase():
 	print("Starting first phase")
 func start_fourth_phase():
 	print("Starting first phase")
+
+func instantiate_rotator():
+	current_rotator = RotatorScene.instance()
+	Rotators.append(current_rotator)
+	return current_rotator

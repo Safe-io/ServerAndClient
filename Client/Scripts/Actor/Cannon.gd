@@ -4,6 +4,7 @@ class_name Cannon
 
 var is_shooting: bool 
 
+var bullet_speed
 var bullet_scene
 var current_bullet
 var angle = 0
@@ -37,6 +38,7 @@ func _physics_process(delta: float) -> void:
 				index = wrapi(index + 1, 0, pool_size)
 				current_bullet.is_player_bullet = true
 				current_bullet.global_position = global_position
+
 				current_bullet.set_direction(direction.rotated(rand_range((-angle/2)* 0.0174533, (angle/2)*0.0174533)))
 				#MagicShotSound.play()
 
@@ -61,6 +63,7 @@ func instantiate_bullet():
 	bullets_pool.append(current_bullet)
 	pool_parent.call_deferred("add_child", current_bullet)
 	current_bullet.turn_bullet_off()
+
 
 func cap_bullet_count_on_shooting():
 	if delta_sum > time_between_each_bullet:
