@@ -17,6 +17,7 @@ func set_variables(_fire_rate, _bullet_speed, _bullet_rotation_degrees_per_frame
 	BossCannon.bullet_speed = _bullet_speed
 	BossCannon.bullet_rotation_degrees_per_frame = _bullet_rotation_degrees_per_frame
 	add_child(BossCannon)
+	BossCannon.is_shooting = true
 	
 func smoothly_rotate_to_target(agent, target, delta):
 	var direction_to_target = (target.global_position - global_position)
