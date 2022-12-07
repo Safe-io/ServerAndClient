@@ -26,7 +26,7 @@ var bullet_speed
 var bullet_rotation_degrees_per_frame
 
 var current_rotator
-var Rotators := []
+var Rotators = []
 onready var hp_bar = $HPBar
 onready var HurtSound = $HitSound
 

@@ -9,9 +9,10 @@ onready var BossCannonScene = load("res://Scenes/Boss/BossCannon.tscn")
 var BossCannon
 
 func _physics_process(delta):
-	rotate(deg2rad(1.5))
+	rotate(deg2rad(rotate_speed))
 
-func set_variables(_fire_rate, _bullet_speed, _bullet_rotation_degrees_per_frame):
+func set_variables(_fire_rate, _bullet_speed, _bullet_rotation_degrees_per_frame, rotation_speed):
+	rotate_speed = rotation_speed
 	BossCannon = BossCannonScene.instance()
 	BossCannon.set_fire_rate(_fire_rate)
 	BossCannon.bullet_speed = _bullet_speed
