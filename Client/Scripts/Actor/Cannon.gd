@@ -22,7 +22,7 @@ var delta_sum : float = 0
 
 func _physics_process(delta: float) -> void:
 	
-	var direction = Vector2.RIGHT.rotated(cannon_parent.rotation)
+	var direction = Vector2.RIGHT.rotated(deg2rad(cannon_parent.rotation_degrees))
 	cap_bullet_count_on_shooting()
 	increase_delta_sum(delta)
 	if is_shooting:

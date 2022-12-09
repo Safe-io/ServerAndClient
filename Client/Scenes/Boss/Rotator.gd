@@ -5,7 +5,7 @@ var fire_rate : float = 10
 var bullet_speed  :float 
 var bullet_rotation_degrees_per_frame: float
 
-onready var BossCannonScene = load("res://Scenes/Boss/BossCannon.tscn")
+var BossCannonScene = preload("res://Scenes/Boss/BossCannon.tscn")
 var BossCannon
 
 func _physics_process(delta):
