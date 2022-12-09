@@ -7,6 +7,7 @@ func _physics_process(delta):
 func _ready():
 	Boss = get_parent()
 	max_range = INF
+	is_player_bullet = false
 
 
 func _on_Area2D_body_entered(body):

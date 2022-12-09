@@ -77,7 +77,7 @@ one_shot = true
 autostart = true
 
 [node name="Shoot1_2" type="Timer" parent="."]
-wait_time = 5.5
+wait_time = 5.0
 one_shot = true
 
 [node name="Shoot1_3" type="Timer" parent="."]
