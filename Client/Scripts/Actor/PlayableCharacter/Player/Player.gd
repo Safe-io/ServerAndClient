@@ -4,12 +4,15 @@ var peashooter_bullet = preload("res://Scenes/Bullet/PeashooterBullet.tscn")
 
 var GemidoHit2
 var PlayerHand
+var collision
 func _ready():
 	initialize_main_node()
 	initialize_allies_manager()
 	initialize_boss()
 	PlayerHand = $PlayerHand
+	GemidoHit2 = $GemidoHit2
 	movement_speed = 1000.0
+
 
 func _physics_process(_delta):
 	if last_rotation != rotation_degrees:
@@ -17,7 +20,10 @@ func _physics_process(_delta):
 		MainNode.update_player_rotation()
 
 	get_input()
+
 	velocity = move_and_slide(velocity)
+	if collision:
+		print("Colidiu com", collision.collider.name)
 	if last_movement_direction != movement_direction:
 		last_movement_direction = movement_direction
 		MainNode.update_player_position()
@@ -61,6 +67,13 @@ func get_input():
 			PlayerHand.is_shooting = false
 			MainNode.update_player_is_shooting(is_shooting)
 	
-func _on_Area2D_area_entered(area):
-	print("colisao pelo player")
 
+	
+
+
+
+func _on_PlayerArea2D_area_entered(area):
+	GemidoHit2.play()
+	if area.name == "BossCollider":
+		return
+	area.turn_bullet_off()

@@ -35,12 +35,12 @@ material = ExtResource( 4 )
 scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 1 )
 
-[node name="Area2D" parent="." instance=ExtResource( 3 )]
+[node name="BossCollider" parent="." instance=ExtResource( 3 )]
 collision_layer = 8
 collision_mask = 6
 whiten_material = ExtResource( 4 )
 
-[node name="CollisionShape2D" parent="Area2D" index="0"]
+[node name="CollisionShape2D" parent="BossCollider" index="0"]
 shape = SubResource( 3 )
 
 [node name="ReverseRotation" type="Timer" parent="."]
@@ -84,13 +84,13 @@ one_shot = true
 wait_time = 0.75
 one_shot = true
 
-[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_entered" from="BossCollider" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="ReverseRotation" to="." method="_on_ReverseRotation_timeout"]
-[connection signal="timeout" from="Shoot1_1" to="." method="_on_StartFirstPhase_timeout"]
 [connection signal="timeout" from="Shoot1_1" to="." method="_on_Shoot1_1_timeout"]
+[connection signal="timeout" from="Shoot1_1" to="." method="_on_StartFirstPhase_timeout"]
 [connection signal="timeout" from="Shoot1_2" to="." method="_on_Shoot1_2_timeout"]
 [connection signal="timeout" from="Shoot1_2" to="." method="_on_ShootTimer2_timeout"]
 [connection signal="timeout" from="Shoot1_2" to="." method="_on_ShootTimer_timeout"]
 [connection signal="timeout" from="Shoot1_3" to="." method="_on_Shoot1_3_timeout"]
 
-[editable path="Area2D"]
+[editable path="BossCollider"]

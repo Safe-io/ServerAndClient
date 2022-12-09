@@ -24,7 +24,12 @@ collision_layer = 2
 collision_mask = 16
 script = ExtResource( 4 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+[node name="PlayerArea2D" type="Area2D" parent="Player"]
+collision_layer = 2
+collision_mask = 16
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/PlayerArea2D"]
 position = Vector2( 1, -1.5 )
 shape = SubResource( 1 )
 
@@ -61,3 +66,5 @@ stream = ExtResource( 6 )
 
 [node name="GemidoHit2" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource( 7 )
+
+[connection signal="area_entered" from="Player/PlayerArea2D" to="Player" method="_on_PlayerArea2D_area_entered"]

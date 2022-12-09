@@ -10,7 +10,5 @@ func _ready():
 	is_player_bullet = false
 
 
-func _on_Area2D_body_entered(body):
-	queue_free()
-	body.take_damage(1.0)
+
 
