@@ -22,7 +22,7 @@ func start_last_phase():
 
 func _on_Shoot1_1_timeout():
 	current_rotator = instantiate_rotator()
-	current_rotator.set_variables(20, 500, 2, 1)
+	current_rotator.set_variables(20, 500, 1, 0.5)
 	first_phase_node.add_child(current_rotator)
 
 	$Shoot1_2.start()
@@ -30,7 +30,7 @@ func _on_Shoot1_1_timeout():
 func _on_Shoot1_2_timeout():
 	current_rotator = instantiate_rotator()
 
-	current_rotator.set_variables(10,1000, 4, 1)
+	current_rotator.set_variables(10,1000, 2, 0.5)
 	first_phase_node.add_child(current_rotator)
 	current_rotator.rotation = Rotators[0].rotation
 
@@ -39,7 +39,7 @@ func _on_Shoot1_2_timeout():
 
 func _on_Shoot1_3_timeout():
 	current_rotator = instantiate_rotator()
-	current_rotator.set_variables(5,500, 3, 6)
+	current_rotator.set_variables(2.5,600, 1.5, 2)
 	current_rotator.rotation = 30
 	first_phase_node.add_child(current_rotator)
 	
