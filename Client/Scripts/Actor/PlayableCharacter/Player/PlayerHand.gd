@@ -6,7 +6,7 @@ var PlayerParent
 var MagicShotSound
 
 func _ready():
-	angle = 35
+	angle = 25
 	Player = get_parent()
 	PlayerParent = Player.get_parent()
 	pool_parent = PlayerParent
