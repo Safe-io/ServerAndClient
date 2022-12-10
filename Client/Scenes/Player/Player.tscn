@@ -45,15 +45,6 @@ scale = Vector2( 0.07, 0.07 )
 texture = ExtResource( 2 )
 script = ExtResource( 3 )
 
-[node name="Camera2D" type="Camera2D" parent="Player/PlayerHand"]
-position = Vector2( 28.5743, 800 )
-scale = Vector2( 14.2857, 14.2857 )
-rotating = true
-current = true
-zoom = Vector2( 2, 2 )
-smoothing_enabled = true
-smoothing_speed = 3.0
-
 [node name="EndOfTheHand" type="Position2D" parent="Player"]
 position = Vector2( 78, 0 )
 
@@ -66,5 +57,14 @@ stream = ExtResource( 6 )
 
 [node name="GemidoHit2" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource( 7 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+rotation = 1.5708
+scale = Vector2( 0.999999, 0.999999 )
+rotating = true
+current = true
+zoom = Vector2( 2, 2 )
+smoothing_enabled = true
+smoothing_speed = 3.0
 
 [connection signal="area_entered" from="Player/PlayerArea2D" to="Player" method="_on_PlayerArea2D_area_entered"]
