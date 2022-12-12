@@ -1,8 +1,14 @@
 extends Bullet
 var sprite
 var default_scale
+var Player
+var Boss
+var PlayerParent
 
 func _ready():
+	PlayerParent = get_parent()
+	Player = PlayerParent.get_child(0)
+	Boss = get_tree().root.get_child(0).get_node("Boss")
 	movement_speed = 1000
 	max_range     = 3000
 	sprite = $Sprite
@@ -17,6 +23,9 @@ func _physics_process(_delta: float)-> void:
 			turn_bullet_off()
 
 func turn_bullet_on():
+	
+	damage = 1000/(Player.global_position.distance_to(Boss.global_position))
+	print(damage)
 	sprite.scale = default_scale
 	travelled_distance = 0
 	if self.is_visible() == false:

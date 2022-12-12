@@ -2,6 +2,8 @@ extends Area2D
 
 class_name Bullet
 
+var damage:float = 10
+
 var movement_speed: float = 500.0
 var max_range: float = 3000
 var movement_direction : Vector2

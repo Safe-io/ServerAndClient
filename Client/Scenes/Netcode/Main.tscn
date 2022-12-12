@@ -12,7 +12,7 @@ script = ExtResource( 2 )
 script = ExtResource( 3 )
 
 [node name="Boss" parent="." instance=ExtResource( 4 )]
-position = Vector2( 893, 467 )
+position = Vector2( 350, 175 )
 
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.814
