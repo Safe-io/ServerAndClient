@@ -2,11 +2,13 @@ extends PlayableCharacter
 
 var peashooter_bullet = preload("res://Scenes/Bullet/PeashooterBullet.tscn")
 
+var camera
 var GemidoHit2
 var PlayerHand
 var collision
 var rotate_speed = 1.2
 func _ready():
+	camera = $Camera2D
 	initialize_main_node()
 	initialize_allies_manager()
 	initialize_boss()
@@ -16,6 +18,7 @@ func _ready():
 
 
 func _physics_process(_delta):
+
 	if last_rotation != rotation_degrees:
 		last_rotation = rotation_degrees
 		MainNode.update_player_rotation()
@@ -53,7 +56,7 @@ func get_input(delta):
 	if Input.is_action_just_released("ui_up"):
 		movement_direction.y = 0
 		
-	smoothly_rotate_to_target(self, Boss, delta)
+	look_at(Boss.global_position)
 	update_velocity()
 	
 	if Input.is_action_pressed("shoot_1"):
@@ -69,10 +72,6 @@ func get_input(delta):
 			MainNode.update_player_is_shooting(is_shooting)
 	
 	
-func smoothly_rotate_to_target(agent, target, delta):
-	var direction_to_target = (target.global_position - global_position)
-	var angle_to_target     = transform.x.angle_to(direction_to_target)
-	agent.rotate(sign(angle_to_target) * min(delta * rotate_speed, abs(angle_to_target)))
 
 	
 

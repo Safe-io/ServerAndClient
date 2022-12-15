@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Assets/Images/Sphere.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Images/pngwing.com.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Assets/Audio/magicShoot.mp3" type="AudioStream" id=5]
 [ext_resource path="res://Assets/Audio/Gemido1A.mp3" type="AudioStream" id=6]
 [ext_resource path="res://Assets/Audio/Gemido2U.mp3" type="AudioStream" id=7]
+[ext_resource path="res://Scripts/Misc/Camera.gd" type="Script" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 39.0288
@@ -58,13 +59,14 @@ stream = ExtResource( 6 )
 [node name="GemidoHit2" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource( 7 )
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 1, 0 )
 rotation = 1.5708
-scale = Vector2( 0.999999, 0.999999 )
+scale = Vector2( 0.499999, 0.499999 )
 rotating = true
 current = true
 zoom = Vector2( 2, 2 )
-smoothing_enabled = true
 smoothing_speed = 3.0
+script = ExtResource( 8 )
 
 [connection signal="area_entered" from="Player/PlayerArea2D" to="Player" method="_on_PlayerArea2D_area_entered"]

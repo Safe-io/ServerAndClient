@@ -23,9 +23,7 @@ func _physics_process(_delta: float)-> void:
 			turn_bullet_off()
 
 func turn_bullet_on():
-	
 	damage = 1000/(Player.global_position.distance_to(Boss.global_position))
-	print(damage)
 	sprite.scale = default_scale
 	travelled_distance = 0
 	if self.is_visible() == false:

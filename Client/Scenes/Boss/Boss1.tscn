@@ -86,11 +86,11 @@ one_shot = true
 
 [connection signal="area_entered" from="BossCollider" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="ReverseRotation" to="." method="_on_ReverseRotation_timeout"]
-[connection signal="timeout" from="Shoot1_1" to="." method="_on_StartFirstPhase_timeout"]
 [connection signal="timeout" from="Shoot1_1" to="." method="_on_Shoot1_1_timeout"]
-[connection signal="timeout" from="Shoot1_2" to="." method="_on_ShootTimer_timeout"]
-[connection signal="timeout" from="Shoot1_2" to="." method="_on_ShootTimer2_timeout"]
+[connection signal="timeout" from="Shoot1_1" to="." method="_on_StartFirstPhase_timeout"]
 [connection signal="timeout" from="Shoot1_2" to="." method="_on_Shoot1_2_timeout"]
+[connection signal="timeout" from="Shoot1_2" to="." method="_on_ShootTimer2_timeout"]
+[connection signal="timeout" from="Shoot1_2" to="." method="_on_ShootTimer_timeout"]
 [connection signal="timeout" from="Shoot1_3" to="." method="_on_Shoot1_3_timeout"]
 
 [editable path="BossCollider"]
