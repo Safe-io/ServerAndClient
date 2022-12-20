@@ -4,6 +4,13 @@ var default_scale
 var Player
 var Boss
 var PlayerParent
+var distance
+var min_damage_range = 1450
+var max_damage_range = 350
+var normalized_distance
+var min_damage = 2
+var max_damage = 10
+
 
 func _ready():
 	PlayerParent = get_parent()
@@ -23,7 +30,11 @@ func _physics_process(_delta: float)-> void:
 			turn_bullet_off()
 
 func turn_bullet_on():
-	damage = 1000/(Player.global_position.distance_to(Boss.global_position))
+	distance = (Player.global_position.distance_to(Boss.global_position))
+	normalized_distance = (distance - min_damage_range) / (max_damage_range - min_damage_range)
+
+	damage = (normalized_distance * min_damage + (1 - normalized_distance)* max_damage)
+	print (damage,"  ", normalized_distance)
 	sprite.scale = default_scale
 	travelled_distance = 0
 	if self.is_visible() == false:

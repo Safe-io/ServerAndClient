@@ -5,6 +5,9 @@ var Player
 var PlayerParent
 var MagicShotSound
 var Boss
+
+
+
 func _ready():
 	angle = 25
 	Player = get_parent()

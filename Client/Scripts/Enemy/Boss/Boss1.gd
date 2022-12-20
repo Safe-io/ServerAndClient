@@ -2,6 +2,8 @@ extends Boss
 
 #set_variables(fire_rate, bullet_speed, bullet_rotation_degrees_per_frame, rotation_speed)     
 var first_phase_node
+var max_hp = 1000
+
 #Bullet speed altera o ramanho dos balões
 #Rotações múltiplas de 1.5 não alteram o padrão
 #A quantidade de balões é definida por (bullet_rotation / rotation)
@@ -35,7 +37,6 @@ func _on_Shoot1_2_timeout():
 	current_rotator.rotation = Rotators[0].rotation
 
 	$Shoot1_3.start()
-
 
 func _on_Shoot1_3_timeout():
 	current_rotator = instantiate_rotator()

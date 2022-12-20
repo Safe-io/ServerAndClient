@@ -1,7 +1,7 @@
 extends Camera2D
 
 #Look_at no player e smooth na camera
-var rotate_speed = 1.2
+var rotate_speed = 1.3
 var Boss 
 var Player
 
@@ -19,3 +19,4 @@ func smoothly_rotate_to_target(agent, target, delta):
 func _physics_process(delta):
 	global_position = Player.global_position
 	smoothly_rotate_to_target(self, Boss,delta)
+
