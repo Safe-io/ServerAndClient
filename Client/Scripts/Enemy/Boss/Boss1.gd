@@ -44,4 +44,10 @@ func _on_Shoot1_3_timeout():
 	current_rotator.rotation = 30
 	first_phase_node.add_child(current_rotator)
 	
+func _start_second_phase():
+	$FirstPhase.queue_free()
 	
+
+
+func _on_SecondPhase_timeout():
+	_start_second_phase()

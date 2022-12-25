@@ -71,12 +71,6 @@ func get_input(delta):
 			PlayerHand.is_shooting = false
 			MainNode.update_player_is_shooting(is_shooting)
 	
-	
-
-	
-
-
-
 func _on_PlayerArea2D_area_entered(area):
 	GemidoHit2.play()
 	if area.name == "BossCollider":
