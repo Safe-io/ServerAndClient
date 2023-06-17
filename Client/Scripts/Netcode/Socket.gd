@@ -1,7 +1,7 @@
 extends Node
 
 var ws = WebSocketClient.new()
-const URL = "ws://bossle.online:3000"
+const URL = "wss://bossle.online/ws"
 
 var AlliesManager
 var Boss1
