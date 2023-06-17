@@ -3,7 +3,7 @@ import { createEnemy } from './enemy/enemy.js';
 import { handlePlayerHits } from './player/player.js';
 
 // Public IP 187.15.1.33
-const wss = new WebSocketServer({port: 3000 });
+const wss = new WebSocketServer({ host: 'localhost', port: 3000 });
 
 console.log("SERVER started")
 
