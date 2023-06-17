@@ -2,7 +2,8 @@ import WebSocket, { WebSocketServer } from 'ws';
 import { createEnemy } from './enemy/enemy.js';
 import { handlePlayerHits } from './player/player.js';
 
-const wss = new WebSocketServer({ port: 3000 });
+// Public IP 187.15.1.33
+const wss = new WebSocketServer({port: 3000 });
 
 console.log("SERVER started")
 
