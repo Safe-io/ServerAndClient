@@ -28,6 +28,7 @@ func _ready():
 	ws.connect("connection_error", self, "_closed")
 	ws.connect("connection_established", self, "_connected")
 	ws.connect("data_received", self, "_on_data")
+
 	
 	if err != OK:
 		print("Connection Refused")
@@ -38,7 +39,7 @@ func _closed(_was_clean = false):
 
 func _connected():
 	print("Conectou ao Servidor")
-	
+
 func _on_data():
 	var payload = JSON.parse(ws.get_peer(1).get_packet().get_string_from_utf8())
 	if payload.result == null:
@@ -57,13 +58,15 @@ func _on_data():
 		Boss1.update_boss_health_points(int(payload.result["enemies"][String(ENEMY_ID)]["life"]))
 		AlliesManager.update_allies_status(payload.result["players"], player_id)
 
+func _on_pong():
+	print("Received pong from server")
 
 func increase_damage_points_dealed_in_the_frame():
 	damage_points_dealed_in_the_frame += 1
 
 func _process(delta):
 	ws.poll()
-	send_full_data()
+	#send_full_data()
 	
 func update_damage_dealed():
 	# LEMBRE-SE QUE ENEMY ID EH HARD CODED, JA QUE AINDA NAO IMPLEMENTAMOS ENEMIES MANAGER

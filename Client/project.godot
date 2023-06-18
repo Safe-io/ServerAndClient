@@ -55,6 +55,14 @@ run/main_scene="res://Scenes/Netcode/Main.tscn"
 boot_splash/bg_color=Color( 0.4, 0.368627, 0.47451, 1 )
 config/icon="res://Assets/Images/icon.png"
 
+[debug]
+
+multirun/number_of_windows=2
+multirun/window_distance=1270
+multirun/add_custom_args=true
+multirun/first_window_args="listen"
+multirun/other_window_args="join"
+
 [display]
 
 window/size/width=640
@@ -62,7 +70,7 @@ window/size/height=480
 
 [editor_plugins]
 
-enabled=PoolStringArray(  )
+enabled=PoolStringArray( "res://addons/multirun/plugin.cfg" )
 
 [input]
 

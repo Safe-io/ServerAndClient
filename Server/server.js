@@ -10,6 +10,9 @@ console.log("SERVER started")
 
 let CurrentClientID = 0
 
+function heartbeat() {
+  this.isAlive = true;
+}
 
 let GameState = {
   enemies : {1 : createEnemy(2000)},
@@ -21,8 +24,9 @@ let availableIds = []
 const CLIENT_DISCONNECTED = 404
 
 let clientHasConected = (ws) => {
+  ws.isAlive = true;
   AssignClientID(ws)
-
+  ws.on('pong', heartbeat);
   ws.on('message', function message(data) {
 
     let dataObject = JSON.parse(data)
@@ -70,3 +74,17 @@ function AssignClientID(ws){
   console.log(`Client id: ${CurrentClientID} has connected!`)
   ws.send(JSON.stringify({"assignid": CurrentClientID}));
 }
+
+const interval = setInterval(function ping() {
+  wss.clients.forEach(function each(ws) {
+    if (ws.isAlive === false) return ws.terminate();
+
+    ws.isAlive = false;
+    ws.ping();
+    console.log("ping sent");
+  });
+}, 30000);
+
+wss.on('close', function close() {
+  clearInterval(interval);
+});

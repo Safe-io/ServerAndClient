@@ -7,6 +7,7 @@ var GemidoHit2
 var PlayerHand
 var collision
 var rotate_speed = 1.2
+
 func _ready():
 	camera = $Camera2D
 	initialize_main_node()
@@ -30,8 +31,9 @@ func _physics_process(_delta):
 		print("Colidiu com", collision.collider.name)
 	if last_movement_direction != movement_direction:
 		last_movement_direction = movement_direction
-		MainNode.update_player_position()
+		#MainNode.update_player_position()
 		MainNode.update_player_movement_direction()
+		MainNode.send_full_data()
 			
 
 		

@@ -13,7 +13,6 @@ func _ready():
 
 	initialize_pool_parent(pool_parent)
 	initialize_cannon_parent(Rotator)
-	print(Rotator)
 	initialize_pool_size(200)
 	instantiate_bullet_pool(fire_rate, bullet_speed, bullet_rotation_degrees_per_frame)
 

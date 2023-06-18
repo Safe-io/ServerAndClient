@@ -5,7 +5,7 @@ var Player
 var Boss
 var PlayerParent
 var distance
-
+var speed = 800
 var near_range = 350
 var far_range = 1450
 
@@ -37,7 +37,6 @@ func turn_bullet_on():
 
 	damage = (normalized_distance * min_damage + (1 - normalized_distance)* max_damage)
 	damage = clamp(damage, min_damage, max_damage)
-	print (damage,"  ", normalized_distance)
 	sprite.scale = default_scale
 	travelled_distance = 0
 	if self.is_visible() == false:
