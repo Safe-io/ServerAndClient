@@ -13,7 +13,7 @@
 radius = 39.0288
 
 [node name="PlayerParent" type="Node2D"]
-position = Vector2( 867, 726 )
+position = Vector2( 323, 701 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -62,11 +62,8 @@ stream = ExtResource( 7 )
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 1, 0 )
 rotation = 1.5708
-scale = Vector2( 0.499999, 0.499999 )
-rotating = true
 current = true
-zoom = Vector2( 2, 2 )
-smoothing_speed = 3.0
+smoothing_enabled = true
 script = ExtResource( 8 )
 
 [connection signal="area_entered" from="Player/PlayerArea2D" to="Player" method="_on_PlayerArea2D_area_entered"]

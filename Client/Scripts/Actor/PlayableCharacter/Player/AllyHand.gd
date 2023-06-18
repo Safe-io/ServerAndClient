@@ -4,7 +4,7 @@ var bullet_types: Dictionary = {
 	'Peashooter' : {
 		'damage'    : 4000,
 		'fire_rate' : 10,
-		'speed'     : 2000,
+		'speed'     : 2000.0,
 		'range'     : 2000,
 		'angle'     : 15,
 		'penetration': 0

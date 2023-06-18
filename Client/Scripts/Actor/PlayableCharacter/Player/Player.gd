@@ -14,7 +14,7 @@ func _ready():
 	initialize_boss()
 	PlayerHand = $PlayerHand
 	GemidoHit2 = $GemidoHit2
-	movement_speed = 1000.0
+	movement_speed = 600
 
 
 func _physics_process(_delta):
@@ -56,7 +56,7 @@ func get_input(delta):
 	if Input.is_action_just_released("ui_up"):
 		movement_direction.y = 0
 		
-	look_at(Boss.global_position)
+	look_at(get_global_mouse_position())
 	update_velocity()
 	
 	if Input.is_action_pressed("shoot_1"):

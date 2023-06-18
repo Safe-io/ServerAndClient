@@ -18,9 +18,9 @@ var phases_rotators_settings = [
 			rotation_speed = 2
 		},
 		{
-			fire_rate = 2.5,
-			bullet_speed = 600,
-			bullet_rotation_degrees_per_frame = 1.5,
+			fire_rate = 1,
+			bullet_speed = 300,
+			bullet_rotation_degrees_per_frame = 1.15,
 			rotation_speed = 2
 		}
 	],
@@ -68,7 +68,7 @@ func _on_Shoot1_1_timeout():
 	current_rotator.set_variables(phases_rotators_settings[current_phase-1][0].fire_rate, phases_rotators_settings[current_phase-1][0].bullet_speed, phases_rotators_settings[current_phase-1][0].bullet_rotation_degrees_per_frame, phases_rotators_settings[current_phase-1][0].rotation_speed);
 	current_phase_node.add_child(current_rotator)
 
-	$Shoot1_2.start()
+	$Shoot1_3.start()
 
 func _on_Shoot1_2_timeout():
 	current_rotator = instantiate_rotator()
