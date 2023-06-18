@@ -1,8 +1,8 @@
 extends Node
 
 var ws = WebSocketClient.new()
-const URL = "wss://bossle.online/ws"
-
+var URL = "wss://bossle.online/ws"
+	
 var AlliesManager
 var Boss1
 var Player
@@ -14,8 +14,10 @@ var damage_points_dealed_in_the_frame : int = 0
 const ENEMY_ID : int = 1
 
 func _ready():
-	
-	$Label.set_as_toplevel(true)
+	if !OS.has_feature("release"):
+		URL = "ws://127.0.0.1:3000/"
+		
+
 	
 	AlliesManager = $AlliesManager
 	Boss1 = $Boss
@@ -63,9 +65,6 @@ func _process(delta):
 	ws.poll()
 	send_full_data()
 	
-	$Label.text = "FPS: " + str(Performance.get_monitor(Performance.TIME_FPS))
-	$Label2.text = "Memory Static: " + str(Performance.get_monitor(Performance.MEMORY_STATIC))
-
 func update_damage_dealed():
 	# LEMBRE-SE QUE ENEMY ID EH HARD CODED, JA QUE AINDA NAO IMPLEMENTAMOS ENEMIES MANAGER
 	frame_data["damage"] = {ENEMY_ID : damage_points_dealed_in_the_frame}	

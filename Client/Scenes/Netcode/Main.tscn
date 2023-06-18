@@ -14,25 +14,6 @@ script = ExtResource( 3 )
 [node name="Boss" parent="." instance=ExtResource( 4 )]
 position = Vector2( 350, 175 )
 
-[node name="Label" type="Label" parent="."]
-anchor_left = 0.814
-anchor_right = 0.996
-anchor_bottom = 0.119
-margin_left = 0.463989
-margin_right = 0.0959473
-margin_bottom = 14.6
-align = 2
-
-[node name="Label2" type="Label" parent="."]
-anchor_left = 0.814
-anchor_right = 0.996
-anchor_bottom = 0.119
-margin_left = 0.463989
-margin_right = 0.0959473
-margin_bottom = -26.4
-align = 2
-valign = 2
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
 volume_db = -2.0
