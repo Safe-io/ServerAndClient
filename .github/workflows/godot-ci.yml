@@ -16,14 +16,14 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - bosshunt
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-18.04
 
     container:
-      image: barichello/godot-ci:3.2.2
+      image: barichello/godot-ci:3.5.1
 
     steps:
       - name: Checkout
@@ -37,7 +37,7 @@ jobs:
         run: mkdir -v -p Client\Builds\Web
 
       - name: Build
-        run: godot -v --export "HTML5" ../Client\Builds\Web/index.html project/project.godot
+        run: godot -v --export "HTML5" Client\Builds\Web/index.html Client/project.godot
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
