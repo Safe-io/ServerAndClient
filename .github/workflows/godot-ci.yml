@@ -34,16 +34,16 @@ jobs:
           mkdir -v -p ~/.local/share/godot/templates
           mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
       - name: Create staging directory
-        run: mkdir -v -p build/web
+        run: mkdir -v -p Client\Builds\Web
 
       - name: Build
-        run: godot -v --export "HTML5" ../build/web/index.html project/project.godot
+        run: godot -v --export "HTML5" ../Client\Builds\Web/index.html project/project.godot
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/web
+          publish_dir: ./Client\Builds\Web
           force_orphan: true
           user_name: 'github-ci[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
