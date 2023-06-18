@@ -13,13 +13,11 @@
 radius = 39.0288
 
 [node name="PlayerParent" type="Node2D"]
-position = Vector2( 323, 701 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="Player" type="KinematicBody2D" parent="."]
-position = Vector2( 1, 0 )
 scale = Vector2( 0.5, 0.5 )
 collision_layer = 2
 collision_mask = 16

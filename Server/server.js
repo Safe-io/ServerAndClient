@@ -25,6 +25,7 @@ const CLIENT_DISCONNECTED = 404
 
 let clientHasConected = (ws) => {
   ws.isAlive = true;
+  delete GameState.players[ws.id];
   AssignClientID(ws)
   ws.on('pong', heartbeat);
   ws.on('message', function message(data) {

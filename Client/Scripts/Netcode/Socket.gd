@@ -14,7 +14,7 @@ var damage_points_dealed_in_the_frame : int = 0
 const ENEMY_ID : int = 1
 
 func _ready():
-	if !OS.has_feature("release"):
+	if OS.has_feature("editor"):
 		URL = "ws://127.0.0.1:3000/"
 		
 
@@ -66,7 +66,7 @@ func increase_damage_points_dealed_in_the_frame():
 
 func _process(delta):
 	ws.poll()
-	#send_full_data()
+	send_full_data()
 	
 func update_damage_dealed():
 	# LEMBRE-SE QUE ENEMY ID EH HARD CODED, JA QUE AINDA NAO IMPLEMENTAMOS ENEMIES MANAGER
