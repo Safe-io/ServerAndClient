@@ -24,25 +24,32 @@ let availableIds = []
 const CLIENT_DISCONNECTED = 404
 
 let clientHasConected = (ws) => {
+  ws.on('error', console.error);
+
   ws.isAlive = true;
   delete GameState.players[ws.id];
+  let player
   AssignClientID(ws)
   ws.on('pong', heartbeat);
   ws.on('message', function message(data) {
+    setTimeout(() => {
+      let dataObject = JSON.parse(data)
 
-    let dataObject = JSON.parse(data)
-
-    if(typeof(data) === "object"){
-      if(GameState.players[ws.id] === {"err": CLIENT_DISCONNECTED}) return
-    
-      handlePlayerHits(GameState, dataObject)      
-      GameState.players[ws.id] = dataObject
-      sendPayloadToAllClients(JSON.stringify(GameState))
-      console.log(GameState)
-
-      // delete GameState.players[ws.id].posx
-      // delete GameState.players[ws.id].posy
-    }
+      if(typeof(data) === "object"){
+        if(GameState.players[ws.id] === {"err": CLIENT_DISCONNECTED}) return
+        
+        player = GameState.players[ws.id]
+        player = dataObject      
+      }
+      if(dataObject.type == "movement"){
+        console.log("Received: " , dataObject)
+        player.pos = applyMovement(player.pos, player.motion)
+        GameState.players[ws.id] = player
+        sendPayloadToAllClients(JSON.stringify(GameState))
+        console.log("Sent: " , GameState)
+  
+      }
+    }, 0);
   });
 
   ws.on('close', function clientHasDisconnected() {
@@ -89,3 +96,18 @@ const interval = setInterval(function ping() {
 wss.on('close', function close() {
   clearInterval(interval);
 });
+
+function applyMovement(position, motion) {
+  let playerVelocity = []
+  let playerPosition = position
+  let playerSpeed = 250
+  // Apply the input to the player's velocity
+  playerVelocity[0] = motion[0] * playerSpeed;
+  playerVelocity[1] = motion[1] * playerSpeed;
+
+  // Update the player's position based on their velocity
+  playerPosition[0] += playerVelocity[0];
+  playerPosition[1] += playerVelocity[1];
+
+  return playerPosition;
+}

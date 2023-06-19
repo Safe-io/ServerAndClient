@@ -5,17 +5,23 @@ var peashooter_bullet = preload("res://Scenes/Bullet/PeashooterBullet.tscn")
 var camera
 var GemidoHit2
 var PlayerHand
+var afk_timer
 var collision
 var rotate_speed = 1.2
+var acceleration :float = 10
+var current_speed : float = 250
+var is_stopped: bool = true
+var is_afk:bool = false
 
 func _ready():
 	camera = $Camera2D
+	afk_timer = $player_is_active
 	initialize_main_node()
 	initialize_allies_manager()
 	initialize_boss()
 	PlayerHand = $PlayerHand
 	GemidoHit2 = $GemidoHit2
-	movement_speed = 600
+	movement_speed = 400
 
 
 func _physics_process(_delta):
@@ -29,17 +35,29 @@ func _physics_process(_delta):
 	velocity = move_and_slide(velocity)
 	if collision:
 		print("Colidiu com", collision.collider.name)
+	
+	if (movement_direction.length() != 0):
+		is_stopped = false
+		is_afk = false
+	else:
+		current_speed = lerp(current_speed, 0, acceleration * _delta)
+		is_stopped = true
 	if last_movement_direction != movement_direction:
 		last_movement_direction = movement_direction
-		#MainNode.update_player_position()
-		MainNode.update_player_movement_direction()
-		MainNode.send_full_data()
-			
+		is_afk = false
+		afk_timer.start(afk_timer.wait_time)
+		afk_timer.stop()
 
-		
-		
+	else:
+		if afk_timer.is_stopped():
+			afk_timer.start()
+			
+	MainNode.update_player_position()
+	MainNode.update_player_movement_direction()
+
 func get_input(delta):
 	velocity = Vector2()
+
 	if Input.is_action_pressed("ui_right"):
 		movement_direction.x = 1
 	if Input.is_action_pressed("ui_left"):
@@ -51,16 +69,27 @@ func get_input(delta):
 #################################################
 	if Input.is_action_just_released("ui_right"):
 		movement_direction.x = 0
+		MainNode.update_player_movement_direction()
+
 	if Input.is_action_just_released("ui_left"):
 		movement_direction.x = 0
+		MainNode.update_player_movement_direction()
+
 	if Input.is_action_just_released("ui_down"):
 		movement_direction.y = 0
+		MainNode.update_player_movement_direction()
+
 	if Input.is_action_just_released("ui_up"):
 		movement_direction.y = 0
-		
-	look_at(get_global_mouse_position())
-	update_velocity()
+		MainNode.update_player_movement_direction()
+
 	
+	look_at(get_global_mouse_position())
+	current_speed = lerp(current_speed, movement_speed, acceleration * delta)
+	#global_position += movement_direction * current_speed * delta
+	
+	#update_velocity()
+
 	if Input.is_action_pressed("shoot_1"):
 		if !is_shooting:
 			is_shooting = true
@@ -78,3 +107,7 @@ func _on_PlayerArea2D_area_entered(area):
 	if area.name == "BossCollider":
 		return
 	area.turn_bullet_off()
+	
+func _on_player_is_active_timeout():
+	is_afk = true
+	print("Disconnected for being AFK")

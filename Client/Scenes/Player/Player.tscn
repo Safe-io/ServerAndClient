@@ -57,11 +57,18 @@ stream = ExtResource( 6 )
 [node name="GemidoHit2" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource( 7 )
 
+[node name="player_is_active" type="Timer" parent="Player"]
+wait_time = 5.0
+autostart = true
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 1, 0 )
 rotation = 1.5708
 current = true
+limit_smoothed = true
 smoothing_enabled = true
+smoothing_speed = 3.5
 script = ExtResource( 8 )
 
 [connection signal="area_entered" from="Player/PlayerArea2D" to="Player" method="_on_PlayerArea2D_area_entered"]
+[connection signal="timeout" from="Player/player_is_active" to="Player" method="_on_player_is_active_timeout"]

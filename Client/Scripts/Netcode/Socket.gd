@@ -2,11 +2,13 @@ extends Node
 
 var ws = WebSocketClient.new()
 var URL = "wss://bossle.online/ws"
+var connected_to_server:bool
 	
 var AlliesManager
 var Boss1
 var Player
-
+var target_position: Vector2
+		
 var player_id : String
 var frame_data : Dictionary
 var damage_points_dealed_in_the_frame : int = 0
@@ -17,8 +19,6 @@ func _ready():
 	if OS.has_feature("editor"):
 		URL = "ws://127.0.0.1:3000/"
 		
-
-	
 	AlliesManager = $AlliesManager
 	Boss1 = $Boss
 	
@@ -32,13 +32,16 @@ func _ready():
 	
 	if err != OK:
 		print("Connection Refused")
+		connected_to_server = false
 		set_process(false)
 		
 func _closed(_was_clean = false):
 	print("Connection Closed")
+	connected_to_server = false
 
-func _connected():
+func _connected(id):
 	print("Conectou ao Servidor")
+	connected_to_server = true
 
 func _on_data():
 	var payload = JSON.parse(ws.get_peer(1).get_packet().get_string_from_utf8())
@@ -57,16 +60,27 @@ func _on_data():
 		# LEMBRE-SE QUE ENEMY ID EH HARD CODED, JA QUE AINDA NAO IMPLEMENTAMOS ENEMIES MANAGER
 		Boss1.update_boss_health_points(int(payload.result["enemies"][String(ENEMY_ID)]["life"]))
 		AlliesManager.update_allies_status(payload.result["players"], player_id)
+		var pos = payload.result["players"][player_id]["pos"]
+		
 
-func _on_pong():
-	print("Received pong from server")
+		target_position.x = pos[0]
+		target_position.y = pos[1]
+
+
+
 
 func increase_damage_points_dealed_in_the_frame():
 	damage_points_dealed_in_the_frame += 1
 
 func _process(delta):
+
+	
 	ws.poll()
-	send_full_data()
+	if connected_to_server && player_id && !Player.is_afk:
+		print(delta)
+
+		Player.global_position = Player.global_position.linear_interpolate(target_position, delta)
+		send_full_data()
 	
 func update_damage_dealed():
 	# LEMBRE-SE QUE ENEMY ID EH HARD CODED, JA QUE AINDA NAO IMPLEMENTAMOS ENEMIES MANAGER
@@ -74,13 +88,13 @@ func update_damage_dealed():
 	damage_points_dealed_in_the_frame = 0
 
 func update_player_movement_direction():
-	frame_data["dirx"] = Player.movement_direction.x
-	frame_data["diry"] = Player.movement_direction.y
-
+	frame_data["motion"] = [Player.movement_direction.x, Player.movement_direction.y]
+	frame_data["type"] = "movement"
+	
 func update_player_position():
-	frame_data["posx"] = Player.position.x
-	frame_data["posy"] = Player.position.y
+	frame_data["pos"] = [Player.global_position.x, Player.global_position.y];
 
+	
 func update_player_rotation():
 	var rotation_data : int = int(Player.rotation_degrees)
 	frame_data["r"] = rotation_data
@@ -89,6 +103,6 @@ func update_player_is_shooting(is_shooting: bool):
 	frame_data["s"] = int(is_shooting) 
 	
 func send_full_data():
-	update_damage_dealed()
+	print("Sent: " , frame_data)
 	ws.get_peer(1).put_packet(JSON.print(frame_data).to_utf8())
 
