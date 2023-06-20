@@ -8,6 +8,11 @@ const wss = new WebSocketServer({ host: 'localhost', port: 3000 });
 
 console.log("SERVER started")
 
+let playerModel = {
+  pos: [0,0],
+  motion: [0,0],
+  r:0
+}
 let CurrentClientID = 0
 
 function heartbeat() {
@@ -16,7 +21,7 @@ function heartbeat() {
 
 let GameState = {
   enemies : {1 : createEnemy(2000)},
-  players : {}
+  players : {},
 }
 
 let availableIds = []
@@ -28,40 +33,48 @@ let clientHasConected = (ws) => {
 
   ws.isAlive = true;
   delete GameState.players[ws.id];
-  let player
   AssignClientID(ws)
+  GameState.players[ws.id] = {...playerModel}
+  AssignClientRandomPosition(ws)
   ws.on('pong', heartbeat);
-  ws.on('message', function message(data) {
-    setTimeout(() => {
-      let dataObject = JSON.parse(data)
-
-      if(typeof(data) === "object"){
-        if(GameState.players[ws.id] === {"err": CLIENT_DISCONNECTED}) return
-        
-        player = GameState.players[ws.id]
-        player = dataObject      
-      }
-      if(dataObject.type == "movement"){
-        console.log("Received: " , dataObject)
-        player.pos = applyMovement(player.pos, player.motion)
-        GameState.players[ws.id] = player
-        sendPayloadToAllClients(JSON.stringify(GameState))
-        console.log("Sent: " , GameState)
-  
-      }
-    }, 0);
-  });
-
   ws.on('close', function clientHasDisconnected() {
     GameState.players[ws.id] = {"err": CLIENT_DISCONNECTED}
-    sendPayloadToAllClients(JSON.stringify(GameState))
     delete GameState.players[ws.id]
     availableIds.push(ws.id)
     console.log(`Client with ID ${ws.id} has disconnected!`)
+    return
   })
+  ws.on('message', function message(data) {
+    setTimeout(() => {
+      let dataObject = JSON.parse(data)
+      console.log("Received: " , dataObject)
+
+      if(typeof(data) === "object"){
+        if(!GameState.players[ws.id] || GameState.players[ws.id] === {"err": CLIENT_DISCONNECTED}) return
+      }
+      if(dataObject.type == "movement"){
+        console.log(GameState)
+        GameState.players[ws.id].pos = applyMovement( GameState.players[ws.id].pos, dataObject.motion)
+        delete GameState.players[ws.id].motion
+      }
+    }, 200);
+  });
+
+
 }
 
 wss.on('connection', clientHasConected);
+
+// sendPayloadToAllClients 60 seconds per second
+setInterval(() => {
+  if ( wss.clients.size > 0 ){
+    sendPayloadToAllClients(JSON.stringify(GameState));
+    console.log("Sent: " , GameState)
+  }
+}, 1000 / 60);
+
+
+
 
 function sendPayloadToAllClients(payloadToAllClients){
   wss.clients.forEach((client) => {
@@ -100,7 +113,7 @@ wss.on('close', function close() {
 function applyMovement(position, motion) {
   let playerVelocity = []
   let playerPosition = position
-  let playerSpeed = 250
+  let playerSpeed = 2
   // Apply the input to the player's velocity
   playerVelocity[0] = motion[0] * playerSpeed;
   playerVelocity[1] = motion[1] * playerSpeed;
@@ -111,3 +124,17 @@ function applyMovement(position, motion) {
 
   return playerPosition;
 }
+
+function getRandomPosition(min, max) {
+  let x = Math.random() * (max - min) + min;
+  let y = Math.random() * (max - min) + min;
+  return [x, y];
+}
+
+function AssignClientRandomPosition(ws){
+  let randomPosition = getRandomPosition(0, 1000)
+  GameState.players[ws.id].pos = [0,0]
+  GameState.players[ws.id].pos = randomPosition
+  ws.send(JSON.stringify({"assignposition": randomPosition}));
+}
+

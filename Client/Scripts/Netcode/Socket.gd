@@ -38,7 +38,7 @@ func _ready():
 func _closed(_was_clean = false):
 	print("Connection Closed")
 	connected_to_server = false
-
+	set_process(false)
 func _connected(id):
 	print("Conectou ao Servidor")
 	connected_to_server = true
@@ -55,6 +55,8 @@ func _on_data():
 		AlliesManager.create_player(player_id)
 		Player = $PlayerParent.get_child(0)
 		update_player_position()
+	elif payload.result.has("assignposition"):
+		Player.global_position = Vector2(payload.result["assignposition"][0],payload.result["assignposition"][1]) 
 	else:
 		
 		# LEMBRE-SE QUE ENEMY ID EH HARD CODED, JA QUE AINDA NAO IMPLEMENTAMOS ENEMIES MANAGER
@@ -77,8 +79,6 @@ func _process(delta):
 	
 	ws.poll()
 	if connected_to_server && player_id && !Player.is_afk:
-		print(delta)
-
 		Player.global_position = Player.global_position.linear_interpolate(target_position, delta)
 		send_full_data()
 	
@@ -92,7 +92,8 @@ func update_player_movement_direction():
 	frame_data["type"] = "movement"
 	
 func update_player_position():
-	frame_data["pos"] = [Player.global_position.x, Player.global_position.y];
+	pass
+	#frame_data["pos"] = [Player.global_position.x, Player.global_position.y];
 
 	
 func update_player_rotation():

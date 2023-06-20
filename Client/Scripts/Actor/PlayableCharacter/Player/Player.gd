@@ -8,7 +8,7 @@ var PlayerHand
 var afk_timer
 var collision
 var rotate_speed = 1.2
-var acceleration :float = 10
+var acceleration :float = 100
 var current_speed : float = 250
 var is_stopped: bool = true
 var is_afk:bool = false
@@ -21,7 +21,7 @@ func _ready():
 	initialize_boss()
 	PlayerHand = $PlayerHand
 	GemidoHit2 = $GemidoHit2
-	movement_speed = 400
+	movement_speed = 200
 
 
 func _physics_process(_delta):
@@ -40,7 +40,6 @@ func _physics_process(_delta):
 		is_stopped = false
 		is_afk = false
 	else:
-		current_speed = lerp(current_speed, 0, acceleration * _delta)
 		is_stopped = true
 	if last_movement_direction != movement_direction:
 		last_movement_direction = movement_direction
@@ -52,7 +51,6 @@ func _physics_process(_delta):
 		if afk_timer.is_stopped():
 			afk_timer.start()
 			
-	MainNode.update_player_position()
 	MainNode.update_player_movement_direction()
 
 func get_input(delta):
@@ -84,10 +82,10 @@ func get_input(delta):
 		MainNode.update_player_movement_direction()
 
 	
-	look_at(get_global_mouse_position())
 	current_speed = lerp(current_speed, movement_speed, acceleration * delta)
-	#global_position += movement_direction * current_speed * delta
+	global_position += movement_direction * current_speed * delta
 	
+	look_at(get_global_mouse_position())
 	#update_velocity()
 
 	if Input.is_action_pressed("shoot_1"):
@@ -103,7 +101,7 @@ func get_input(delta):
 			MainNode.update_player_is_shooting(is_shooting)
 	
 func _on_PlayerArea2D_area_entered(area):
-	GemidoHit2.play()
+	#GemidoHit2.play()
 	if area.name == "BossCollider":
 		return
 	area.turn_bullet_off()
